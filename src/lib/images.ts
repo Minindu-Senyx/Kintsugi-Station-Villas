@@ -8,10 +8,10 @@ function pexels(id: number, w = 1600) {
 
 export const images = {
   // Client-supplied real property photography
-  kandyCard: "/assets/images/kandy.png",
-  trincoCard: "/assets/images/trinco.png",
-  contactCard: "/assets/images/contact.png",
-  aboutCard: "/assets/images/about.png",
+  kandyCard: "/assets/images/kandy.webp",
+  trincoCard: "/assets/images/trinco.webp",
+  contactCard: "/assets/images/contact.webp",
+  aboutCard: "/assets/images/about.webp",
 
   // Kandy hill country
   kandyVillaExterior: pexels(30520324),
