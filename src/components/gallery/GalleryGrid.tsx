@@ -214,7 +214,7 @@ export default function GalleryGrid() {
         {open && (
           <figure className="relative">
             <div className="relative aspect-[3/2] max-h-[82vh] w-full">
-              <Image src={open.src} alt={open.alt} fill sizes="92vw" quality={85} className="object-contain" />
+              <Image src={open.src} alt={open.alt} fill sizes="92vw" className="object-contain" />
             </div>
             <figcaption className="mt-3 text-center font-serif text-sm tracking-[0.2em] text-[#e6e2d4] uppercase">
               {open.caption.join(" · ")}

@@ -5,8 +5,6 @@ export const navLinks = [
   { href: "/contact", label: "Contact" },
 ] as const;
 
-export type NavHref = (typeof navLinks)[number]["href"];
-
 export const contact = {
   phone: "+94 77 123 4567",
   phoneHref: "tel:+94771234567",

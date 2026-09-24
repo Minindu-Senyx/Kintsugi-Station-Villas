@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { EB_Garamond, Figtree } from "next/font/google";
+import SiteHeader from "@/components/site/SiteHeader";
+import SiteFooter from "@/components/site/SiteFooter";
 import "./globals.css";
 
 const garamond = EB_Garamond({
@@ -44,7 +46,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${garamond.variable} ${figtree.variable} antialiased`}>
-      <body>{children}</body>
+      <body>
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+      </body>
     </html>
   );
 }
