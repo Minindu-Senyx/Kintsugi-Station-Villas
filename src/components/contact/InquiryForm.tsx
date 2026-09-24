@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ArrowRight, CalendarDays, ChevronDown, Leaf } from "lucide-react";
 import { contact } from "@/lib/site";
 
@@ -8,25 +8,18 @@ const fieldClass =
   "block h-[2.08rem] w-full rounded-[3px] border border-[#e3ddd4] bg-[#fbf8f4] px-[0.7rem] text-[0.78rem] text-[#1d1f1d] outline-none transition-colors placeholder:text-[#9a9a97] focus:border-[#b99b6c]";
 const labelClass = "block text-[0.8rem] leading-none text-[#1d1f1d]";
 
-const fmt = (iso: string) =>
-  new Date(`${iso}T00:00:00`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-
 type Status = "idle" | "sent";
 
-export default function InquiryForm() {
-  const [dates, setDates] = useState("");
-  const [guests, setGuests] = useState("");
-  const [status, setStatus] = useState<Status>("idle");
+type Props = {
+  /** Prefilled from the Home page availability bar. */
+  initialDates?: string;
+  initialGuests?: string;
+};
 
-  // Prefill from the Home page availability bar (?arrival=&departure=&guests=).
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const arrival = params.get("arrival");
-    const departure = params.get("departure");
-    const g = params.get("guests");
-    if (arrival) setDates(departure ? `${fmt(arrival)} - ${fmt(departure)}` : fmt(arrival));
-    if (g && ["1", "2", "3", "4"].includes(g)) setGuests(g);
-  }, []);
+export default function InquiryForm({ initialDates = "", initialGuests = "" }: Props) {
+  const [dates, setDates] = useState(initialDates);
+  const [guests, setGuests] = useState(initialGuests);
+  const [status, setStatus] = useState<Status>("idle");
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

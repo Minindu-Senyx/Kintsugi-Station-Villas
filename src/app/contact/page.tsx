@@ -37,11 +37,39 @@ const details = [
   },
 ];
 
+const isoDate = /^\d{4}-\d{2}-\d{2}$/;
+const formatDate = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+
+const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
+
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="eyebrow text-[0.64rem] tracking-[0.3em] text-[#9f7f57]">{children}</p>;
 }
 
-export default function ContactPage() {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  // Carry dates and guests over from the Home page availability bar.
+  const params = await searchParams;
+  const arrival = first(params.arrival);
+  const departure = first(params.departure);
+  const guests = first(params.guests);
+  const initialDates =
+    arrival && isoDate.test(arrival)
+      ? departure && isoDate.test(departure)
+        ? `${formatDate(arrival)} - ${formatDate(departure)}`
+        : formatDate(arrival)
+      : "";
+  const initialGuests = guests && ["1", "2", "3", "4"].includes(guests) ? guests : "";
+
   return (
     <div className="bg-sand">
       <ContactHeader />
@@ -122,7 +150,7 @@ export default function ContactPage() {
             <p className="mt-[0.55rem] text-[0.88rem] text-[#1d1f1d]">
               Share a few details and we&rsquo;ll be in touch personally.
             </p>
-            <InquiryForm />
+            <InquiryForm initialDates={initialDates} initialGuests={initialGuests} />
           </div>
         </section>
       </main>
