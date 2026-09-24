@@ -80,15 +80,327 @@ body {
   cursor: pointer;
 }
 
+::selection {
+  background: #c9a96a;
+  color: #0c100e;
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion                                                              */
+/*                                                                     */
+/* Everything moves slowly and settles softly, like mist lifting.      */
+/* Stagger any of the effects below with an inline `--d` delay (see    */
+/* lib/motion).                                                        */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.1rem);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.09);
+  }
+}
+
+@keyframes draw-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes draw-path {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sheen {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes pulse-ring {
+  from {
+    opacity: 0.9;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+
+/* Slow ripple under the estate's map marker. */
+.pulse-ring {
+  animation: pulse-ring 2.8s var(--ease-soft) infinite;
+}
+
+/* Entrances that play on first paint (heroes), so they need no JS. */
+.enter-rise {
+  animation: rise 1.2s var(--ease-soft) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.enter-fade {
+  animation: fade-in 1.4s var(--ease-soft) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.enter-line {
+  transform-origin: left;
+  animation: draw-x 1.4s var(--ease-soft) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Hero photography drifts in from slightly closer, then holds still. */
+.enter-settle {
+  animation: settle 9s var(--ease-soft) both;
+}
+
+/* Hairline logo ridge draws itself once on load. */
+.draw-ridge path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-path 2.4s var(--ease-soft) 0.2s forwards;
+}
+
+/*
+ * Scroll reveals. RevealObserver sets [data-shown] as each [data-reveal]
+ * element enters the viewport. The hidden states only apply once the inline
+ * script in the root layout has added `.js`, so the page never hides content
+ * from a visitor whose JavaScript fails to run.
+ */
+.js [data-reveal] {
+  transition:
+    opacity 1.1s var(--ease-soft),
+    transform 1.1s var(--ease-soft),
+    clip-path 1.5s var(--ease-soft);
+  transition-delay: var(--d, 0ms);
+}
+
+.js [data-reveal="up"]:not([data-shown]) {
+  opacity: 0;
+  transform: translateY(1.5rem);
+}
+
+.js [data-reveal="fade"]:not([data-shown]) {
+  opacity: 0;
+}
+
+/* Map marker drops onto its spot. */
+.js [data-reveal="drop"] {
+  transition:
+    opacity 0.6s ease,
+    transform 1s cubic-bezier(0.34, 1.4, 0.5, 1);
+  transition-delay: var(--d, 0ms);
+}
+.js [data-reveal="drop"]:not([data-shown]) {
+  opacity: 0;
+  transform: translateY(-1.25rem);
+}
+
+/* Gold hairlines extend from the left. */
+.js [data-reveal="line"] {
+  transform-origin: left;
+}
+.js [data-reveal="line"]:not([data-shown]) {
+  transform: scaleX(0);
+}
+
+/* Photographs unveil upward while the image inside settles back. */
+.js [data-reveal="image"] {
+  clip-path: inset(0 0 0 0);
+}
+.js [data-reveal="image"]:not([data-shown]) {
+  clip-path: inset(100% 0 0 0);
+}
+[data-reveal="image"] img {
+  transition:
+    transform 1.8s var(--ease-soft),
+    scale 0.9s var(--ease-soft);
+  transition-delay: var(--d, 0ms), 0ms;
+}
+.js [data-reveal="image"]:not([data-shown]) img {
+  transform: scale(1.12);
+}
+
+/*
+ * Kintsugi roots: gold spreads outward from the corner the roots grow from,
+ * like lacquer running into the cracks. Each KintsugiVeins variant sets
+ * its own `--origin`.
+ */
+@property --grow {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 120%;
+}
+
+.js [data-reveal="roots"] {
+  mask-image: radial-gradient(
+    circle farthest-corner at var(--origin, 0 0),
+    #000 calc(var(--grow) - 16%),
+    transparent var(--grow)
+  );
+  transition: --grow 3.8s cubic-bezier(0.45, 0, 0.2, 1);
+  transition-delay: var(--d, 150ms);
+}
+.js [data-reveal="roots"]:not([data-shown]) {
+  --grow: 0%;
+}
+
+/* A soft band of light sweeps across gilded buttons on hover. */
+@layer components {
+  .sheen {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(105deg, transparent 30%, rgb(255 244 214 / 0.32) 50%, transparent 70%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  .sheen:hover::after,
+  .sheen:focus-visible::after {
+    animation: sheen 1s var(--ease-soft);
+  }
+}
+
+/* Sticky header: lifts with a hairline shadow once the page scrolls, slips
+   away while reading downward and returns on the way back up. */
+.site-header {
+  view-transition-name: site-header;
+  transition:
+    transform 0.6s var(--ease-soft),
+    box-shadow 0.5s ease,
+    background-color 0.5s ease;
+}
+.site-header[data-scrolled] {
+  background-color: rgb(246 243 238 / 0.9);
+  backdrop-filter: blur(12px) saturate(1.1);
+  box-shadow:
+    0 1px 0 rgb(12 16 14 / 0.05),
+    0 10px 30px -18px rgb(12 16 14 / 0.35);
+}
+.site-header[data-hidden] {
+  transform: translateY(-100%);
+}
+
+/* Gallery lightbox fades and scales open, and back out on close. */
+.lightbox {
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity 0.45s var(--ease-soft),
+    transform 0.6s var(--ease-soft),
+    overlay 0.45s allow-discrete,
+    display 0.45s allow-discrete;
+}
+.lightbox[open] {
+  opacity: 1;
+  transform: none;
+}
+.lightbox::backdrop {
+  background-color: rgb(11 16 12 / 0);
+  transition:
+    background-color 0.45s ease,
+    overlay 0.45s allow-discrete,
+    display 0.45s allow-discrete;
+}
+.lightbox[open]::backdrop {
+  background-color: rgb(11 16 12 / 0.88);
+}
+@starting-style {
+  .lightbox[open] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  .lightbox[open]::backdrop {
+    background-color: rgb(11 16 12 / 0);
+  }
+}
+
+/*
+ * Page transitions (React <ViewTransition> in the root layout). The old page
+ * fades away quickly; the new one drifts up a moment later. The header stays
+ * put as a fixed anchor, and the active-link underline glides between links.
+ */
+@keyframes vt-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+::view-transition-group(.page) {
+  animation: none;
+}
+::view-transition-old(.page) {
+  animation: vt-out 0.24s ease-in both;
+}
+::view-transition-new(.page) {
+  animation: vt-in 0.7s var(--ease-soft) 0.14s both;
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-group(nav-indicator) {
+  z-index: 101;
+  animation-duration: 0.55s;
+  animation-timing-function: var(--ease-soft);
+}
+
+/* Visitors who ask for less motion see every final state immediately. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
-}
-
-::selection {
-  background: #c9a96a;
-  color: #0c100e;
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

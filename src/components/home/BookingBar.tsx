@@ -11,13 +11,17 @@ const formatDate = (value: string) =>
 
 function Field({ icon, label, value, children }: { icon: ReactNode; label: string; value: string; children: ReactNode }) {
   return (
-    <label className="relative flex h-full flex-1 cursor-pointer items-center gap-[0.75rem] px-5 py-3 lg:py-0 lg:pl-[1.2rem] lg:pr-[1.3rem]">
-      <span className="text-[#2d2e2c]">{icon}</span>
+    <label className="group relative flex h-full flex-1 cursor-pointer items-center gap-[0.75rem] px-5 py-3 transition-colors duration-300 hover:bg-[#efe9e1] lg:py-0 lg:pl-[1.2rem] lg:pr-[1.3rem]">
+      <span className="text-[#2d2e2c] transition-colors duration-300 group-hover:text-gold">{icon}</span>
       <span className="flex flex-col leading-none">
         <span className="text-[0.8rem] text-[#2b2c2a]">{label}</span>
         <span className="mt-[0.35rem] text-[0.7rem] text-[#4a4a48]">{value}</span>
       </span>
-      <ChevronDown className="ml-auto size-[0.8rem] text-[#3a3a38]" strokeWidth={1.6} aria-hidden="true" />
+      <ChevronDown
+        className="ml-auto size-[0.8rem] text-[#3a3a38] transition-transform duration-500 ease-soft group-hover:translate-y-[0.1rem]"
+        strokeWidth={1.6}
+        aria-hidden="true"
+      />
       {children}
     </label>
   );
@@ -105,7 +109,7 @@ export default function BookingBar() {
       <div className="p-4 lg:px-[1.25rem] lg:py-0 lg:pl-[1.35rem]">
         <button
           type="submit"
-          className="h-[2.3rem] w-full bg-gold text-[0.78rem] text-[#f7f1e4] transition-colors hover:bg-[#8f6d31] lg:w-[8.4rem]"
+          className="sheen h-[2.3rem] w-full bg-gold text-[0.78rem] text-[#f7f1e4] transition-colors hover:bg-[#8f6d31] lg:w-[8.4rem]"
         >
           Check Dates
         </button>

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, CalendarDays, ChevronDown, Leaf } from "lucide-react";
+import { ArrowRight, CalendarDays, Check, ChevronDown, Leaf } from "lucide-react";
 import { contact } from "@/lib/site";
 
 const fieldClass =
-  "block h-[2.08rem] w-full rounded-[3px] border border-[#e3ddd4] bg-[#fbf8f4] px-[0.7rem] text-[0.78rem] text-[#1d1f1d] outline-none transition-colors placeholder:text-[#9a9a97] focus:border-[#b99b6c]";
+  "block h-[2.08rem] w-full rounded-[3px] border border-[#e3ddd4] bg-[#fbf8f4] px-[0.7rem] text-[0.78rem] text-[#1d1f1d] outline-none transition-[border-color,box-shadow,background-color] duration-300 placeholder:text-[#9a9a97] hover:border-[#d3c7b4] focus:border-[#b99b6c] focus:bg-white focus:shadow-[0_0_0_3px_rgba(185,155,108,0.16)]";
 const labelClass = "block text-[0.8rem] leading-none text-[#1d1f1d]";
 
 type Status = "idle" | "sent";
@@ -136,14 +136,25 @@ export default function InquiryForm({ initialDates = "", initialGuests = "" }: P
 
       <button
         type="submit"
-        className="!mt-[1.2rem] flex h-[2.95rem] w-full items-center justify-center gap-[0.75rem] rounded-[3px] bg-bronze text-[0.97rem] text-[#f8f3ea] shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-colors hover:bg-[#8f7043]"
+        className="sheen group !mt-[1.2rem] flex h-[2.95rem] w-full items-center justify-center gap-[0.75rem] rounded-[3px] bg-bronze text-[0.97rem] text-[#f8f3ea] shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-[background-color,box-shadow] duration-300 hover:bg-[#8f7043] hover:shadow-[0_6px_18px_-8px_rgba(120,90,53,0.6)]"
       >
-        Send Reservation Inquiry
-        <ArrowRight className="size-[1rem]" strokeWidth={1.6} aria-hidden="true" />
+        {status === "sent" ? "Inquiry Ready to Send" : "Send Reservation Inquiry"}
+        {status === "sent" ? (
+          <Check key="sent" className="enter-rise size-[1rem]" strokeWidth={1.8} aria-hidden="true" />
+        ) : (
+          <ArrowRight
+            className="size-[1rem] transition-transform duration-500 ease-soft group-hover:translate-x-[0.25rem]"
+            strokeWidth={1.6}
+            aria-hidden="true"
+          />
+        )}
       </button>
       <p role="status" className="text-center text-[0.75rem] text-[#6b5a3d]">
-        {status === "sent" &&
-          `Your email app should now open with your inquiry. If not, write to us at ${contact.reservationsEmail}.`}
+        {status === "sent" && (
+          <span className="enter-rise block">
+            Your email app should now open with your inquiry. If not, write to us at {contact.reservationsEmail}.
+          </span>
+        )}
       </p>
 
       <div className="!mt-[0.25rem] flex items-center gap-[1.4rem] rounded-[4px] bg-[#efebe4] py-[0.95rem] pl-[1.6rem] pr-[0.9rem]">

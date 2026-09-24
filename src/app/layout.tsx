@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { ViewTransition } from "react";
 import { EB_Garamond, Figtree } from "next/font/google";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
+import RevealObserver from "@/components/motion/RevealObserver";
+import { revealBootScript } from "@/lib/motion";
 import "./globals.css";
 
 const garamond = EB_Garamond({
@@ -45,11 +48,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${garamond.variable} ${figtree.variable} antialiased`}>
+    // The boot script adds `.js` to <html> before hydration, hence suppressHydrationWarning.
+    <html lang="en" className={`${garamond.variable} ${figtree.variable} antialiased`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: revealBootScript }} />
+      </head>
       <body>
         <SiteHeader />
-        {children}
+        {/* Crossfades each page into the next on navigation (see "Page transitions" in globals.css). */}
+        <ViewTransition update="page" default="none">
+          {children}
+        </ViewTransition>
         <SiteFooter />
+        <RevealObserver />
       </body>
     </html>
   );

@@ -3,6 +3,7 @@ import { Mail, MapPin } from "lucide-react";
 import { PiWhatsappLogoLight } from "react-icons/pi";
 import { KintsugiVeins } from "@/components/brand/KintsugiVeins";
 import SiteLogo from "@/components/site/SiteLogo";
+import { delay } from "@/lib/motion";
 import { bookHref, contact } from "@/lib/site";
 
 const quickLinks = [
@@ -57,9 +58,15 @@ export default function SiteFooter() {
       />
       <div className="frame relative px-5 lg:px-[3.625rem]">
         <div className="flex flex-col gap-10 pb-8 pt-12 lg:flex-row lg:gap-0 lg:pb-[1.05rem] lg:pt-[1.85rem]">
-          <SiteLogo tone="dark" className="self-start lg:mt-[0.35rem]" />
+          <div data-reveal="fade" className="self-start lg:mt-[0.35rem]">
+            <SiteLogo tone="dark" />
+          </div>
 
-          <div className="flex flex-col gap-6 sm:flex-row sm:gap-8 lg:ml-[2rem] lg:mr-[1.4rem] lg:mt-[1.35rem] lg:gap-[1.5rem] lg:self-start">
+          <div
+            data-reveal="up"
+            style={delay(150)}
+            className="flex flex-col gap-6 sm:flex-row sm:gap-8 lg:ml-[2rem] lg:mr-[1.4rem] lg:mt-[1.35rem] lg:gap-[1.5rem] lg:self-start"
+          >
             <ContactItem
               icon={<PiWhatsappLogoLight className="size-[1.05rem]" />}
               label="WhatsApp"
@@ -85,13 +92,18 @@ export default function SiteFooter() {
 
           <nav
             aria-label="Quick links"
+            data-reveal="up"
+            style={delay(300)}
             className="shrink-0 whitespace-nowrap border-[#6b5a37]/70 lg:ml-auto lg:border-l lg:pl-[1.9rem] lg:pr-[1rem]"
           >
             <p className="text-[0.69rem] text-[#e6e5df]">Quick Links</p>
             <ul className="mt-[0.45rem] space-y-[0.28rem] text-[0.64rem] leading-[0.82rem] text-[#d8d7d0]">
               {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="hover:text-[#d9bf87]">
+                  <Link
+                    href={link.href}
+                    className="inline-block transition-[color,translate] duration-500 ease-soft hover:translate-x-[0.2rem] hover:text-[#d9bf87]"
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -103,7 +115,7 @@ export default function SiteFooter() {
         <div className="flex flex-col gap-4 border-t border-[#3b3526] pb-10 pt-[1.1rem] sm:flex-row sm:items-center sm:justify-between lg:pb-[2.9rem] lg:pt-[1rem]">
           <p className="text-[0.62rem] text-[#8b8d85]">© 2024 Kintsugi Station. All rights reserved.</p>
           <p className="flex items-center gap-[0.6rem] text-[0.58rem] tracking-[0.12em] text-[#a8997a]">
-            <span aria-hidden="true" className="h-px w-[2.5rem] bg-[#8e7440]" />
+            <span data-reveal="line" style={delay(300)} aria-hidden="true" className="h-px w-[2.5rem] bg-[#8e7440]" />
             NATURE RESTORES WHAT TIME BREAKS
           </p>
         </div>

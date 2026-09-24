@@ -4,6 +4,7 @@ import { CarFront, Mail, MapPin } from "lucide-react";
 import { PiWhatsappLogoLight } from "react-icons/pi";
 import EstateMap from "@/components/contact/EstateMap";
 import InquiryForm from "@/components/contact/InquiryForm";
+import { delay } from "@/lib/motion";
 import { contact } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -46,8 +47,12 @@ const formatDate = (iso: string) =>
 
 const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <p className="eyebrow text-[0.64rem] tracking-[0.3em] text-[#9f7f57]">{children}</p>;
+function Eyebrow({ children, className = "", style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
+  return (
+    <p style={style} className={`eyebrow text-[0.64rem] tracking-[0.3em] text-[#9f7f57] ${className}`}>
+      {children}
+    </p>
+  );
 }
 
 export default async function ContactPage({
@@ -71,25 +76,33 @@ export default async function ContactPage({
   return (
     <main className="bg-sand">
       {/* Hero */}
-      <section className="relative lg:h-[18.19rem]">
+      <section className="relative overflow-hidden lg:h-[18.19rem]">
         <Image
           src="/assets/images/contact_hero.jpg"
           alt="Sunrise over misty forested hills from the villa terrace"
           fill
           preload
           sizes="100vw"
-          className="object-cover object-[50%_85%]"
+          className="enter-settle object-cover object-[50%_85%]"
         />
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-[linear-gradient(90deg,rgba(244,236,224,0.72)_0%,rgba(244,236,224,0.4)_40%,rgba(244,236,224,0)_68%)]"
         />
         <div className="frame relative px-5 py-16 lg:px-[3.875rem] lg:py-0 lg:pt-[4.6rem]">
-          <Eyebrow>A Place to Belong</Eyebrow>
-          <h1 className="mt-[0.75rem] font-serif text-[2.8rem] leading-none tracking-[-0.01em] text-ink lg:text-[3.9rem]">
+          <Eyebrow className="enter-rise" style={delay(100)}>
+            A Place to Belong
+          </Eyebrow>
+          <h1
+            style={delay(250)}
+            className="enter-rise mt-[0.75rem] font-serif text-[2.8rem] leading-none tracking-[-0.01em] text-ink lg:text-[3.9rem]"
+          >
             Connect With Us
           </h1>
-          <p className="mt-[0.7rem] max-w-[29.5rem] text-[1.03rem] leading-[1.55rem] text-[#161816]">
+          <p
+            style={delay(450)}
+            className="enter-rise mt-[0.7rem] max-w-[29.5rem] text-[1.03rem] leading-[1.55rem] text-[#161816]"
+          >
             Direct inquiries for reservations, private retreats, and exclusive estate hire.
           </p>
         </div>
@@ -98,26 +111,37 @@ export default async function ContactPage({
       {/* Details + form */}
       <section className="frame flex flex-col gap-12 px-5 pb-6 pt-10 lg:flex-row lg:gap-0 lg:px-0 lg:pb-[1.5rem] lg:pl-[3.875rem] lg:pr-[2.43rem] lg:pt-[1.62rem]">
         <div className="lg:w-[28.1rem] lg:pt-[1rem]">
-          <Eyebrow>Contact &amp; Arrival</Eyebrow>
-          <h2 className="mt-[0.75rem] font-serif text-[2.2rem] leading-none text-ink">We&rsquo;re Here for You</h2>
-          <p className="mt-[0.8rem] max-w-[24.6rem] text-[0.92rem] leading-[1.31rem] text-[#151716]">
+          <div data-reveal="up">
+            <Eyebrow>Contact &amp; Arrival</Eyebrow>
+          </div>
+          <h2 data-reveal="up" style={delay(100)} className="mt-[0.75rem] font-serif text-[2.2rem] leading-none text-ink">
+            We&rsquo;re Here for You
+          </h2>
+          <p
+            data-reveal="up"
+            style={delay(200)}
+            className="mt-[0.8rem] max-w-[24.6rem] text-[0.92rem] leading-[1.31rem] text-[#151716]"
+          >
             For reservations, special requests, or to learn more about Kintsugi Station, please reach out directly. We
             look forward to welcoming you.
           </p>
 
           <ul className="mt-[1.6rem] space-y-[1.3rem]">
-            {details.map((item) => (
-              <li key={item.title} className="flex gap-[1.75rem]">
+            {details.map((item, i) => (
+              <li key={item.title} data-reveal="up" style={delay(250 + i * 100)} className="flex gap-[1.75rem]">
                 <span className="shrink-0 pl-[0.2rem]">{item.icon}</span>
                 <div>
                   <p className="text-[0.98rem] leading-[1.1rem] text-[#1d1f1d]">{item.title}</p>
-                  <a href={item.href} className="mt-[0.3rem] block text-[1.05rem] text-[#1d1f1d] hover:text-[#785a35]">
+                  <a
+                    href={item.href}
+                    className="mt-[0.3rem] block text-[1.05rem] text-[#1d1f1d] transition-colors hover:text-[#785a35]"
+                  >
                     {item.value}
                   </a>
                 </div>
               </li>
             ))}
-            <li className="flex gap-[1.75rem]">
+            <li data-reveal="up" style={delay(250 + details.length * 100)} className="flex gap-[1.75rem]">
               <span className="shrink-0 pl-[0.2rem]">
                 <CarFront className={iconClass} strokeWidth={1.1} />
               </span>
@@ -132,13 +156,15 @@ export default async function ContactPage({
             </li>
           </ul>
 
-          <div className="mt-[1.35rem]">
+          <div data-reveal="up" className="mt-[1.35rem]">
             <EstateMap />
           </div>
         </div>
 
         <div
           id="inquiry"
+          data-reveal="up"
+          style={delay(200)}
           className="scroll-mt-6 rounded-[8px] border border-[#ebe5dc] bg-card px-5 pb-[1rem] pt-[1.55rem] shadow-[0_1px_3px_rgba(0,0,0,0.04)] lg:ml-auto lg:w-[27.875rem] lg:px-[1.56rem]"
         >
           <p className="eyebrow text-[0.66rem] font-medium tracking-[0.3em] text-[#1d1f1d]">Inquiry Form</p>

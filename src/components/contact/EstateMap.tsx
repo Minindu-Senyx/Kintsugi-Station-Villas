@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Maximize, Minus, Plus } from "lucide-react";
+import { delay } from "@/lib/motion";
 import { contact } from "@/lib/site";
 
 /*
@@ -89,8 +90,13 @@ export default function EstateMap() {
       </div>
 
       {/* Estate marker */}
-      <div className="pointer-events-none absolute left-[53.2%] top-[22.5%] flex -translate-x-1/2 flex-col items-center">
-        <svg viewBox="0 0 28 38" className="h-[2.45rem] w-[1.8rem] drop-shadow-[0_2px_2px_rgba(0,0,0,0.2)]" aria-hidden="true">
+      <div
+        data-reveal="drop"
+        style={delay(600)}
+        className="pointer-events-none absolute left-[53.2%] top-[22.5%] flex -translate-x-1/2 flex-col items-center"
+      >
+        <span aria-hidden="true" className="pulse-ring absolute top-[2.1rem] h-[0.7rem] w-[1.6rem] rounded-[50%] bg-[#a8854f]/45" />
+        <svg viewBox="0 0 28 38" className="relative h-[2.45rem] w-[1.8rem] drop-shadow-[0_2px_2px_rgba(0,0,0,0.2)]" aria-hidden="true">
           <path d="M14 1 C6.8 1 1 6.8 1 14 C1 23.5 14 37 14 37 C14 37 27 23.5 27 14 C27 6.8 21.2 1 14 1 Z" fill="#a8854f" />
           <circle cx="14" cy="13.5" r="4.6" fill="#3d3a33" />
         </svg>
