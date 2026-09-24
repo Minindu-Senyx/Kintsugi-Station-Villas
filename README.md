@@ -56,6 +56,10 @@ npm run images:generate -- --only contact_hero,night_villa_hills
 npm run images:generate -- --list     # list image names
 ```
 
+To generate images by hand instead (for example in the Gemini app), use the
+prompts in [`docs/image-prompts.md`](docs/image-prompts.md). That file also
+lists each photo's filename, aspect ratio and where it is used.
+
 `contact_hero`, `gallery_cta_mist` and `night_villa_hills` are currently
 graded stand-ins derived from other generated photos. Running the default
 command replaces them. Set `GEMINI_IMAGE_MODEL` to use a different or newer
