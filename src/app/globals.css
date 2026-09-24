@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/*
+ * Every page is built to the 1024px-wide UI mockups in /Ui Mockup, where
+ * 1rem = 16px. From the desktop breakpoint up, the root font-size scales with
+ * the viewport so the whole layout stays proportionally identical to the
+ * mockup at any width. Below it, pages fall back to stacked mobile layouts.
+ */
+@theme {
+  --breakpoint-lg: 56.25rem; /* 900px — desktop (mockup) layout */
+
+  --font-serif: var(--font-garamond), "EB Garamond", Georgia, serif;
+  --font-sans: var(--font-figtree), "Figtree", system-ui, sans-serif;
+
+  /* Surfaces */
+  --color-ivory: #f6f3ee; /* home */
+  --color-linen: #f0ebe5; /* home reserve band */
+  --color-paper: #f9f8f4; /* about */
+  --color-mist: #f1ede9; /* gallery */
+  --color-sand: #f3efe9; /* contact */
+  --color-card: #f9f6f2; /* contact form card */
+
+  /* Ink */
+  --color-ink: #0c100e;
+  --color-ink-soft: #333331;
+  --color-pine-ink: #0f2a22; /* about headings */
+
+  /* Golds */
+  --color-gold: #a47f3d; /* home buttons */
+  --color-gold-olive: #9e823c; /* about */
+  --color-brass: #b39550; /* gallery */
+  --color-bronze: #a38150; /* contact */
+  --color-taupe: #b19b68; /* about eyebrow labels */
+
+  /* Dark greens */
+  --color-night: #1a201b; /* home footer */
+  --color-pine: #152e28; /* about footer */
+  --color-moss: #1b271e; /* gallery header/footer */
+  --color-forest: #19221b; /* contact header/footer */
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (min-width: 56.25rem) {
+  html {
+    font-size: clamp(14px, 1.5625vw, 20px);
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+.frame {
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+}
+
+/* Tracked uppercase eyebrow labels used across the pages */
+.eyebrow {
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Native date/number pickers: hide the default affordances, keep the picker */
+.picker-input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+::selection {
+  background: #c9a96a;
+  color: #0c100e;
+}
