@@ -1,132 +1,180 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { MapPin, Phone } from "lucide-react";
-import ContactForm from "@/components/ContactForm";
-import SplitHeading from "@/components/SplitHeading";
-import { images } from "@/lib/images";
+import { CarFront, Mail, MapPin } from "lucide-react";
+import { PiWhatsappLogoLight } from "react-icons/pi";
+import EstateMap from "@/components/contact/EstateMap";
+import InquiryForm from "@/components/contact/InquiryForm";
+import { delay } from "@/lib/motion";
+import { contact } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Book Your Stay | Kintsugi Station Villas",
+  title: "Contact",
   description:
-    "Enquire about booking a stay at Kintsugi Station Villas in Kandy or Trincomalee, Sri Lanka.",
+    "Direct inquiries for reservations, private retreats, and exclusive estate hire at Kintsugi Station, Upper Hantana Hills, Kandy.",
 };
 
-type SearchParams = Promise<{
-  villa?: string;
-  checkin?: string;
-  checkout?: string;
-  guests?: string;
-  email?: string;
-}>;
+const iconClass = "size-[2rem] text-[#785a35]";
+
+const details = [
+  {
+    icon: <PiWhatsappLogoLight className={iconClass} />,
+    title: "WhatsApp & Phone",
+    value: contact.phone,
+    href: contact.whatsappHref,
+  },
+  {
+    icon: <Mail className={iconClass} strokeWidth={1.1} />,
+    title: "Email",
+    value: contact.reservationsEmail,
+    href: `mailto:${contact.reservationsEmail}`,
+  },
+  {
+    icon: <MapPin className={iconClass} strokeWidth={1.1} />,
+    title: "Address",
+    value: "Upper Hantana Hills, Kandy, Sri Lanka",
+    href: contact.mapsHref,
+  },
+];
+
+const isoDate = /^\d{4}-\d{2}-\d{2}$/;
+const formatDate = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+
+const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
+
+function Eyebrow({ children, className = "", style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
+  return (
+    <p style={style} className={`eyebrow text-[0.64rem] tracking-[0.3em] text-[#9f7f57] ${className}`}>
+      {children}
+    </p>
+  );
+}
 
 export default async function ContactPage({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  // Carry dates and guests over from the Home page availability bar.
   const params = await searchParams;
+  const arrival = first(params.arrival);
+  const departure = first(params.departure);
+  const guests = first(params.guests);
+  const initialDates =
+    arrival && isoDate.test(arrival)
+      ? departure && isoDate.test(departure)
+        ? `${formatDate(arrival)} - ${formatDate(departure)}`
+        : formatDate(arrival)
+      : "";
+  const initialGuests = guests && ["1", "2", "3", "4"].includes(guests) ? guests : "";
 
   return (
-    <div>
-      <div className="relative h-[55vh] min-h-[400px] w-full">
+    <main className="bg-sand">
+      {/* Hero */}
+      <section className="relative overflow-hidden lg:h-[18.19rem]">
         <Image
-          src={images.contactCard}
-          alt="Kintsugi Station Villas"
+          src="/assets/images/contact_hero.jpg"
+          alt="Sunrise over misty forested hills from the villa terrace"
           fill
-          priority
+          preload
           sizes="100vw"
-          className="object-cover"
+          className="enter-settle object-cover object-[50%_85%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/10 to-transparent" />
-        <div className="relative z-10 h-full mx-auto max-w-7xl px-6 sm:px-10 flex flex-col justify-end pb-14">
-          <p className="eyebrow text-gold mb-4">Enquire</p>
-          <SplitHeading
-            as="h1"
-            immediate
-            text="Book your stay"
-            className="font-display text-white text-4xl sm:text-5xl lg:text-6xl leading-tight max-w-2xl"
-          />
-        </div>
-      </div>
-
-      <section className="mx-auto max-w-7xl px-6 sm:px-10 py-20 sm:py-28">
-        <div className="max-w-2xl">
-          <p className="text-charcoal/75 leading-relaxed">
-            Please drop us a message to inquire about booking your stay and
-            we&rsquo;ll get back to you within 24hrs. Alternatively, feel
-            free to call / WhatsApp our manager Prasanna on:
-          </p>
-          <a
-            href="tel:+94775917528"
-            className="mt-3 inline-flex items-center gap-2 text-gold-dark font-semibold text-lg"
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(244,236,224,0.72)_0%,rgba(244,236,224,0.4)_40%,rgba(244,236,224,0)_68%)]"
+        />
+        <div className="frame relative px-5 py-16 lg:px-[3.875rem] lg:py-0 lg:pt-[4.6rem]">
+          <Eyebrow className="enter-rise" style={delay(100)}>
+            A Place to Belong
+          </Eyebrow>
+          <h1
+            style={delay(250)}
+            className="enter-rise mt-[0.75rem] font-serif text-[2.8rem] leading-none tracking-[-0.01em] text-ink lg:text-[3.9rem]"
           >
-            <Phone size={18} /> +94 77 591 7528
-          </a>
-        </div>
-
-        <div className="mt-14 grid lg:grid-cols-[1fr_320px] gap-12 lg:gap-16">
-          <ContactForm
-            initialVilla={params.villa}
-            initialCheckin={params.checkin}
-            initialCheckout={params.checkout}
-            initialGuests={params.guests}
-            initialEmail={params.email}
-          />
-
-          <aside className="lg:pt-1">
-            <div className="border border-hairline p-6 sm:p-7">
-              <p className="text-sm font-medium mb-2">Prefer Airbnb?</p>
-              <p className="text-sm text-charcoal/65 leading-relaxed">
-                You can also book directly via Airbnb.
-              </p>
-              <a
-                href="https://www.airbnb.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline mt-4 inline-block text-sm font-medium hover:text-gold-dark transition-colors"
-              >
-                View our Airbnb listings
-              </a>
-            </div>
-          </aside>
+            Connect With Us
+          </h1>
+          <p
+            style={delay(450)}
+            className="enter-rise mt-[0.7rem] max-w-[29.5rem] text-[1.03rem] leading-[1.55rem] text-[#161816]"
+          >
+            Direct inquiries for reservations, private retreats, and exclusive estate hire.
+          </p>
         </div>
       </section>
 
-      <section className="bg-[#F3EEE4] py-20">
-        <div className="mx-auto max-w-7xl px-6 sm:px-10">
-          <p className="eyebrow text-teal mb-10">Find us</p>
-          <div className="grid sm:grid-cols-2 gap-8">
-            <div>
-              <p className="flex items-center gap-1.5 text-sm font-medium mb-3">
-                <MapPin size={15} /> Kandy Hill Country
-              </p>
-              <div className="aspect-video overflow-hidden border border-hairline">
-                <iframe
-                  src="https://www.google.com/maps?q=Kandy,Sri+Lanka&output=embed"
-                  title="Map — Kandy Hill Country villa"
-                  loading="lazy"
-                  className="w-full h-full border-0"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+      {/* Details + form */}
+      <section className="frame flex flex-col gap-12 px-5 pb-6 pt-10 lg:flex-row lg:gap-0 lg:px-0 lg:pb-[1.5rem] lg:pl-[3.875rem] lg:pr-[2.43rem] lg:pt-[1.62rem]">
+        <div className="lg:w-[28.1rem] lg:pt-[1rem]">
+          <div data-reveal="up">
+            <Eyebrow>Contact &amp; Arrival</Eyebrow>
+          </div>
+          <h2 data-reveal="up" style={delay(100)} className="mt-[0.75rem] font-serif text-[2.2rem] leading-none text-ink">
+            We&rsquo;re Here for You
+          </h2>
+          <p
+            data-reveal="up"
+            style={delay(200)}
+            className="mt-[0.8rem] max-w-[24.6rem] text-[0.92rem] leading-[1.31rem] text-[#151716]"
+          >
+            For reservations, special requests, or to learn more about Kintsugi Station, please reach out directly. We
+            look forward to welcoming you.
+          </p>
+
+          <ul className="mt-[1.6rem] space-y-[1.3rem]">
+            {details.map((item, i) => (
+              <li key={item.title} data-reveal="up" style={delay(250 + i * 100)} className="flex gap-[1.75rem]">
+                <span className="shrink-0 pl-[0.2rem]">{item.icon}</span>
+                <div>
+                  <p className="text-[0.98rem] leading-[1.1rem] text-[#1d1f1d]">{item.title}</p>
+                  <a
+                    href={item.href}
+                    className="mt-[0.3rem] block text-[1.05rem] text-[#1d1f1d] transition-colors hover:text-[#785a35]"
+                  >
+                    {item.value}
+                  </a>
+                </div>
+              </li>
+            ))}
+            <li data-reveal="up" style={delay(250 + details.length * 100)} className="flex gap-[1.75rem]">
+              <span className="shrink-0 pl-[0.2rem]">
+                <CarFront className={iconClass} strokeWidth={1.1} />
+              </span>
+              <div>
+                <p className="text-[0.98rem] leading-[1.1rem] text-[#1d1f1d]">Arrival &amp; Transfers</p>
+                <p className="mt-[0.35rem] text-[0.85rem] leading-[1.29rem] text-[#1d1f1d]">
+                  Located 25 minutes from Kandy Railway Station.
+                  <br />
+                  Chauffeur transfers from Colombo International Airport (CMB) arranged upon request.
+                </p>
               </div>
-            </div>
-            <div>
-              <p className="flex items-center gap-1.5 text-sm font-medium mb-3">
-                <MapPin size={15} /> Trincomalee Dutch Bay
-              </p>
-              <div className="aspect-video overflow-hidden border border-hairline">
-                <iframe
-                  src="https://www.google.com/maps?q=Trincomalee,Sri+Lanka&output=embed"
-                  title="Map — Trincomalee Dutch Bay villas"
-                  loading="lazy"
-                  className="w-full h-full border-0"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </div>
+            </li>
+          </ul>
+
+          <div data-reveal="up" className="mt-[1.35rem]">
+            <EstateMap />
           </div>
         </div>
+
+        <div
+          id="inquiry"
+          data-reveal="up"
+          style={delay(200)}
+          className="scroll-mt-6 rounded-[8px] border border-[#ebe5dc] bg-card px-5 pb-[1rem] pt-[1.55rem] shadow-[0_1px_3px_rgba(0,0,0,0.04)] lg:ml-auto lg:w-[27.875rem] lg:px-[1.56rem]"
+        >
+          <p className="eyebrow text-[0.66rem] font-medium tracking-[0.3em] text-[#1d1f1d]">Inquiry Form</p>
+          <h2 className="mt-[0.6rem] font-serif text-[2.23rem] leading-none text-ink">Plan Your Stay</h2>
+          <p className="mt-[0.55rem] text-[0.88rem] text-[#1d1f1d]">
+            Share a few details and we&rsquo;ll be in touch personally.
+          </p>
+          <InquiryForm initialDates={initialDates} initialGuests={initialGuests} />
+        </div>
       </section>
-    </div>
+    </main>
   );
 }

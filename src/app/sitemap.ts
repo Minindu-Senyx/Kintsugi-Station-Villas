@@ -1,26 +1,12 @@
 import type { MetadataRoute } from "next";
-import { villas } from "@/lib/villas";
+import { navLinks } from "@/lib/site";
 
-const siteUrl = "https://www.kintsugistationvillas.com";
+const siteUrl = "https://www.kintsugistation.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = [
-    "",
-    "/kandy",
-    "/trincomalee",
-    "/about",
-    "/contact",
-    "/reviews/kandy",
-    "/reviews/trincomalee",
-  ].map((path) => ({
-    url: `${siteUrl}${path}`,
-    lastModified: new Date(),
+  return navLinks.map((link) => ({
+    url: `${siteUrl}${link.href === "/" ? "" : link.href}`,
+    changeFrequency: "monthly",
+    priority: link.href === "/" ? 1 : 0.8,
   }));
-
-  const villaRoutes = villas.map((villa) => ({
-    url: `${siteUrl}/villas/${villa.slug}`,
-    lastModified: new Date(),
-  }));
-
-  return [...staticRoutes, ...villaRoutes];
 }

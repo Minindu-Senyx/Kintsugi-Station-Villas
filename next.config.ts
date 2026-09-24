@@ -2,12 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.pexels.com",
-      },
-    ],
+    // Serve the original photography untouched — no resizing or recompression.
+    unoptimized: true,
+  },
+  experimental: {
+    // Animates route changes with React's <ViewTransition> (see app/layout).
+    viewTransition: true,
   },
 };
 

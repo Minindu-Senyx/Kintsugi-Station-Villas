@@ -1,43 +1,27 @@
-import Image from "next/image";
 import Link from "next/link";
-import { images } from "@/lib/images";
+import { delay } from "@/lib/motion";
 
 export default function NotFound() {
   return (
-    <div className="relative min-h-[80vh] w-full flex items-end sm:items-center">
-      <Image
-        src={images.teaFog}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-charcoal/70" />
-      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 py-20">
-        <p className="eyebrow text-gold mb-4">404</p>
-        <h1 className="font-display text-white text-4xl sm:text-5xl lg:text-6xl leading-tight max-w-xl">
-          This path doesn&rsquo;t lead where you expected
-        </h1>
-        <p className="mt-6 text-white/75 max-w-md leading-relaxed">
-          The page you&rsquo;re looking for may have moved or no longer
-          exists. Here are a few places to pick up from instead.
+    <main className="bg-ivory">
+      <div className="frame flex min-h-[60vh] flex-col items-center justify-center px-5 py-20 text-center">
+        <p style={delay(100)} className="enter-rise eyebrow text-[0.66rem] tracking-[0.14em] text-[#8e8578]">
+          Page not found
         </p>
-        <div className="mt-9 flex flex-wrap gap-4">
-          <Link
-            href="/"
-            className="inline-flex items-center bg-gold hover:bg-gold-dark text-charcoal font-semibold px-7 py-3.5 text-sm transition-colors"
-          >
-            Back to home
-          </Link>
-          <Link
-            href="/contact"
-            className="inline-flex items-center border border-white/30 hover:border-white text-white px-7 py-3.5 text-sm transition-colors"
-          >
-            Contact us
-          </Link>
-        </div>
+        <h1 style={delay(250)} className="enter-rise mt-5 font-serif text-[2.7rem] leading-tight text-ink">
+          This path has faded into the mist.
+        </h1>
+        <p style={delay(450)} className="enter-rise mt-4 max-w-md text-[0.9rem] leading-relaxed text-ink-soft">
+          The page you were looking for doesn&rsquo;t exist. Let us guide you back to the estate.
+        </p>
+        <Link
+          href="/"
+          style={delay(650)}
+          className="enter-rise sheen mt-8 flex h-[2.4rem] items-center bg-gold px-8 text-[0.8rem] text-[#f7f1e4] transition-colors hover:bg-[#8f6d31]"
+        >
+          Return Home
+        </Link>
       </div>
-    </div>
+    </main>
   );
 }
