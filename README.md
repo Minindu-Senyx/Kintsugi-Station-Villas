@@ -65,6 +65,30 @@ graded stand-ins derived from other generated photos. Running the default
 command replaces them. Set `GEMINI_IMAGE_MODEL` to use a different or newer
 model.
 
+### Real photos of people
+
+`public/assets/images/people/` holds real photographs taken from the old site
+(stationvillas.lk): `founders.jpg` (About, "The Founders") and
+`kandy_team.jpg` (About, "The People Behind Your Stay"). Never replace these
+with generated images. Nano Banana is only for places and objects, never for
+real, named people.
+
+## Guest reviews, founders and team
+
+The content for these sections lives in data files, separate from the page
+layout, so it can be edited without touching the design:
+
+- `src/lib/testimonials.ts`: guest reviews, copied word for word from the old
+  site. `featured` picks the ones shown in the home page "Guest Voices"
+  carousel.
+- `src/lib/founders.ts`: the founders' bio and photo. Add their names to
+  `names` once they're confirmed.
+- `src/lib/team.ts`: the Kandy team. Add a `quote` only in the person's own
+  words, once they have approved it.
+
+The plan and open questions for these sections are in
+[`docs/plan-testimonials-founders-staff.md`](docs/plan-testimonials-founders-staff.md).
+
 ## Before launch
 
 - Replace the placeholder domain `https://www.kintsugistation.com` in
