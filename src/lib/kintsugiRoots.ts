@@ -1,4 +1,4 @@
-export type RootVariant = "top-right" | "bottom-left" | "footer" | "footer-mobile";
+export type RootVariant = "top-right" | "bottom-left" | "footer" | "footer-mobile" | "founders";
 
 /*
  * Gilded "kintsugi" roots. Each variant grows a small root system from the
@@ -85,6 +85,26 @@ const specs: Record<RootVariant, Spec> = {
       { x0: 528, y0: 142, x1: 999, y1: 999 }, // copyright row
       { x0: 632, y0: -999, x1: 999, y1: 999 }, // contact columns
     ],
+  },
+  // About "The Founders", beside the bio. The roots grow down out of the "Our
+  // Story" photo that ends at the section's top edge, and in from the right.
+  // The content frame's right edge sits at x = 288; the rest of the canvas
+  // runs across the right-hand margin on wide screens.
+  founders: {
+    seed: 5,
+    width: 768,
+    height: 374,
+    align: "xMinYMin",
+    dark: false,
+    roots: [
+      { x: 100, y: -4, angle: 1.5, length: 300, width: 2.5, depth: 3 },
+      { x: 160, y: -4, angle: 1.9, length: 120, width: 1.5, depth: 2 },
+      { x: 772, y: 170, angle: Math.PI, length: 740, width: 2.2, depth: 3, pull: 0.1, toward: { x: 60, y: 250 }, taper: 0.4 },
+      { x: 250, y: -4, angle: 1.35, length: 250, width: 2.2, depth: 3 },
+      { x: 460, y: -4, angle: 1.8, length: 280, width: 2, depth: 2 },
+      { x: 772, y: 40, angle: 2.6, length: 360, width: 1.8, depth: 2, pull: 0.08, toward: { x: 380, y: 360 }, taper: 0.6 },
+    ],
+    avoid: [{ x0: -999, y0: -999, x1: 44, y1: 999 }], // bio column, plus ~1.75rem of air
   },
   // Stacked mobile footer: tucked into the empty top-right corner.
   "footer-mobile": {

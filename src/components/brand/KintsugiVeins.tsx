@@ -15,6 +15,7 @@ const origins: Record<RootVariant, string> = {
   "bottom-left": "0% 20%",
   footer: "30% 0%",
   "footer-mobile": "100% 0%",
+  founders: "25% 0%",
 };
 
 /*

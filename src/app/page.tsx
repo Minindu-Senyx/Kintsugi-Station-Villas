@@ -2,9 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BedDouble, ChefHat, ConciergeBell, Leaf } from "lucide-react";
 import BookingBar from "@/components/home/BookingBar";
+import TestimonialCarousel from "@/components/home/TestimonialCarousel";
 import { KintsugiVeins } from "@/components/brand/KintsugiVeins";
 import { delay } from "@/lib/motion";
 import { bookHref } from "@/lib/site";
+import { featuredTestimonials } from "@/lib/testimonials";
 
 const estateImages = [
   { src: "/assets/images/stone_bath.jpg", caption: "A Private Stone Bath", alt: "Carved stone soaking tub in a tropical garden" },
@@ -166,6 +168,25 @@ export default function HomePage() {
                   </figcaption>
                 </figure>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Guest Voices */}
+      <section className="bg-ivory">
+        <div className="frame px-5 lg:px-[3.625rem]">
+          <div className="flex flex-col gap-8 border-t border-[#e6e0d7] py-12 lg:flex-row lg:gap-0 lg:pb-[2.4rem] lg:pt-[1.9rem]">
+            <div className="lg:w-[22rem] lg:pt-[0.6rem]">
+              <Eyebrow tone="taupe">Guest Voices</Eyebrow>
+              <h2 data-reveal="up" style={delay(120)} className="mt-[1.2rem] font-serif text-[2.33rem] leading-[2.28rem] text-ink">
+                Words From
+                <br />
+                Those Who Stayed
+              </h2>
+            </div>
+            <div data-reveal="up" style={delay(240)} className="lg:ml-auto lg:w-[31.5rem] lg:pt-[0.3rem]">
+              <TestimonialCarousel items={featuredTestimonials} />
             </div>
           </div>
         </div>
