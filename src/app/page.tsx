@@ -98,7 +98,7 @@ export default function HomePage() {
           />
           <div
             style={delay(850)}
-            className="enter-rise relative z-30 mt-auto pt-10 lg:absolute lg:left-1/2 lg:top-[21.7rem] lg:mt-0 lg:w-[43.5rem] lg:-translate-x-1/2 lg:pt-0"
+            className="enter-rise relative z-30 mt-auto pt-10 lg:absolute lg:left-1/2 lg:top-[21.7rem] lg:mt-0 lg:w-[49.5rem] xl:w-[53rem] max-w-[calc(100%-2rem)] lg:-translate-x-1/2 lg:pt-0"
           >
             <BookingBar />
           </div>

@@ -137,8 +137,8 @@ export default function BookingBar() {
             <BedDouble className="size-[1rem]" strokeWidth={1.5} />
           </span>
           <span className="flex flex-col leading-none">
-            <span className="text-[0.78rem] text-[#2b2c2a]">Villa</span>
-            <span className="mt-[0.35rem] font-medium text-[0.72rem] text-[#4a4a48]">
+            <span className="text-[0.78rem] text-[#2b2c2a] whitespace-nowrap">Villa</span>
+            <span className="mt-[0.35rem] font-medium text-[0.72rem] text-[#4a4a48] whitespace-nowrap">
               {selectedVillaObj.name}
             </span>
           </span>
@@ -213,18 +213,18 @@ export default function BookingBar() {
       {divider}
 
       {/* Check-in Field */}
-      <label className="group relative flex h-full flex-1 cursor-pointer items-center gap-[0.75rem] px-5 py-3 transition-colors duration-200 hover:bg-[#ede7df] lg:py-0 lg:pl-[1.2rem] lg:pr-[1.3rem]">
-        <span className="text-[#2d2e2c] transition-colors duration-300 group-hover:text-gold">
+      <label className="group relative flex h-full flex-1 cursor-pointer items-center gap-[0.65rem] px-5 py-3 transition-colors duration-200 hover:bg-[#ede7df] lg:py-0 lg:pl-[1.15rem] lg:pr-[1.15rem]">
+        <span className="text-[#2d2e2c] transition-colors duration-300 group-hover:text-gold shrink-0">
           <CalendarCheck2 className="size-[1rem]" strokeWidth={1.5} />
         </span>
         <span className="flex flex-col leading-none">
-          <span className="text-[0.78rem] text-[#2b2c2a]">Check-in</span>
-          <span className="mt-[0.35rem] font-medium text-[0.72rem] text-[#4a4a48]">
+          <span className="text-[0.78rem] text-[#2b2c2a] whitespace-nowrap">Check-in</span>
+          <span className="mt-[0.35rem] font-medium text-[0.72rem] text-[#4a4a48] whitespace-nowrap">
             {formatDate(checkIn)}
           </span>
         </span>
         <ChevronDown
-          className="ml-auto size-[0.8rem] text-[#3a3a38] transition-transform duration-300 ease-soft group-hover:translate-y-[0.1rem]"
+          className="ml-auto size-[0.8rem] text-[#3a3a38] transition-transform duration-300 ease-soft group-hover:translate-y-[0.1rem] shrink-0"
           strokeWidth={1.6}
           aria-hidden="true"
         />
@@ -246,18 +246,18 @@ export default function BookingBar() {
       {divider}
 
       {/* Check-out Field */}
-      <label className="group relative flex h-full flex-1 cursor-pointer items-center gap-[0.75rem] px-5 py-3 transition-colors duration-200 hover:bg-[#ede7df] lg:py-0 lg:pl-[1.2rem] lg:pr-[1.3rem]">
-        <span className="text-[#2d2e2c] transition-colors duration-300 group-hover:text-gold">
+      <label className="group relative flex h-full flex-1 cursor-pointer items-center gap-[0.65rem] px-5 py-3 transition-colors duration-200 hover:bg-[#ede7df] lg:py-0 lg:pl-[1.15rem] lg:pr-[1.15rem]">
+        <span className="text-[#2d2e2c] transition-colors duration-300 group-hover:text-gold shrink-0">
           <CalendarX2 className="size-[1rem]" strokeWidth={1.5} />
         </span>
         <span className="flex flex-col leading-none">
-          <span className="text-[0.78rem] text-[#2b2c2a]">Check-out</span>
-          <span className="mt-[0.35rem] font-medium text-[0.72rem] text-[#4a4a48]">
+          <span className="text-[0.78rem] text-[#2b2c2a] whitespace-nowrap">Check-out</span>
+          <span className="mt-[0.35rem] font-medium text-[0.72rem] text-[#4a4a48] whitespace-nowrap">
             {formatDate(checkOut)}
           </span>
         </span>
         <ChevronDown
-          className="ml-auto size-[0.8rem] text-[#3a3a38] transition-transform duration-300 ease-soft group-hover:translate-y-[0.1rem]"
+          className="ml-auto size-[0.8rem] text-[#3a3a38] transition-transform duration-300 ease-soft group-hover:translate-y-[0.1rem] shrink-0"
           strokeWidth={1.6}
           aria-hidden="true"
         />
@@ -283,19 +283,19 @@ export default function BookingBar() {
           onClick={() =>
             setOpenDropdown(openDropdown === "guests" ? null : "guests")
           }
-          className="flex h-full w-full cursor-pointer items-center gap-[0.75rem] px-5 py-3 text-left transition-colors duration-200 hover:bg-[#ede7df] lg:py-0 lg:pl-[1.2rem] lg:pr-[1.3rem]"
+          className="flex h-full w-full cursor-pointer items-center gap-[0.65rem] px-5 py-3 text-left transition-colors duration-200 hover:bg-[#ede7df] lg:py-0 lg:pl-[1.15rem] lg:pr-[1.15rem]"
         >
-          <span className="text-[#2d2e2c] transition-colors duration-300 group-hover:text-gold">
+          <span className="text-[#2d2e2c] transition-colors duration-300 group-hover:text-gold shrink-0">
             <UserRound className="size-[1.05rem]" strokeWidth={1.5} />
           </span>
           <span className="flex flex-col leading-none">
-            <span className="text-[0.78rem] text-[#2b2c2a]">Guests</span>
-            <span className="mt-[0.35rem] font-medium text-[0.72rem] text-[#4a4a48]">
+            <span className="text-[0.78rem] text-[#2b2c2a] whitespace-nowrap">Guests</span>
+            <span className="mt-[0.35rem] font-medium text-[0.72rem] text-[#4a4a48] whitespace-nowrap">
               {guests} {guests === "1" ? "guest" : "guests"}
             </span>
           </span>
           <ChevronDown
-            className={`ml-auto size-[0.8rem] text-[#3a3a38] transition-transform duration-300 ease-soft ${
+            className={`ml-auto size-[0.8rem] text-[#3a3a38] transition-transform duration-300 ease-soft shrink-0 ${
               openDropdown === "guests"
                 ? "rotate-180 text-gold"
                 : "group-hover:translate-y-[0.1rem]"
@@ -351,10 +351,10 @@ export default function BookingBar() {
       {divider}
 
       {/* Submit Button */}
-      <div className="p-4 lg:px-[1.25rem] lg:py-0 lg:pl-[1.35rem]">
+      <div className="p-4 lg:px-[1.15rem] lg:py-0 lg:pl-[1.25rem] lg:shrink-0">
         <button
           type="submit"
-          className="sheen h-[2.3rem] w-full bg-gold text-[0.78rem] font-medium text-[#f7f1e4] shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-colors hover:bg-[#8f6d31] lg:w-[7.8rem]"
+          className="sheen flex h-[2.35rem] w-full items-center justify-center bg-gold text-[0.78rem] font-medium text-[#f7f1e4] shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-colors hover:bg-[#8f6d31] lg:w-[8rem] whitespace-nowrap"
         >
           Check Dates
         </button>
