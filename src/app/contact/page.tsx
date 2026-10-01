@@ -65,13 +65,15 @@ export default async function ContactPage({
   const arrival = first(params.arrival);
   const departure = first(params.departure);
   const guests = first(params.guests);
+  const villaParam = first(params.villa);
   const initialDates =
     arrival && isoDate.test(arrival)
       ? departure && isoDate.test(departure)
         ? `${formatDate(arrival)} - ${formatDate(departure)}`
         : formatDate(arrival)
       : "";
-  const initialGuests = guests && ["1", "2", "3", "4"].includes(guests) ? guests : "";
+  const initialGuests = guests && ["1", "2", "3", "4", "5", "6", "7", "8"].includes(guests) ? guests : "";
+  const initialVilla = villaParam || "";
 
   return (
     <main className="bg-sand">
@@ -172,7 +174,7 @@ export default async function ContactPage({
           <p className="mt-[0.55rem] text-[0.88rem] text-[#1d1f1d]">
             Share a few details and we&rsquo;ll be in touch personally.
           </p>
-          <InquiryForm initialDates={initialDates} initialGuests={initialGuests} />
+          <InquiryForm initialDates={initialDates} initialGuests={initialGuests} initialVilla={initialVilla} />
         </div>
       </section>
     </main>

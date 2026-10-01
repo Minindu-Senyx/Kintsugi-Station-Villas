@@ -52,7 +52,7 @@ export default function GalleryPage() {
             href={bookHref}
             className="sheen flex h-[2.4rem] w-[10rem] items-center justify-center bg-[#c0a257] font-serif text-[0.97rem] text-[#2c2a19] transition-[filter] hover:brightness-105"
           >
-            Reserve the Villa
+            Reserve Your Stay
           </Link>
         </div>
       </section>

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "images:generate": "node scripts/generate-images.mjs"
+    "images:generate": "node scripts/generate-images.mjs",
+    "images:villas": "node scripts/process-villa-photos.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.26.0",

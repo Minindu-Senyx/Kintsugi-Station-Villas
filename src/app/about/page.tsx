@@ -107,7 +107,7 @@ export default function AboutPage() {
             className="object-cover object-[45%_50%]"
           />
         </div>
-        <div className="frame px-5 py-10 lg:h-[25.45rem] lg:px-[4.25rem] lg:py-0 lg:pt-[1.3rem]">
+        <div className="frame px-5 py-10 lg:min-h-[25.45rem] lg:px-[4.25rem] lg:py-0 lg:pt-[1.3rem]">
           <div className="lg:w-[22.7rem]">
             <Label>Our Story</Label>
             <h2 data-reveal="up" style={delay(100)} className="mt-[0.55rem] font-serif text-[1.9rem] leading-[1.95rem] text-pine-ink">

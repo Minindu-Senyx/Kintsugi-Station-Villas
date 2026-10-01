@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CalendarDays, Check, ChevronDown, Leaf } from "lucide-react";
 import { contact } from "@/lib/site";
 
@@ -11,15 +11,42 @@ const labelClass = "block text-[0.8rem] leading-none text-[#1d1f1d]";
 type Status = "idle" | "sent";
 
 type Props = {
-  /** Prefilled from the Home page availability bar. */
+  /** Prefilled from the Home page availability bar or villa pages. */
   initialDates?: string;
   initialGuests?: string;
+  initialVilla?: string;
 };
 
-export default function InquiryForm({ initialDates = "", initialGuests = "" }: Props) {
+export default function InquiryForm({ initialDates = "", initialGuests = "", initialVilla = "" }: Props) {
   const [dates, setDates] = useState(initialDates);
   const [guests, setGuests] = useState(initialGuests);
+  const defaultVilla =
+    initialVilla === "acland"
+      ? "Villa Acland (Artisan Sanctuary · Secluded)"
+      : initialVilla === "estate"
+        ? "Both Villas (Exclusive Estate Buyout)"
+        : "Avalon Villa (3 Bedrooms · Hillside Infinity Pool)";
+  const [villa, setVilla] = useState(defaultVilla);
   const [status, setStatus] = useState<Status>("idle");
+  const [openDropdown, setOpenDropdown] = useState<"villa" | "guests" | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (formRef.current && !formRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
+      }
+    }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpenDropdown(null);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,18 +55,78 @@ export default function InquiryForm({ initialDates = "", initialGuests = "" }: P
       `Name: ${data.get("name")}`,
       `Email: ${data.get("email")}`,
       `WhatsApp / Phone: ${data.get("phone") || "-"}`,
+      `Villa: ${data.get("villa") || "-"}`,
       `Preferred dates: ${data.get("dates") || "-"}`,
       `Guests: ${data.get("guests") || "-"}`,
       "",
       `${data.get("requests") || ""}`,
     ].join("\n");
-    const subject = `Reservation inquiry — ${data.get("name")}`;
+    const subject = `Reservation inquiry — ${data.get("name")} (${data.get("villa") || "Kandy Estate"})`;
     window.location.href = `mailto:${contact.reservationsEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setStatus("sent");
   };
 
   return (
-    <form onSubmit={submit} className="mt-[1rem] space-y-[0.9rem]">
+    <form ref={formRef} onSubmit={submit} className="mt-[1rem] space-y-[0.9rem]">
+      <div>
+        <label id="villa-label" className={labelClass}>
+          Villa of Interest
+        </label>
+        <div className="relative mt-[0.4rem]">
+          <input type="hidden" name="villa" value={villa} />
+          <button
+            type="button"
+            aria-labelledby="villa-label"
+            aria-haspopup="listbox"
+            aria-expanded={openDropdown === "villa"}
+            onClick={() => setOpenDropdown(openDropdown === "villa" ? null : "villa")}
+            className={`${fieldClass} flex items-center justify-between text-left pr-3 cursor-pointer`}
+          >
+            <span className="truncate">{villa}</span>
+            <ChevronDown
+              className={`size-[0.8rem] text-[#3a3a38] transition-transform duration-300 ease-soft shrink-0 ${
+                openDropdown === "villa" ? "rotate-180 text-gold" : ""
+              }`}
+              strokeWidth={1.6}
+              aria-hidden="true"
+            />
+          </button>
+
+          {openDropdown === "villa" && (
+            <div
+              role="listbox"
+              aria-label="Select Villa"
+              className="enter-rise absolute left-0 top-[calc(100%+0.3rem)] z-50 w-full rounded-[3px] border border-[#d8d0c2] bg-[#fdfbf7] p-1.5 shadow-[0_10px_30px_rgba(20,24,21,0.14)]"
+            >
+              {[
+                "Avalon Villa (3 Bedrooms · Hillside Infinity Pool)",
+                "Villa Acland (Artisan Sanctuary · Secluded)",
+                "Both Villas (Exclusive Estate Buyout)",
+              ].map((opt) => {
+                const isSelected = opt === villa;
+                return (
+                  <button
+                    key={opt}
+                    type="button"
+                    role="option"
+                    aria-selected={isSelected}
+                    onClick={() => {
+                      setVilla(opt);
+                      setOpenDropdown(null);
+                    }}
+                    className={`flex w-full cursor-pointer items-center justify-between rounded-[2px] px-2.5 py-2 text-left text-[0.78rem] transition-colors ${
+                      isSelected ? "bg-[#ece4d6] font-medium text-[#7a591e]" : "text-[#2e302e] hover:bg-[#f3ede3]"
+                    }`}
+                  >
+                    <span>{opt}</span>
+                    {isSelected && <Check className="size-3.5 shrink-0 text-[#8e6b2c]" />}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
       <div>
         <label htmlFor="name" className={labelClass}>
           Full Name
@@ -94,31 +181,62 @@ export default function InquiryForm({ initialDates = "", initialGuests = "" }: P
         </div>
       </div>
       <div>
-        <label htmlFor="guests" className={labelClass}>
-          Number of Guests (Max 4)
+        <label id="guests-label" className={labelClass}>
+          Number of Guests (Max 8)
         </label>
         <div className="relative mt-[0.4rem]">
-          <select
-            id="guests"
-            name="guests"
-            value={guests}
-            onChange={(e) => setGuests(e.target.value)}
-            className={`${fieldClass} appearance-none pr-9 ${guests ? "" : "text-[#9a9a97]"}`}
+          <input type="hidden" name="guests" value={guests} />
+          <button
+            type="button"
+            aria-labelledby="guests-label"
+            aria-haspopup="listbox"
+            aria-expanded={openDropdown === "guests"}
+            onClick={() => setOpenDropdown(openDropdown === "guests" ? null : "guests")}
+            className={`${fieldClass} flex items-center justify-between text-left pr-3 cursor-pointer ${
+              guests ? "text-[#1d1f1d]" : "text-[#9a9a97]"
+            }`}
           >
-            <option value="" disabled>
-              Select number of guests
-            </option>
-            {["1", "2", "3", "4"].map((n) => (
-              <option key={n} value={n} className="text-[#1d1f1d]">
-                {n} {n === "1" ? "guest" : "guests"}
-              </option>
-            ))}
-          </select>
-          <ChevronDown
-            className="pointer-events-none absolute right-[0.85rem] top-1/2 size-[0.8rem] -translate-y-1/2 text-[#3a3a38]"
-            strokeWidth={1.6}
-            aria-hidden="true"
-          />
+            <span>{guests ? `${guests} ${guests === "1" ? "guest" : "guests"}` : "Select number of guests"}</span>
+            <ChevronDown
+              className={`size-[0.8rem] text-[#3a3a38] transition-transform duration-300 ease-soft shrink-0 ${
+                openDropdown === "guests" ? "rotate-180 text-gold" : ""
+              }`}
+              strokeWidth={1.6}
+              aria-hidden="true"
+            />
+          </button>
+
+          {openDropdown === "guests" && (
+            <div
+              role="listbox"
+              aria-label="Select number of guests"
+              className="enter-rise absolute left-0 top-[calc(100%+0.3rem)] z-50 w-full rounded-[3px] border border-[#d8d0c2] bg-[#fdfbf7] p-1.5 shadow-[0_10px_30px_rgba(20,24,21,0.14)]"
+            >
+              <div className="grid grid-cols-2 gap-1 sm:grid-cols-4">
+                {["1", "2", "3", "4", "5", "6", "7", "8"].map((n) => {
+                  const isSelected = n === guests;
+                  return (
+                    <button
+                      key={n}
+                      type="button"
+                      role="option"
+                      aria-selected={isSelected}
+                      onClick={() => {
+                        setGuests(n);
+                        setOpenDropdown(null);
+                      }}
+                      className={`flex cursor-pointer items-center justify-between rounded-[2px] px-2 py-1.5 text-left text-[0.78rem] transition-colors ${
+                        isSelected ? "bg-[#ece4d6] font-medium text-[#7a591e]" : "text-[#2e302e] hover:bg-[#f3ede3]"
+                      }`}
+                    >
+                      <span>{n} {n === "1" ? "guest" : "guests"}</span>
+                      {isSelected && <Check className="size-3 text-[#8e6b2c]" />}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div>

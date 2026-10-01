@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw photography source directories (un-used camera assets)
+/Avalon Villa Property Photography*
+/Villa Acland at Avalon Villa Property Photography*
