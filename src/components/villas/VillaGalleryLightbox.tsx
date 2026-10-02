@@ -53,7 +53,7 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
   return (
     <div>
       {/* Category Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-2 pb-10">
+      <div className="flex flex-wrap items-center justify-center gap-2.5 pb-10">
         {(["all", "bedroom", "living", "outdoor"] as const).map((catId) => {
           const isSelected = activeCategory === catId;
           const count =
@@ -63,20 +63,17 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
             <button
               key={catId}
               type="button"
+              aria-pressed={isSelected}
               onClick={() => setActiveCategory(catId)}
-              className={`group flex items-center gap-2 rounded-full px-4 py-2 text-[0.72rem] tracking-[0.08em] transition-all duration-300 ${
+              className={`h-[2.1rem] rounded-full border px-4 font-serif text-[0.84rem] transition-colors duration-300 ${
                 isSelected
-                  ? "bg-gold text-[#1c1d1a] shadow-sm font-medium"
-                  : "border border-[#e0dad0] bg-white/70 text-[#6a6863] hover:border-gold/60 hover:text-ink hover:bg-white"
+                  ? "border-[#1b261d] bg-[#1b261d] text-[#f1ede9]"
+                  : "border-[#b3aea5] bg-transparent text-[#2b2b25] hover:border-[#1b261d] hover:bg-[#1b261d]/5"
               }`}
             >
               <span>{categoryLabels[catId]}</span>
-              <span
-                className={`rounded-full px-1.5 py-0.2 text-[0.6rem] transition-colors ${
-                  isSelected ? "bg-black/15 text-[#1c1d1a]" : "bg-[#f0ebe3] text-[#7d7a74]"
-                }`}
-              >
-                {count}
+              <span className={`ml-1.5 text-[0.72rem] ${isSelected ? "text-[#c7b27a]" : "text-[#7a766e]"}`}>
+                ({count})
               </span>
             </button>
           );

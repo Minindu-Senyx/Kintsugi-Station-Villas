@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BedDouble, Compass, Sparkles, Users, Waves } from "lucide-react";
+import { ArrowRight, BedDouble, Compass, Users, Waves } from "lucide-react";
 import { delay } from "@/lib/motion";
 import { allVillas } from "@/lib/villas";
 
@@ -25,10 +25,10 @@ export default function VillasOverviewPage() {
         <div className="frame relative px-5 text-center lg:px-[3.625rem]">
           <p
             style={delay(100)}
-            className="enter-rise eyebrow inline-flex items-center gap-2 text-[0.66rem] tracking-[0.24em] text-gold uppercase"
+            className="enter-rise eyebrow flex items-center justify-center gap-2.5 text-[0.64rem] tracking-[0.3em] text-[#8e8578] uppercase"
           >
-            <Sparkles className="size-3 text-gold" />
             <span>Kandy Branch · Sri Lanka</span>
+            <span aria-hidden="true" className="h-px w-8 bg-[#c7b27a]" />
           </p>
 
           <h1

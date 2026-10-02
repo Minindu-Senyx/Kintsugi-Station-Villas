@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Check, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { RoomSpace } from "@/lib/villas";
 
 export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
@@ -46,8 +46,8 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
                   <span className="block text-[0.62rem] uppercase tracking-[0.16em] text-gold sm:text-[0.68rem]">
                     Space 0{idx + 1}
                   </span>
-                  <span className="rounded-full bg-[#e8e2d8] px-1.5 py-0.2 text-[0.58rem] text-[#6d665a]">
-                    {space.photos.length} photos
+                  <span className="text-[0.62rem] text-[#8c8273]">
+                    ({space.photos.length})
                   </span>
                 </div>
                 <span className="mt-1 block font-serif text-[1rem] transition-colors sm:text-[1.15rem]">
@@ -75,10 +75,10 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
         {/* Left Column: Details & Features */}
         <div className="flex flex-col justify-between lg:col-span-5">
           <div>
-            <div className="inline-block rounded-full bg-[#ede6dc] px-3.5 py-1 text-[0.64rem] font-medium tracking-[0.14em] text-[#705e46] uppercase shadow-xs">
+            <p className="eyebrow text-[0.62rem] font-medium tracking-[0.24em] text-[#8e8578] uppercase">
               {activeSpace.badge}
-            </div>
-            <h3 className="mt-3.5 font-serif text-[1.85rem] leading-[1.2] text-ink sm:text-[2.2rem]">
+            </p>
+            <h3 className="mt-2.5 font-serif text-[1.85rem] leading-[1.2] text-ink sm:text-[2.2rem]">
               {activeSpace.name}
             </h3>
             <p className="mt-3 text-[0.88rem] leading-[1.65] text-ink-soft sm:text-[0.92rem]">
@@ -86,8 +86,8 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
             </p>
 
             <div className="mt-6 border-t border-[#e8e2d8] pt-6">
-              <p className="eyebrow text-[0.62rem] tracking-[0.2em] text-[#9b8564] uppercase">
-                Space Highlights & Architecture
+              <p className="eyebrow text-[0.62rem] tracking-[0.24em] text-[#8e8578] uppercase">
+                Space Architecture & Details
               </p>
               <ul className="mt-3.5 space-y-2.5">
                 {activeSpace.features.map((feature, fIdx) => (
@@ -96,9 +96,7 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
                     style={{ animationDelay: `${fIdx * 50}ms` }}
                     className="flex items-start gap-2.5 text-[0.82rem] text-[#3e3f3d] animate-in fade-in"
                   >
-                    <span className="mt-1 flex size-3.5 shrink-0 items-center justify-center rounded-full bg-gold/25 text-[#8a6b29]">
-                      <Check className="size-2.5" strokeWidth={2.5} />
-                    </span>
+                    <span className="mt-2 h-px w-2.5 shrink-0 bg-gold/80" />
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -108,12 +106,13 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
 
           {/* Photo Counter & Controls */}
           <div className="mt-8 flex items-center justify-between border-t border-[#e8e2d8] pt-4 text-[0.74rem] text-[#7d7a74]">
-            <span className="flex items-center gap-2">
-              <Eye className="size-3.5 text-gold" />
-              <span>
-                Photograph {activePhotoIndex + 1} of {photos.length}
+            <div className="flex items-baseline gap-2">
+              <span className="eyebrow text-[0.58rem] tracking-[0.22em] text-[#8e8578] uppercase">Frame</span>
+              <span className="font-serif text-[0.95rem] text-ink">
+                <span className="font-medium text-gold">0{activePhotoIndex + 1}</span>
+                <span className="font-light text-[#948f86]"> / 0{photos.length}</span>
               </span>
-            </span>
+            </div>
             <div className="flex gap-2">
               <button
                 type="button"

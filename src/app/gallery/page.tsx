@@ -34,11 +34,11 @@ export default function GalleryPage() {
 
       <section className="relative flex h-[10.44rem] flex-col items-center justify-center overflow-hidden">
         <Image
-          src="/assets/images/gallery_cta_mist.jpg"
-          alt=""
+          src="/assets/images/villas/avalon/avalon-exterior-pool.jpg"
+          alt="Sunlight filtering through the mountain forest canopy at Avalon Villa"
           fill
           sizes="100vw"
-          className="object-cover object-[50%_60%]"
+          className="object-cover object-[50%_45%]"
         />
         <div aria-hidden="true" className="absolute inset-0 bg-[#d9d6d1]/25" />
         <h2

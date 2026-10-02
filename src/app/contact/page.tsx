@@ -80,12 +80,12 @@ export default async function ContactPage({
       {/* Hero */}
       <section className="relative overflow-hidden lg:h-[18.19rem]">
         <Image
-          src="/assets/images/contact_hero.jpg"
-          alt="Sunrise over misty forested hills from the villa terrace"
+          src="/assets/images/villas/avalon/avalon-hero.jpg"
+          alt="Morning light filtering through forest trees into the stone courtyard at Avalon Villa"
           fill
           preload
           sizes="100vw"
-          className="enter-settle object-cover object-[50%_85%]"
+          className="enter-settle object-cover object-[50%_35%]"
         />
         <div
           aria-hidden="true"

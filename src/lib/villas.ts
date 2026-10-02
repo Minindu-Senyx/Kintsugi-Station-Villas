@@ -31,6 +31,11 @@ export type Villa = {
     rateFromUSD: number;
   };
   heroImage: string;
+  architectureImage: {
+    src: string;
+    alt: string;
+    caption: string;
+  };
   videoUrl?: string;
   spaces: RoomSpace[];
   gallery: VillaPhoto[];
@@ -61,6 +66,11 @@ export const villas: Record<"avalon" | "acland", Villa> = {
       rateFromUSD: 450,
     },
     heroImage: "/assets/images/villas/avalon/avalon-hero.jpg",
+    architectureImage: {
+      src: "/assets/images/villas/avalon/avalon-living-overview.jpg",
+      alt: "Grand timber-beamed open-air dining and living pavilion at Avalon Villa",
+      caption: "The Open-Air Living Pavilion & Banquet Dining",
+    },
     videoUrl: "/assets/videos/avalon-teaser.mp4",
     spaces: [
       {
@@ -236,6 +246,11 @@ export const villas: Record<"avalon" | "acland", Villa> = {
       rateFromUSD: 320,
     },
     heroImage: "/assets/images/villas/acland/acland-hero.jpg",
+    architectureImage: {
+      src: "/assets/images/villas/acland/acland-stone-architecture.jpg",
+      alt: "Hand-chiseled river stone foundation, breezeway, and timber joinery at Villa Acland",
+      caption: "Hand-Chiseled River Stone Foundation & Open Forest Breezeway",
+    },
     spaces: [
       {
         id: "master-sanctuary",
