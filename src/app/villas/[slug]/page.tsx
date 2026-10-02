@@ -55,7 +55,7 @@ export default async function VillaDetailPage({
   return (
     <main className="bg-ivory text-ink">
       {/* Villa Hero Section */}
-      <section className="relative min-h-[40rem] overflow-hidden lg:h-[35rem] lg:min-h-0">
+      <section className="relative min-h-[40rem] overflow-hidden lg:h-[36rem] lg:min-h-0">
         <Image
           src={villa.heroImage}
           alt={villa.name}
@@ -67,7 +67,7 @@ export default async function VillaDetailPage({
         {/* Cinematic gradient overlays */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30 lg:bg-[linear-gradient(90deg,rgba(16,19,17,0.78)_0%,rgba(16,19,17,0.45)_55%,rgba(16,19,17,0.2)_100%)]"
+          className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30 lg:bg-[linear-gradient(90deg,rgba(16,19,17,0.8)_0%,rgba(16,19,17,0.5)_55%,rgba(16,19,17,0.22)_100%)]"
         />
 
         <div className="frame relative flex h-full flex-col justify-end px-5 pb-10 pt-28 sm:pb-12 lg:justify-center lg:px-[3.625rem] lg:pt-16">
@@ -80,7 +80,7 @@ export default async function VillaDetailPage({
             </p>
             <h1
               style={delay(200)}
-              className="enter-rise mt-3 font-serif text-[2.8rem] leading-[1.05] text-white sm:text-[3.6rem] lg:text-[4.1rem]"
+              className="enter-rise mt-3 font-serif text-[2.8rem] leading-[1.05] text-white sm:text-[3.6rem] lg:text-[4.2rem]"
             >
               {villa.name}
             </h1>
@@ -119,11 +119,15 @@ export default async function VillaDetailPage({
         </div>
       </section>
 
-      {/* Villa Specifications Ribbon */}
+      {/* Villa Specifications Ribbon with Staggered Entrance */}
       <section className="border-b border-[#e2dcd2] bg-linen">
         <div className="frame px-5 py-5 sm:py-6 lg:px-[3.625rem]">
           <div className="grid grid-cols-2 gap-4 divide-y divide-[#e2dcd2] sm:grid-cols-4 sm:divide-y-0 sm:divide-x sm:divide-[#e2dcd2]">
-            <div className="flex items-center gap-3 pt-2 sm:pt-0 sm:pr-4">
+            <div
+              data-reveal="up"
+              style={delay(50)}
+              className="flex items-center gap-3 pt-2 sm:pt-0 sm:pr-4"
+            >
               <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#e8e0d4] text-gold">
                 <BedDouble className="size-4" />
               </div>
@@ -133,7 +137,11 @@ export default async function VillaDetailPage({
               </div>
             </div>
 
-            <div className="flex items-center gap-3 pt-2 sm:pt-0 sm:px-4">
+            <div
+              data-reveal="up"
+              style={delay(120)}
+              className="flex items-center gap-3 pt-2 sm:pt-0 sm:px-4"
+            >
               <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#e8e0d4] text-gold">
                 <Users className="size-4" />
               </div>
@@ -143,7 +151,11 @@ export default async function VillaDetailPage({
               </div>
             </div>
 
-            <div className="flex items-center gap-3 pt-2 sm:pt-0 sm:px-4">
+            <div
+              data-reveal="up"
+              style={delay(190)}
+              className="flex items-center gap-3 pt-2 sm:pt-0 sm:px-4"
+            >
               <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#e8e0d4] text-gold">
                 <Waves className="size-4" />
               </div>
@@ -153,7 +165,11 @@ export default async function VillaDetailPage({
               </div>
             </div>
 
-            <div className="flex items-center gap-3 pt-2 sm:pt-0 sm:pl-4">
+            <div
+              data-reveal="up"
+              style={delay(260)}
+              className="flex items-center gap-3 pt-2 sm:pt-0 sm:pl-4"
+            >
               <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#e8e0d4] text-gold">
                 <Compass className="size-4" />
               </div>
@@ -167,33 +183,59 @@ export default async function VillaDetailPage({
       </section>
 
       {/* Narrative & Philosophy Section */}
-      <section className="bg-ivory py-16 sm:py-20">
+      <section className="bg-ivory py-16 sm:py-24">
         <div className="frame px-5 lg:px-[3.625rem]">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-5">
-              <p className="eyebrow flex items-center gap-2.5 text-[0.66rem] tracking-[0.2em] text-gold uppercase">
+              <p
+                data-reveal="up"
+                style={delay(100)}
+                className="eyebrow flex items-center gap-2.5 text-[0.66rem] tracking-[0.2em] text-gold uppercase"
+              >
                 Estate Architecture
                 <span aria-hidden="true" className="h-px w-8 bg-gold/60" />
               </p>
-              <h2 className="mt-3 font-serif text-[2.4rem] leading-[1.1] text-ink sm:text-[2.8rem]">
+              <h2
+                data-reveal="up"
+                style={delay(200)}
+                className="mt-3 font-serif text-[2.4rem] leading-[1.1] text-ink sm:text-[2.8rem]"
+              >
                 Crafted for Solitude.
                 <br />
                 Framed by Mist.
               </h2>
-              <p className="mt-4 text-[0.92rem] leading-[1.65] text-ink-soft">
+              <p
+                data-reveal="up"
+                style={delay(300)}
+                className="mt-4 text-[0.92rem] leading-[1.65] text-ink-soft"
+              >
                 {villa.summary}
               </p>
-              <div className="mt-8 border-l-2 border-gold pl-4 italic text-[#6a5e4b]">
+              <div
+                data-reveal="up"
+                style={delay(400)}
+                className="mt-8 border-l-2 border-gold pl-4 italic text-[#6a5e4b]"
+              >
                 &ldquo;Where the Japanese spirit of kintsugi embraces the timeless mist of the Sri Lankan highlands.&rdquo;
               </div>
             </div>
 
             <div className="space-y-4 text-[0.875rem] leading-[1.7] text-ink-soft lg:col-span-7">
               {villa.description.map((para, i) => (
-                <p key={i}>{para}</p>
+                <p
+                  key={i}
+                  data-reveal="up"
+                  style={delay(150 + i * 80)}
+                >
+                  {para}
+                </p>
               ))}
 
-              <div className="mt-8 rounded-[2px] border border-[#e2dcd2] bg-linen p-6">
+              <div
+                data-reveal="up"
+                style={delay(380)}
+                className="mt-8 rounded-[2px] border border-[#e2dcd2] bg-linen p-6 shadow-xs"
+              >
                 <h4 className="flex items-center gap-2 font-serif text-[1.1rem] text-ink">
                   <Sparkles className="size-4 text-gold" />
                   Curated Villa Inclusions
@@ -218,15 +260,33 @@ export default async function VillaDetailPage({
       <section id="spaces" className="scroll-mt-16 border-t border-[#e2dcd2] bg-mist py-16 sm:py-24">
         <div className="frame px-5 lg:px-[3.625rem]">
           <div className="mb-10 text-center sm:mb-12">
-            <p className="eyebrow inline-block text-[0.66rem] tracking-[0.24em] text-gold uppercase">
+            <p
+              data-reveal="up"
+              style={delay(100)}
+              className="eyebrow inline-block text-[0.66rem] tracking-[0.24em] text-gold uppercase"
+            >
               Step Inside
             </p>
-            <h2 className="mt-2 font-serif text-[2.4rem] leading-tight text-ink sm:text-[3rem]">
+            <h2
+              data-reveal="up"
+              style={delay(200)}
+              className="mt-2 font-serif text-[2.4rem] leading-tight text-ink sm:text-[3rem]"
+            >
               Explore the Spaces of {villa.name}
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-[0.9rem] text-ink-soft">
+            <p
+              data-reveal="up"
+              style={delay(300)}
+              className="mx-auto mt-3 max-w-xl text-[0.9rem] text-ink-soft"
+            >
               Every room, suite, and terrace has been thoughtfully designed to balance raw natural textures with absolute modern comfort.
             </p>
+            <span
+              aria-hidden="true"
+              data-reveal="line"
+              style={delay(380)}
+              className="mx-auto mt-4 block h-px w-14 bg-gold"
+            />
           </div>
 
           <SpaceExplorer spaces={villa.spaces} />
@@ -234,22 +294,32 @@ export default async function VillaDetailPage({
       </section>
 
       {/* Amenities Grid */}
-      <section className="bg-ivory py-16 border-t border-[#e2dcd2]">
+      <section className="bg-ivory py-16 border-t border-[#e2dcd2] sm:py-20">
         <div className="frame px-5 lg:px-[3.625rem]">
           <div className="text-center">
-            <p className="eyebrow text-[0.66rem] tracking-[0.2em] text-gold uppercase">
+            <p
+              data-reveal="up"
+              style={delay(100)}
+              className="eyebrow text-[0.66rem] tracking-[0.2em] text-gold uppercase"
+            >
               Curated Comfort
             </p>
-            <h2 className="mt-2 font-serif text-[2.2rem] text-ink sm:text-[2.6rem]">
+            <h2
+              data-reveal="up"
+              style={delay(200)}
+              className="mt-2 font-serif text-[2.2rem] text-ink sm:text-[2.6rem]"
+            >
               Amenities & Estate Services
             </h2>
           </div>
 
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {villa.amenities.map((group) => (
+            {villa.amenities.map((group, gIdx) => (
               <div
                 key={group.category}
-                className="rounded-[2px] border border-[#e2dcd2] bg-linen/60 p-6 transition-colors hover:border-gold/50"
+                data-reveal="up"
+                style={delay(100 + gIdx * 90)}
+                className="rounded-[2px] border border-[#e2dcd2] bg-linen/60 p-6 transition-all duration-300 hover:border-gold/60 hover:bg-linen shadow-xs"
               >
                 <h3 className="font-serif text-[1.12rem] text-ink">{group.category}</h3>
                 <ul className="mt-4 space-y-2 text-[0.8rem] text-ink-soft">
@@ -266,19 +336,37 @@ export default async function VillaDetailPage({
         </div>
       </section>
 
-      {/* Real Photography Gallery */}
+      {/* Real Photography Visual Chronicle */}
       <section className="border-t border-[#e2dcd2] bg-linen py-16 sm:py-24">
         <div className="frame px-5 lg:px-[3.625rem]">
-          <div className="mb-10 text-center">
-            <p className="eyebrow text-[0.66rem] tracking-[0.24em] text-gold uppercase">
+          <div className="mb-10 text-center sm:mb-14">
+            <p
+              data-reveal="up"
+              style={delay(100)}
+              className="eyebrow text-[0.66rem] tracking-[0.24em] text-gold uppercase"
+            >
               Visual Chronicle
             </p>
-            <h2 className="mt-2 font-serif text-[2.4rem] text-ink sm:text-[3rem]">
+            <h2
+              data-reveal="up"
+              style={delay(200)}
+              className="mt-2 font-serif text-[2.4rem] text-ink sm:text-[3rem]"
+            >
               Moments at {villa.name}
             </h2>
-            <p className="mx-auto mt-2 max-w-xl text-[0.88rem] text-ink-soft">
-              Authentic property photography capturing sunlight, timber textures, and mountain stillness.
+            <p
+              data-reveal="up"
+              style={delay(300)}
+              className="mx-auto mt-2 max-w-xl text-[0.88rem] text-ink-soft"
+            >
+              Authentic property photography capturing sunlight, timber textures, and mountain stillness. Hover over any frame to inspect details.
             </p>
+            <span
+              aria-hidden="true"
+              data-reveal="line"
+              style={delay(380)}
+              className="mx-auto mt-4 block h-px w-14 bg-gold"
+            />
           </div>
 
           <VillaGalleryLightbox photos={villa.gallery} />
@@ -288,14 +376,22 @@ export default async function VillaDetailPage({
       {/* Sister Villa Showcase */}
       <section className="border-t border-[#e2dcd2] bg-mist py-14">
         <div className="frame px-5 lg:px-[3.625rem]">
-          <div className="flex flex-col items-center justify-between gap-6 rounded-[2px] border border-[#dcd6ca] bg-ivory p-6 sm:p-8 lg:flex-row lg:gap-10">
-            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[2px] sm:w-72 lg:w-80 shrink-0">
+          <div
+            data-reveal="up"
+            style={delay(100)}
+            className="flex flex-col items-center justify-between gap-6 rounded-[2px] border border-[#dcd6ca] bg-ivory p-6 shadow-xs transition-shadow duration-500 hover:shadow-md sm:p-8 lg:flex-row lg:gap-10"
+          >
+            <div
+              data-reveal="image"
+              style={delay(150)}
+              className="relative aspect-[16/10] w-full overflow-hidden rounded-[2px] sm:w-72 lg:w-80 shrink-0"
+            >
               <Image
                 src={sisterVilla.heroImage}
                 alt={sisterVilla.name}
                 fill
                 sizes="(min-width: 1024px) 320px, 100vw"
-                className="object-cover"
+                className="object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
             <div className="flex-1 text-center lg:text-left">
@@ -312,7 +408,7 @@ export default async function VillaDetailPage({
             <div className="shrink-0">
               <Link
                 href={`/villas/${sisterVilla.slug}`}
-                className="group flex items-center gap-2 rounded-[2px] bg-ink px-5 py-2.5 text-[0.8rem] text-white transition-colors hover:bg-gold hover:text-[#1c1d1a]"
+                className="sheen group flex items-center gap-2 rounded-[2px] bg-ink px-5 py-2.5 text-[0.8rem] text-white transition-colors hover:bg-gold hover:text-[#1c1d1a]"
               >
                 <span>Explore {sisterVilla.name}</span>
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
@@ -324,7 +420,11 @@ export default async function VillaDetailPage({
 
       {/* Reservation CTA Strip */}
       <section className="relative overflow-hidden bg-linen py-16 border-t border-[#e2dcd2]">
-        <div className="frame relative flex flex-col items-center justify-between gap-8 px-5 text-center lg:flex-row lg:px-[3.625rem] lg:text-left">
+        <div
+          data-reveal="up"
+          style={delay(100)}
+          className="frame relative flex flex-col items-center justify-between gap-8 px-5 text-center lg:flex-row lg:px-[3.625rem] lg:text-left"
+        >
           <div>
             <p className="eyebrow text-[0.64rem] tracking-[0.2em] text-gold uppercase">
               Reserve Your Stay
