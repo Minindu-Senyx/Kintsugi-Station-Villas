@@ -15,19 +15,19 @@ export const metadata: Metadata = {
 const materials = [
   {
     src: "/assets/images/reclaimed_teak.jpg",
-    alt: "Close-up of weathered reclaimed teak and a carved wooden bowl",
+    alt: "Handcrafted reclaimed Ceylon teak headboard and timber joinery at Villa Acland",
     title: "Reclaimed Ceylon Teak",
     text: "Heritage timber, given new life. Each beam carries a story, shaped by time, weather and craftsmanship.",
   },
   {
     src: "/assets/images/chiseled_stone.jpg",
-    alt: "Hand-laid river stone wall softened by ferns",
+    alt: "Hand-chiseled river stone foundation, pillars, and garden terraces",
     title: "Hand-Chiseled River Stone",
     text: "Locally sourced stone, shaped by hand, grounding the villa in the landscape it belongs to.",
   },
   {
     src: "/assets/images/mist_mountain_ridge.jpg",
-    alt: "Rainforest ridges rising out of a sea of mist",
+    alt: "Panoramic mountain deck overlooking the mist-filled Kandy valley",
     title: "Living with the Mist",
     text: "Open to the elements, designed to breathe with the hills, where changing light and mist are part of the home.",
   },
@@ -101,13 +101,13 @@ export default function AboutPage() {
         >
           <Image
             src="/assets/images/villa_forest_exterior.jpg"
-            alt="Timber villa with a stone plinth set in misty rainforest"
+            alt="Timber villa veranda with stone plinth nestled in the misty hillside rainforest"
             fill
             sizes="(min-width: 900px) 55vw, 100vw"
             className="object-cover object-[45%_50%]"
           />
         </div>
-        <div className="frame px-5 py-10 lg:h-[25.45rem] lg:px-[4.25rem] lg:py-0 lg:pt-[1.3rem]">
+        <div className="frame px-5 py-10 lg:min-h-[25.45rem] lg:px-[4.25rem] lg:py-0 lg:pt-[1.3rem]">
           <div className="lg:w-[22.7rem]">
             <Label>Our Story</Label>
             <h2 data-reveal="up" style={delay(100)} className="mt-[0.55rem] font-serif text-[1.9rem] leading-[1.95rem] text-pine-ink">
@@ -209,7 +209,7 @@ export default function AboutPage() {
         <div data-reveal="image" className="relative h-56 shrink-0 overflow-hidden lg:h-[12.625rem] lg:w-[27.75rem]">
           <Image
             src="/assets/images/host_dining_ritual.jpg"
-            alt="Private chef's Sri Lankan dishes served with a cast-iron teapot"
+            alt="Private outdoor dining patio overlooking the hills with curated estate dining"
             fill
             sizes="(min-width: 900px) 44vw, 100vw"
             className="object-cover"

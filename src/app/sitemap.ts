@@ -4,9 +4,10 @@ import { navLinks } from "@/lib/site";
 const siteUrl = "https://www.kintsugistation.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return navLinks.map((link) => ({
-    url: `${siteUrl}${link.href === "/" ? "" : link.href}`,
+  const routes = [...navLinks.map((l) => l.href), "/villas"];
+  return routes.map((href) => ({
+    url: `${siteUrl}${href === "/" ? "" : href}`,
     changeFrequency: "monthly",
-    priority: link.href === "/" ? 1 : 0.8,
+    priority: href === "/" ? 1 : 0.8,
   }));
 }

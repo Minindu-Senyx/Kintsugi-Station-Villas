@@ -45,10 +45,23 @@ export default function RevealObserver() {
     });
     mo.observe(document.body, { childList: true, subtree: true });
 
+    const handleUnhandledRejection = (e: PromiseRejectionEvent) => {
+      const reason = e.reason;
+      if (
+        reason &&
+        (reason.name === "InvalidStateError" ||
+          String(reason?.message || reason).includes("Transition was aborted"))
+      ) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener("unhandledrejection", handleUnhandledRejection);
+
     return () => {
       io.disconnect();
       mo.disconnect();
       cancelAnimationFrame(frame);
+      window.removeEventListener("unhandledrejection", handleUnhandledRejection);
     };
   }, []);
 

@@ -42,6 +42,11 @@ regenerating for a closer match to the mockups.
 > `npm run images:generate` (see the README) uses its own shorter prompts from
 > `scripts/generate-images.mjs`, not the ones in this file.
 
+> **Real photos only, do not generate:** `people/founders.jpg` (About, "The
+> Founders") and `people/kandy_team.jpg` (About, "The People Behind Your
+> Stay"). They are real photographs of real people, taken from the old site.
+> They have no prompts on purpose.
+
 ---
 
 ## Stand-ins (do these first)

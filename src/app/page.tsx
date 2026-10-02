@@ -8,16 +8,32 @@ import { delay } from "@/lib/motion";
 import { bookHref } from "@/lib/site";
 import { featuredTestimonials } from "@/lib/testimonials";
 
-const estateImages = [
-  { src: "/assets/images/stone_bath.jpg", caption: "A Private Stone Bath", alt: "Carved stone soaking tub in a tropical garden" },
-  { src: "/assets/images/open_air_pavilion.jpg", caption: "Open-Air Pavilion", alt: "Open-air timber pavilion overlooking misty hills" },
+const estateVillas = [
+  {
+    slug: "avalon",
+    name: "Avalon Villa",
+    badge: "3-Bedroom Residence · Pool",
+    tagline: "The Grand Panoramic Villa",
+    src: "/assets/images/villas/avalon/avalon-hero.jpg",
+    alt: "Avalon Villa cantilevered infinity pool and sun deck in Kandy",
+    specs: "3 Luxury Suites · Up to 8 Guests",
+  },
+  {
+    slug: "acland",
+    name: "Villa Acland",
+    badge: "Artisan Sanctuary · Secluded",
+    tagline: "The Secluded Forest Haven",
+    src: "/assets/images/villas/acland/acland-hero.jpg",
+    alt: "Villa Acland stone architecture and lush canopy in Kandy",
+    specs: "Master Suite · Up to 3 Guests",
+  },
 ];
 
 const glimpses = [
-  { src: "/assets/images/pool_mist.jpg", caption: "Misty Mountain Pool", alt: "Infinity pool facing mist-covered mountains" },
-  { src: "/assets/images/teak_bedroom.jpg", caption: "Ceylon Teak Master Bedroom", alt: "Teak-panelled master bedroom" },
-  { src: "/assets/images/tea_terrace.jpg", caption: "Private Tea Terrace", alt: "Tea set on a terrace above the valley" },
-  { src: "/assets/images/artisanal_breakfast.jpg", caption: "Artisanal Breakfast", alt: "Sri Lankan breakfast spread on a wooden table" },
+  { src: "/assets/images/villas/avalon/avalon-exterior-pool.jpg", caption: "Cantilevered Infinity Pool (Avalon)", alt: "Infinity pool facing mist-covered mountains" },
+  { src: "/assets/images/villas/avalon/avalon-b1-master.jpg", caption: "Cloud Master Suite (Avalon)", alt: "Teak-panelled master bedroom with private balcony" },
+  { src: "/assets/images/villas/acland/acland-veranda-lounge.jpg", caption: "Scenic Veranda Lounge (Acland)", alt: "Open veranda overlooking forest canopy" },
+  { src: "/assets/images/villas/acland/acland-stone-bath.jpg", caption: "Artisan Stone Bath (Acland)", alt: "Carved stone soaking tub in natural garden" },
 ];
 
 const features = [
@@ -45,19 +61,21 @@ export default function HomePage() {
   return (
     <main>
       {/* Hero */}
-      <section className="relative h-auto min-h-[36rem] overflow-hidden lg:h-[27.3125rem] lg:min-h-0">
-        <Image
-          src="/assets/images/homepage_hero.jpg"
-          alt="Infinity pool and timber pavilion above a misty valley at sunset"
-          fill
-          preload
-          sizes="100vw"
-          className="enter-settle object-cover object-[50%_45%]"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,22,20,0.45)_0%,rgba(18,22,20,0.18)_45%,rgba(18,22,20,0)_70%)]"
-        />
+      <section className="relative h-auto min-h-[36rem] lg:h-[27.3125rem] lg:min-h-0">
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src="/assets/images/homepage_hero.jpg"
+            alt="Infinity pool and timber pavilion above a misty valley at sunset"
+            fill
+            preload
+            sizes="100vw"
+            className="enter-settle object-cover object-[50%_45%]"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,22,20,0.45)_0%,rgba(18,22,20,0.18)_45%,rgba(18,22,20,0)_70%)]"
+          />
+        </div>
         <div className="frame relative flex h-full flex-col px-5 pb-6 pt-24 lg:block lg:px-[3.625rem] lg:pb-0 lg:pt-[6.55rem]">
           <h1
             style={delay(150)}
@@ -69,9 +87,9 @@ export default function HomePage() {
           </h1>
           <p
             style={delay(400)}
-            className="enter-rise mt-[1.05rem] max-w-[19.2rem] text-[0.91rem] leading-[1.25rem] text-white/95"
+            className="enter-rise mt-[1.05rem] max-w-[21.5rem] text-[0.91rem] leading-[1.25rem] text-white/95"
           >
-            An exclusive private estate in the mist-veiled hills of Kandy, Sri Lanka.
+            Kandy Branch · Two private luxury villas set in the mist-veiled hills of Sri Lanka.
           </p>
           <span
             aria-hidden="true"
@@ -80,7 +98,7 @@ export default function HomePage() {
           />
           <div
             style={delay(850)}
-            className="enter-rise mt-auto pt-10 lg:absolute lg:left-1/2 lg:top-[21.7rem] lg:mt-0 lg:w-[43.5rem] lg:-translate-x-1/2 lg:pt-0"
+            className="enter-rise relative z-30 mt-auto pt-10 lg:absolute lg:left-1/2 lg:top-[21.7rem] lg:mt-0 lg:w-[49.5rem] xl:w-[53rem] max-w-[calc(100%-2rem)] lg:-translate-x-1/2 lg:pt-0"
           >
             <BookingBar />
           </div>
@@ -90,44 +108,58 @@ export default function HomePage() {
       {/* The Estate */}
       <section className="bg-ivory">
         <div className="frame px-5 lg:px-[3.625rem]">
-          <div className="flex flex-col gap-10 py-12 lg:flex-row lg:gap-0 lg:pb-[1.3rem] lg:pt-[1.8rem]">
-            <div className="lg:w-[22rem] lg:pt-[0.6rem]">
-              <Eyebrow tone="taupe">The Estate</Eyebrow>
-              <h2 data-reveal="up" style={delay(120)} className="mt-[1.3rem] font-serif text-[2.7rem] leading-[2.75rem] text-ink">
-                One Villa.
+          <div className="flex flex-col gap-10 py-12 lg:flex-row lg:gap-0 lg:pb-[1.8rem] lg:pt-[1.8rem]">
+            <div className="lg:w-[23rem] lg:pt-[0.6rem]">
+              <Eyebrow tone="taupe">Kandy Branch · Sri Lanka</Eyebrow>
+              <h2 data-reveal="up" style={delay(120)} className="mt-[1.3rem] font-serif text-[2.5rem] leading-[2.6rem] text-ink sm:text-[2.7rem]">
+                Two Sanctuaries.
                 <br />
-                Complete Solitude.
+                One Hilltop Estate.
               </h2>
               <p
                 data-reveal="up"
                 style={delay(240)}
-                className="mt-[0.85rem] text-[0.875rem] leading-[1.26rem] tracking-[0.004em] text-ink-soft"
+                className="mt-[0.85rem] text-[0.875rem] leading-[1.35rem] tracking-[0.004em] text-ink-soft"
               >
-                Kintsugi Station is an exclusive private villa, reserved entirely for one group or couple at a time. A
-                sanctuary for those who seek quieter days, deeper connection and the restorative beauty of nature.
-                Here, time slows, and life feels whole again.
+                In the mist-veiled peaks of Upper Hantana, our Kandy estate features two distinct private residences: <strong className="font-medium text-ink">Avalon Villa</strong> and <strong className="font-medium text-ink">Villa Acland</strong>. Each secluded retreat is reserved entirely for one party at a time, complete with dedicated chef service, infinity pool or stone bath, and quiet mountain contemplation.
               </p>
+              <div data-reveal="up" style={delay(360)} className="mt-5 hidden lg:block">
+                <Link
+                  href="/villas"
+                  className="group inline-flex items-center gap-2 text-[0.78rem] font-medium tracking-[0.06em] text-gold hover:text-[#8f6d31]"
+                >
+                  <span>Compare Both Villas</span>
+                  <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-3 lg:ml-auto lg:w-[31.5rem] lg:gap-[0.75rem]">
-              {estateImages.map((img, i) => (
-                <figure key={img.src} className="group">
-                  <div data-reveal="image" style={delay(i * 180)} className="relative aspect-[246/259] overflow-hidden">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:ml-auto lg:w-[32.5rem] lg:gap-[0.9rem]">
+              {estateVillas.map((villa, i) => (
+                <article key={villa.slug} className="group flex flex-col rounded-[2px] border border-[#e4ded5] bg-linen/70 p-3 transition-colors hover:border-gold/60">
+                  <div data-reveal="image" style={delay(i * 180)} className="relative aspect-[4/3] overflow-hidden rounded-[2px]">
                     <Image
-                      src={img.src}
-                      alt={img.alt}
+                      src={villa.src}
+                      alt={villa.alt}
                       fill
                       sizes="(min-width: 900px) 25vw, 50vw"
-                      className="object-cover group-hover:scale-[1.04]"
+                      className="object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.05]"
                     />
+                    <div className="absolute left-2.5 top-2.5 rounded-full bg-black/60 px-2.5 py-0.5 text-[0.58rem] font-medium tracking-[0.1em] text-[#e8d5b0] uppercase backdrop-blur-md">
+                      {villa.badge}
+                    </div>
                   </div>
-                  <figcaption
-                    data-reveal="fade"
-                    style={delay(i * 180 + 500)}
-                    className="mt-[0.7rem] text-[0.6rem] font-medium tracking-[0.08em] text-[#2b2c2a] uppercase"
-                  >
-                    {img.caption}
-                  </figcaption>
-                </figure>
+                  <div className="mt-3 flex flex-1 flex-col">
+                    <h3 className="font-serif text-[1.25rem] text-ink">{villa.name}</h3>
+                    <p className="mt-0.5 text-[0.72rem] text-[#6b6760]">{villa.specs}</p>
+                    <Link
+                      href={`/villas/${villa.slug}`}
+                      className="mt-3 inline-flex items-center gap-1.5 text-[0.74rem] font-medium tracking-[0.04em] text-gold transition-colors hover:text-[#8f6d31]"
+                    >
+                      <span>Explore {villa.name}</span>
+                      <ArrowRight className="size-3 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </article>
               ))}
             </div>
           </div>
