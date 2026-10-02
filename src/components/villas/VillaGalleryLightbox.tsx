@@ -91,7 +91,7 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
             data-reveal="image"
             style={delay((idx % 6) * 70)}
             onClick={() => openLightbox(idx)}
-            className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-[2px] bg-[#1a1c1a] shadow-sm transition-all duration-500 hover:shadow-md"
+            className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-[2px] bg-[#1a1c1a] shadow-sm transition-all duration-500 hover:shadow-lg"
           >
             <Image
               src={photo.src}
@@ -101,30 +101,31 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
               className="object-cover transition-transform duration-700 ease-soft group-hover:scale-105"
             />
 
-            {/* Gradient Overlays: Subtle ambient base + Deep hover backdrop */}
+            {/* Darken backdrop overlay on hover */}
             <div
               aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-0"
+              className="absolute inset-0 bg-black/45 opacity-0 transition-opacity duration-400 ease-soft group-hover:opacity-100"
             />
+            {/* Rich gradient at bottom for maximum caption legibility on hover */}
             <div
               aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 opacity-0 transition-opacity duration-400 group-hover:opacity-100"
+              className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 transition-opacity duration-400 ease-soft group-hover:opacity-100"
             />
 
-            {/* Category tag icon badge top-right */}
-            <div className="absolute right-3 top-3 rounded-full bg-black/40 p-1.5 text-white/80 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:scale-105">
+            {/* Expand icon badge top-right on hover */}
+            <div className="absolute right-3 top-3 rounded-full bg-black/50 p-1.5 text-white/90 opacity-0 backdrop-blur-sm transition-all duration-300 ease-soft group-hover:opacity-100 group-hover:scale-105">
               <Maximize2 className="size-3.5" />
             </div>
 
-            {/* Hover Caption Details */}
-            <figcaption className="absolute bottom-0 left-0 right-0 p-4 text-white">
+            {/* Caption Overlay: completely hidden by default, smoothly appears on hover */}
+            <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 p-4 text-white opacity-0 translate-y-2 transition-all duration-400 ease-soft group-hover:opacity-100 group-hover:translate-y-0">
               {/* Category label */}
-              <span className="mb-1 block text-[0.58rem] font-medium uppercase tracking-[0.2em] text-[#d9bf87] transition-transform duration-500 ease-soft group-hover:-translate-y-1">
+              <span className="mb-1 block text-[0.58rem] font-medium uppercase tracking-[0.2em] text-[#d9bf87]">
                 {categoryLabels[photo.category || "living"]}
               </span>
 
               {/* Exact Photo Caption */}
-              <p className="font-serif text-[0.92rem] font-light leading-snug text-[#f7f5f0] drop-shadow-sm transition-transform duration-500 ease-soft group-hover:-translate-y-1">
+              <p className="font-serif text-[0.92rem] font-light leading-snug text-[#f7f5f0] drop-shadow-sm">
                 {photo.caption}
               </p>
 
@@ -135,7 +136,7 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
               />
 
               {/* Interaction Hint */}
-              <span className="mt-2 flex items-center gap-1.5 text-[0.62rem] uppercase tracking-[0.14em] text-[#e0cfb0] opacity-0 transition-all duration-300 group-hover:opacity-100">
+              <span className="mt-2 flex items-center gap-1.5 text-[0.62rem] uppercase tracking-[0.14em] text-[#e0cfb0]">
                 <span>Inspect photograph</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </span>
