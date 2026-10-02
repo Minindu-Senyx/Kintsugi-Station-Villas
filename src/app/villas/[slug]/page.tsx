@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 import { QuoteMark } from "@/components/brand/QuoteMark";
 import SpaceExplorer from "@/components/villas/SpaceExplorer";
+import VillaAmenities from "@/components/villas/VillaAmenities";
 import VillaGalleryLightbox from "@/components/villas/VillaGalleryLightbox";
-import VillaVideoModal from "@/components/villas/VillaVideoModal";
 import { delay } from "@/lib/motion";
 import { allVillas, getVillaBySlug, villas } from "@/lib/villas";
 
@@ -111,9 +111,6 @@ export default async function VillaDetailPage({
               >
                 Reserve This Villa
               </Link>
-              {villa.videoUrl && (
-                <VillaVideoModal videoUrl={villa.videoUrl} villaName={villa.name} />
-              )}
             </div>
           </div>
         </div>
@@ -364,55 +361,11 @@ export default async function VillaDetailPage({
       </section>
 
       {/* Amenities & Estate Services */}
-      <section className="border-t border-[#e2dcd2] bg-ivory py-16 sm:py-24">
-        <div className="frame px-5 lg:px-[3.625rem]">
-          <div className="text-center">
-            <p
-              data-reveal="up"
-              style={delay(100)}
-              className="eyebrow text-[0.62rem] tracking-[0.28em] text-[#8e8578] uppercase"
-            >
-              Estate Amenities
-            </p>
-            <h2
-              data-reveal="up"
-              style={delay(200)}
-              className="mt-2 font-serif text-[2.2rem] text-ink sm:text-[2.6rem]"
-            >
-              Refined Comforts &amp; Services
-            </h2>
-            <span
-              aria-hidden="true"
-              data-reveal="line"
-              style={delay(300)}
-              className="mx-auto mt-4 block h-px w-14 bg-gold"
-            />
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-[#e5dfd4]">
-            {villa.amenities.map((group, gIdx) => (
-              <div
-                key={group.category}
-                data-reveal="up"
-                style={delay(100 + gIdx * 90)}
-                className={`flex flex-col ${gIdx > 0 ? "lg:pl-8" : ""}`}
-              >
-                <h3 className="font-serif text-[1.12rem] text-ink pb-3 border-b border-[#e5dfd4]">
-                  {group.category}
-                </h3>
-                <ul className="mt-4 space-y-2.5 text-[0.82rem] text-[#4d4e4b]">
-                  {group.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5">
-                      <span className="mt-2 h-px w-2.5 bg-gold/80 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <VillaAmenities
+        amenities={villa.amenities}
+        villaSlug={villa.slug}
+        villaName={villa.name}
+      />
 
       {/* Real Photography Visual Chronicle */}
       <section className="border-t border-[#e2dcd2] bg-linen py-16 sm:py-24">
