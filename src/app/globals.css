@@ -246,6 +246,30 @@ label:has(.picker-input:focus-visible) {
   transform: scale(1.12);
 }
 
+/*
+ * Kintsugi roots: gold spreads outward from the corner the roots grow from,
+ * like lacquer running into the cracks. Each KintsugiVeins variant sets
+ * its own `--origin`.
+ */
+@property --grow {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 120%;
+}
+
+.js [data-reveal="roots"] {
+  mask-image: radial-gradient(
+    circle farthest-corner at var(--origin, 0 0),
+    #000 calc(var(--grow) - 16%),
+    transparent var(--grow)
+  );
+  transition: --grow 3.8s cubic-bezier(0.45, 0, 0.2, 1);
+  transition-delay: var(--d, 150ms);
+}
+.js [data-reveal="roots"]:not([data-shown]) {
+  --grow: 0%;
+}
+
 /* The logo banner fades out on its right edge so its cream marble melts into the page. */
 .logo-fade {
   -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 52%, transparent 100%);

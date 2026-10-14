@@ -173,7 +173,7 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
       </section>
 
       {/* Amenities */}
-      <VillaAmenities amenities={villa.amenities} villaName={villa.name} />
+      <VillaAmenities amenities={villa.amenities} highlights={villa.highlights} villaName={villa.name} />
 
       {/* Photographs */}
       <section className="border-t border-[#e0d9cc] bg-linen">

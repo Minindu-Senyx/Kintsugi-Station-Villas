@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import BookingBar from "@/components/home/BookingBar";
+import HeroCarousel, { type HeroSlide } from "@/components/home/HeroCarousel";
 import TestimonialCarousel from "@/components/home/TestimonialCarousel";
 import { airbnbListings, airbnbUrl, bookHref, discountNote } from "@/lib/booking";
 import { delay } from "@/lib/motion";
@@ -14,6 +15,34 @@ const glimpses = [
   { src: "/assets/images/villas/acland/acland-bedroom-lighting.jpg", alt: "King-size bed in the bedroom at Villa Acland" },
 ];
 
+const heroSlides: HeroSlide[] = [
+  {
+    src: "/assets/images/villas/acland/acland-hero.jpg",
+    alt: "Villa Acland among old trees, with its blue-grey walls and stone urns",
+    position: "50% 55%",
+  },
+  {
+    src: "/assets/images/villas/avalon/avalon-pavilion-view.jpg",
+    alt: "The lounge at Avalon Villa, with teal shutters, rattan chairs and warm lamps",
+    position: "50% 55%",
+  },
+  {
+    src: "/assets/images/villas/avalon/avalon-living-overview.jpg",
+    alt: "The veranda dining table at Avalon Villa, open to the forest",
+    position: "50% 62%",
+  },
+  {
+    src: "/assets/images/villas/acland/acland-bedroom-lighting.jpg",
+    alt: "The bedroom at Villa Acland, with morning light through the trees",
+    position: "50% 60%",
+  },
+  {
+    src: "/assets/images/villas/avalon/avalon-exterior-pool.jpg",
+    alt: "Morning sunbeams breaking through the forest canopy beside the villas",
+    position: "50% 42%",
+  },
+];
+
 const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-[#6f675d]";
 const h2 = "font-serif text-[2.2rem] leading-[1.1] text-ink sm:text-[2.5rem]";
 const textLink = "inline-flex min-h-6 items-center text-[0.85rem] font-medium text-gold underline-offset-4 transition-colors hover:text-gold-hover hover:underline";
@@ -22,39 +51,17 @@ export default function HomePage() {
   return (
     <main id="main-content" tabIndex={-1}>
       {/* Hero */}
-      <section className="relative h-auto min-h-[36rem] lg:h-[27.3125rem] lg:min-h-0">
-        <div className="absolute inset-0 overflow-hidden">
-          <Image
-            src="/assets/images/villas/avalon/avalon-exterior-pool.jpg"
-            alt="Morning sunbeams breaking through the forest canopy beside the villas"
-            fill
-            preload
-            sizes="100vw"
-            className="enter-settle object-cover object-[50%_42%]"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,18,16,0.6)_0%,rgba(14,18,16,0.45)_60%,rgba(14,18,16,0.55)_100%)] lg:bg-[linear-gradient(90deg,rgba(14,18,16,0.66)_0%,rgba(14,18,16,0.3)_50%,rgba(14,18,16,0.05)_100%)]"
-          />
-        </div>
-        <div className="frame relative flex h-full flex-col px-5 pb-6 pt-24 lg:block lg:px-[3.625rem] lg:pb-0 lg:pt-[6.4rem]">
-          <h1
-            style={delay(150)}
-            className="enter-rise max-w-[30rem] font-serif text-[2.5rem] leading-[1.08] text-white lg:text-[2.98rem] lg:leading-[3.02rem]"
-          >
-            Two private villas in the hills of Kandy
-          </h1>
-          <p style={delay(400)} className="enter-rise mt-[1rem] max-w-[24rem] text-[0.95rem] leading-[1.35rem] text-white">
-            A short walk from the Temple of the Tooth. Each villa is yours alone for the length of your stay.
-          </p>
-          <div
-            style={delay(700)}
-            className="enter-rise relative z-30 mt-auto pt-10 lg:absolute lg:left-1/2 lg:top-[21.7rem] lg:mt-0 lg:w-[49.5rem] lg:max-w-[calc(100%-2rem)] lg:-translate-x-1/2 lg:pt-0 xl:w-[53rem]"
-          >
-            <BookingBar />
-          </div>
-        </div>
-      </section>
+      <HeroCarousel slides={heroSlides} bar={<BookingBar />}>
+        <h1
+          style={delay(150)}
+          className="enter-rise max-w-[30rem] font-serif text-[2.5rem] leading-[1.08] text-white [text-shadow:0_1px_14px_rgba(6,20,30,0.45)] lg:text-[2.98rem] lg:leading-[3.02rem]"
+        >
+          Two private villas in the hills of Kandy
+        </h1>
+        <p style={delay(400)} className="enter-rise mt-[1rem] max-w-[24rem] text-[0.95rem] leading-[1.35rem] text-white [text-shadow:0_1px_10px_rgba(6,20,30,0.55)]">
+          A short walk from the Temple of the Tooth. Each villa is yours alone for the length of your stay.
+        </p>
+      </HeroCarousel>
 
       {/* The villas */}
       <section className="bg-ivory">

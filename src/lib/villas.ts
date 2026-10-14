@@ -24,6 +24,8 @@ export type Villa = {
   summary: string;
   /** One sentence for cards and lists. */
   short: string;
+  /** The eight things guests ask about first, shown at a glance above the full amenity lists. */
+  highlights: string[];
   description: string[];
   specs: {
     bedrooms: number;
@@ -56,6 +58,16 @@ export const villas: Record<"avalon" | "acland", Villa> = {
     eyebrow: "Kandy · 3-Bedroom Villa · Sleeps 6",
     tagline: "The Grand Panoramic Hillside Residence",
     short: "Three bedrooms, a library, a cinema room and a jacuzzi hot tub, with open verandas and forest views.",
+    highlights: [
+      "Jacuzzi hot tub",
+      "Cinema room with projector",
+      "Library",
+      "Private garden",
+      "Fast Wi-Fi",
+      "Air conditioning",
+      "Free parking",
+      "Breakfast included",
+    ],
     summary:
       "A restored three-bedroom villa on a quiet Kandy hillside, a short walk from the Temple of the Tooth. Open verandas, a private garden, balconies, a library, a cinema room and a jacuzzi hot tub, with views across the forest to the Hanthana mountain range.",
     description: [
@@ -268,6 +280,16 @@ export const villas: Record<"avalon" | "acland", Villa> = {
     eyebrow: "Kandy · 1-Bedroom Villa · Sleeps 2",
     tagline: "The Secluded Sanctuary & Artisan Haven",
     short: "One bedroom for two, with a king-size bed, two balconies and a full kitchen, in a leafy garden.",
+    highlights: [
+      "King-size bed",
+      "Two private balconies",
+      "Fully equipped kitchen",
+      "Private garden",
+      "Fast Wi-Fi",
+      "Air conditioning",
+      "Free parking",
+      "Breakfast included",
+    ],
     summary:
       "A private one-bedroom villa beside Avalon Villa, made for two. A king-size bed, two balconies, a fully equipped kitchen and a leafy setting alive with birdsong, a short walk from the centre of Kandy.",
     description: [

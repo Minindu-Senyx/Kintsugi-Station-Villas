@@ -6,7 +6,7 @@ Bookings are made on Airbnb.
 
 | Route            | Page                                                    |
 | ---------------- | ------------------------------------------------------- |
-| `/`              | Home: hero, booking bar, the villas, reviews, rates     |
+| `/`              | Home: photo carousel, booking bar, villas, reviews, rates |
 | `/villas`        | Both villas, and the three Airbnb listings              |
 | `/villas/[slug]` | `avalon` and `acland`: facts, spaces, amenities, photos |
 | `/gallery`       | Photo grid with a lightbox                              |
@@ -26,7 +26,9 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Minimal on purpose: ivory surfaces, EB Garamond headings, Figtree text, one
 bronze accent, thin rules, no decorative icons or artwork. Icons appear only
-where they are controls (menu, close, previous/next, dropdown chevrons).
+where they are controls (menu, close, previous/next, dropdown chevrons). The one
+exception is the About page, which keeps its original design and gold-vein
+artwork.
 
 From the desktop breakpoint (900px) up, the root font-size scales with the
 viewport (`1rem = 16px` at 1024px, see `src/app/globals.css`) and sizes are in
@@ -41,8 +43,8 @@ surface.
 
 - `src/app`: the routes, plus `not-found`, `sitemap`, `robots` and the icons
 - `src/components/site`: header (with the Villas menu), mobile menu, footer, logo
-- `src/components/home`: the booking bar and the review carousel
-- `src/components/villas`: the Airbnb rows, space explorer, amenities, photo lightbox
+- `src/components/home`: the hero photo carousel (pause/play, reduced-motion aware), the booking bar and the review carousel
+- `src/components/villas`: the Airbnb rows, space explorer, amenities (highlights plus accordions), photo lightbox
 - `src/components/contact`: the message form
 - `src/lib/site.ts`: domain, nav, contact details, social links, distances, form settings
 - `src/lib/booking.ts`: the Airbnb listings (IDs, capacity, nightly rates,
@@ -54,7 +56,10 @@ surface.
 The villa photos in `public/assets/images/villas` are the owners' real property
 photography, resized from their Drive export by `npm run images:villas` (the
 export folders sit in the project root and are git-ignored; keep them). The
-home hero and the About page use these same photos.
+home hero uses one of them. The About page is the original design and still
+uses a few AI-generated stand-in images in `public/assets/images/` (not real
+photos of the villas), drawn with the gold-vein artwork in
+`src/components/brand/` (served by `src/app/roots/`).
 
 `public/assets/images/people/founders.jpg` is a real photograph of the owners.
 Use only real photographs of real people; the old team photo was removed at the
