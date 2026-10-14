@@ -1,16 +1,17 @@
-# Kintsugi Station · Kandy
+# Kintsugi Station Villas · Kandy
 
-Marketing site for Kintsugi Station, a private villa in the Kandy hills. Built
-with Next.js 16 (App Router), TypeScript and Tailwind CSS v4.
+Website for Kintsugi Station Villas: Avalon Villa and Villa Acland in Kandy, Sri
+Lanka. Built with Next.js 16 (App Router), TypeScript and Tailwind CSS v4.
+Bookings are made on Airbnb.
 
-The four pages are built to the UI mockups in `Ui Mockup/`:
-
-| Route      | Mockup                                  |
-| ---------- | --------------------------------------- |
-| `/`        | `kintsugi-station-kandy-homepage.png`   |
-| `/about`   | `kintsugi-station-about-page.png`       |
-| `/gallery` | `kintsugi-station-gallery-page.png`     |
-| `/contact` | `kintsugi-station-contact-page.png`     |
+| Route            | Page                                                    |
+| ---------------- | ------------------------------------------------------- |
+| `/`              | Home: hero, booking bar, the villas, reviews, rates     |
+| `/villas`        | Both villas, and the three Airbnb listings              |
+| `/villas/[slug]` | `avalon` and `acland`: facts, spaces, amenities, photos |
+| `/gallery`       | Photo grid with a lightbox                              |
+| `/about`         | Story, founders, team                                   |
+| `/contact`       | Booking, contact details, message form, getting here    |
 
 ## Getting started
 
@@ -21,88 +22,70 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## How the layout matches the mockups
+## Design
 
-The mockups are 1024px wide. From the desktop breakpoint (900px) up, the root
-font-size scales with the viewport (`1rem = 16px` at 1024px, see
-`src/app/globals.css`), and every size is expressed in rem. The layout is
-therefore proportionally identical to the mockup at any desktop width. Below
-900px, each section stacks into a mobile layout.
+Minimal on purpose: ivory surfaces, EB Garamond headings, Figtree text, one
+bronze accent, thin rules, no decorative icons or artwork. Icons appear only
+where they are controls (menu, close, previous/next, dropdown chevrons).
 
-Each mockup has its own header and footer, so each page has its own pair in
-`src/components/<page>/`. Fonts are EB Garamond (serif) and Figtree (sans),
-loaded through `next/font`.
+From the desktop breakpoint (900px) up, the root font-size scales with the
+viewport (`1rem = 16px` at 1024px, see `src/app/globals.css`) and sizes are in
+rem, so the layout keeps its proportions at any desktop width. Below 900px the
+sections stack.
+
+Colours are tokens in `globals.css`. The bronze gold (`--color-gold`) and the
+muted greys are chosen to keep text at 4.5:1 contrast or better on every page
+surface.
 
 ## Structure
 
-- `src/app`: the four routes, plus `not-found`, `sitemap`, `robots` and the icon
-- `src/components/{home,about,gallery,contact}`: page-specific header, footer
-  and interactive pieces (availability bar, gallery filters and lightbox,
-  estate map)
-- `src/components/villas/BookOnAirbnb.tsx`: the three Airbnb listings with price,
-  capacity and awards, used on the Villas and Contact pages
-- `src/components/brand`: mountain mark, ridge line and gold kintsugi veins (SVG)
-- `src/lib/site.ts`: site domain, nav links, contact details, social URLs and
-  distances from the villa
+- `src/app`: the routes, plus `not-found`, `sitemap`, `robots` and the icons
+- `src/components/site`: header (with the Villas menu), mobile menu, footer, logo
+- `src/components/home`: the booking bar and the review carousel
+- `src/components/villas`: the Airbnb rows, space explorer, amenities, photo lightbox
+- `src/components/contact`: the message form
+- `src/lib/site.ts`: domain, nav, contact details, social links, distances, form settings
 - `src/lib/booking.ts`: the Airbnb listings (IDs, capacity, nightly rates,
   awards) and `airbnbUrl()`, which builds a listing link with dates and guests
+- `src/lib/villas.ts`, `testimonials.ts`, `founders.ts`, `team.ts`: page content
 
-## Photography (Nano Banana)
+## Photography and logo
 
-The villa photos in `public/assets/images/villas` are the owners' real
-property photography, resized from their Drive export by
-`npm run images:villas` (the export folders sit in the project root and are
-git-ignored). The other images directly in `public/assets/images` (home hero,
-About page and so on) are AI-generated with Google's Nano Banana image model. `scripts/generate-images.mjs` holds the prompt for every image
-and writes the results straight into the site:
+The villa photos in `public/assets/images/villas` are the owners' real property
+photography, resized from their Drive export by `npm run images:villas` (the
+export folders sit in the project root and are git-ignored; keep them). The
+home hero and the About page use these same photos.
 
-```bash
-# put GEMINI_API_KEY=... in .env.local (git-ignored) or your shell, then:
-npm run images:generate               # regenerate the stand-in images
-npm run images:generate -- --all      # regenerate everything
-npm run images:generate -- --only contact_hero,night_villa_hills
-npm run images:generate -- --list     # list image names
-```
-
-To generate images by hand instead (for example in the Gemini app), use the
-prompts in [`docs/image-prompts.md`](docs/image-prompts.md). That file also
-lists each photo's filename, aspect ratio and where it is used.
-
-Set `GEMINI_IMAGE_MODEL` to use a different or newer model. Some images in the
-generator's list (for example `contact_hero`) are no longer used by any page
-and their files were removed; `--all` would recreate them.
-
-### Logo
+`public/assets/images/people/founders.jpg` is a real photograph of the owners.
+Use only real photographs of real people; the old team photo was removed at the
+owners' request.
 
 The owners' logo lives in `public/assets/brand/`: the full-size master
 (`kintsugi-station-villas-logo.png`), a 720px WebP used by the header and footer
-(`...-720.webp`) and the 1200x630 social-share card (`og-image.jpg`). The
-favicon and app icon (`src/app/icon.png`, `apple-icon.png`) are a square crop of
-the marble from the left of the logo. `src/components/site/SiteLogo.tsx` renders
-it. If the logo changes, regenerate the three derived files from the master.
-
-### Real photos of people
-
-`public/assets/images/people/` holds a real photograph of the owners from the old site
-(stationvillas.lk): `founders.jpg` (About, "The Founders"). The old team photo
-was removed at the owners' request, so "The People Behind Your Stay" has no
-photo until new ones arrive. Never replace these with generated images. Nano Banana is only for places and objects, never for
-real, named people.
+(`...-720.webp`) and the 1200x630 social card (`og-image.jpg`). The favicon and
+app icon (`src/app/icon.png`, `apple-icon.png`) are a square crop of the marble
+from the left of the logo. `SiteLogo` renders it: in the header it runs the full
+height of the bar, bleeds off the left edge and fades into the page on its right
+(the `.logo-fade` mask in `globals.css`). If the logo changes, regenerate the
+three derived files from the master.
 
 ## Guest reviews, founders and team
 
-The content for these sections lives in data files, separate from the page
-layout, so it can be edited without touching the design:
-
 - `src/lib/testimonials.ts`: guest reviews, copied word for word from the old
-  site. `featured` picks the ones shown in the home page "Guest Voices"
-  carousel.
+  site. `featured` picks the ones in the home page carousel.
 - `src/lib/founders.ts`: the founders' names, bio and photo.
 - `src/lib/team.ts`: the Kandy team. Add a `quote` only in the person's own
   words, once they have approved it.
 
-The plan and open questions for these sections are in
-[`docs/plan-testimonials-founders-staff.md`](docs/plan-testimonials-founders-staff.md).
+## Contact form
+
+The "Send a message" form on `/contact` is delivered by
+[formsubmit.co](https://formsubmit.co). Its settings are `messageForm` in
+`src/lib/site.ts`: messages go to the first email in `contact.emails` and are
+copied to the others. **The first time a message is sent, FormSubmit emails that
+address a one-off confirmation link; click it, or nothing is delivered.** After
+that, FormSubmit offers a random alias that can replace the email in the URL so
+the address isn't in the page source.
 
 ## Before launch
 
@@ -112,24 +95,13 @@ The plan and open questions for these sections are in
   `src/lib/booking.ts` when the listings change.
 - Add Facebook, Google Business, TripAdvisor and Booking.com links to `social`
   in `src/lib/site.ts` once those profiles exist.
-- The home hero and the About page images are still AI-generated, and the home
-  hero shows an infinity pool the villas do not have. Swap them for real photos.
-
-## Contact form
-
-The "Send Us a Message" form on `/contact` is delivered by
-[formsubmit.co](https://formsubmit.co). Its settings are `messageForm` in
-`src/lib/site.ts`: messages go to the first email in `contact.emails` and are
-copied to the others. **The first time a message is sent, FormSubmit emails that
-address a one-off confirmation link; click it, or nothing is delivered.** After
-that, FormSubmit offers a random alias that can replace the email in the URL so
-the address isn't in the page source.
+- Send one test message through the contact form and confirm it arrives.
 
 ## Tests
 
 End-to-end tests use Playwright in the installed Google Chrome (no browser
 download). They cover the contact form (FormSubmit and Airbnb are mocked, so
-nothing is ever sent), the Villas menu, and the Airbnb booking buttons.
+nothing is ever sent), the Villas menu, the Airbnb booking buttons and the logo.
 
 ```bash
 npm run test:e2e                              # builds, starts the site on :3111, runs desktop + mobile

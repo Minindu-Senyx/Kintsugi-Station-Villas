@@ -24,10 +24,10 @@ export default function GalleryPage() {
           style={delay(220)}
           className="enter-rise mt-[0.75rem] text-center font-serif text-[2.6rem] leading-none text-ink lg:text-[3.36rem]"
         >
-          Visual Moments
+          Gallery
         </h1>
         <p style={delay(380)} className="enter-rise mt-[0.45rem] px-5 text-center font-serif text-[1.09rem] text-[#4a4a43]">
-          Light, mist, and silence across our private hill country estate.
+          Both villas, in photographs.
         </p>
         <GalleryGrid />
       </section>
@@ -45,14 +45,14 @@ export default function GalleryPage() {
           data-reveal="up"
           className="relative -mt-[0.6rem] px-5 text-center font-serif text-[1.78rem] leading-tight text-[#1b1d1a]"
         >
-          Experience the stillness yourself
+          Book your stay
         </h2>
         <div data-reveal="up" style={delay(150)} className="relative mt-[0.95rem]">
           <Link
             href={bookHref}
-            className="sheen flex h-[2.4rem] w-[10rem] items-center justify-center bg-[#c0a257] font-serif text-[0.97rem] text-[#2c2a19] transition-[filter] hover:brightness-105"
+            className="flex h-[2.4rem] w-[10rem] items-center justify-center bg-gold font-serif text-[0.97rem] text-[#f7f1e4] transition-colors hover:bg-gold-hover"
           >
-            Reserve Your Stay
+            Book on Airbnb
           </Link>
         </div>
       </section>

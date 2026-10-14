@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { QuoteMark } from "@/components/brand/QuoteMark";
 import type { Testimonial } from "@/lib/testimonials";
 
 /*
@@ -37,18 +36,14 @@ export default function TestimonialCarousel({ items }: { items: Testimonial[] })
         if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
       }}
     >
-      <div aria-live="polite" className="min-h-[15rem] sm:min-h-[11rem] lg:min-h-[9.6rem]">
+      <div aria-live="polite" className="min-h-[17rem] sm:min-h-[13rem] lg:min-h-[11.5rem]">
         {/* Keyed so each review remounts and fades in afresh. */}
         <figure key={index} aria-roledescription="slide" className="enter-fade">
-          <QuoteMark className="h-[1.6rem] text-[3.4rem]" />
-          <blockquote className="mt-[0.4rem] font-serif text-[1.2rem] leading-[1.6rem] text-ink">
-            <p>{current.excerpt}</p>
+          <blockquote className="font-serif text-[1.3rem] leading-[1.7rem] text-ink">
+            <p>&ldquo;{current.excerpt}&rdquo;</p>
           </blockquote>
-          <figcaption className="mt-[1rem] flex items-start gap-[0.6rem] text-[0.7rem] uppercase leading-[1.1rem] tracking-[0.14em] text-[#6f675d]">
-            <span aria-hidden="true" className="mt-[0.55rem] h-px w-[1.8rem] shrink-0 bg-[#c3a876]" />
-            <span>
-              {current.name} · {current.date} · {current.stay}
-            </span>
+          <figcaption className="mt-[1rem] text-[0.75rem] leading-[1.2rem] text-[#5a5c58]">
+            {current.name} · {current.date} · {current.stay}
           </figcaption>
         </figure>
       </div>

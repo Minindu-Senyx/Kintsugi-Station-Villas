@@ -9,15 +9,15 @@ export default function NotFound() {
           Page not found
         </p>
         <h1 style={delay(250)} className="enter-rise mt-5 font-serif text-[2.7rem] leading-tight text-ink">
-          This path has faded into the mist.
+          We can&rsquo;t find that page.
         </h1>
         <p style={delay(450)} className="enter-rise mt-4 max-w-md text-[0.9rem] leading-relaxed text-ink-soft">
-          The page you were looking for doesn&rsquo;t exist. Let us guide you back to the estate.
+          The page you were looking for doesn&rsquo;t exist. You can head back to the home page.
         </p>
         <Link
           href="/"
           style={delay(650)}
-          className="enter-rise sheen mt-8 flex h-[2.4rem] items-center bg-gold px-8 text-[0.8rem] text-[#f7f1e4] transition-colors hover:bg-gold-hover"
+          className="enter-rise mt-8 flex h-[2.4rem] items-center bg-gold px-8 text-[0.8rem] text-[#f7f1e4] transition-colors hover:bg-gold-hover"
         >
           Return Home
         </Link>

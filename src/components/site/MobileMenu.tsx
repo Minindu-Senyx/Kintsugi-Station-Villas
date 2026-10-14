@@ -94,7 +94,7 @@ export default function MobileMenu() {
               href={bookHref}
               onClick={() => setOpen(false)}
               style={delay(open ? 80 + navItems.length * 60 : 0)}
-              className={`sheen mt-3 block rounded-[3px] bg-gold py-3 text-center text-sm text-white transition-[opacity,translate] delay-(--d) duration-600 ease-soft ${
+              className={`mt-3 block rounded-[3px] bg-gold py-3 text-center text-sm text-white transition-[opacity,translate] delay-(--d) duration-600 ease-soft ${
                 open ? "" : "-translate-y-2 opacity-0"
               }`}
             >

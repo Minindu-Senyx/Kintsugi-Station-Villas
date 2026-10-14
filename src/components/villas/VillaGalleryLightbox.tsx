@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { delay } from "@/lib/motion";
 import type { VillaPhoto } from "@/lib/villas";
 
@@ -76,7 +76,7 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
             style={delay((idx % 6) * 70)}
             onClick={() => setLightboxIndex(idx)}
             aria-label={`View photo: ${photo.caption}`}
-            className="group relative block aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-[2px] bg-[#1a1c1a] text-left shadow-sm transition-all duration-500 hover:shadow-lg focus-visible:outline-offset-[-3px]"
+            className="group relative block aspect-[4/3] w-full cursor-pointer overflow-hidden bg-[#1a1c1a] text-left focus-visible:outline-offset-[-3px]"
           >
             <Image
               src={photo.src}
@@ -86,35 +86,12 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
               className="object-cover transition-transform duration-700 ease-soft group-hover:scale-105 group-focus-visible:scale-105"
             />
 
-            {/* Darkening overlay and caption gradient, on hover or keyboard focus */}
+            {/* The caption fades in on hover or keyboard focus */}
             <span
               aria-hidden="true"
-              className="absolute inset-0 bg-black/45 opacity-0 transition-opacity duration-400 ease-soft group-hover:opacity-100 group-focus-visible:opacity-100"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 transition-opacity duration-400 ease-soft group-hover:opacity-100 group-focus-visible:opacity-100"
-            />
-
-            <span
-              aria-hidden="true"
-              className="absolute right-3 top-3 rounded-full bg-black/50 p-1.5 text-white/90 opacity-0 backdrop-blur-sm transition-all duration-300 ease-soft group-hover:scale-105 group-hover:opacity-100 group-focus-visible:opacity-100"
+              className="pointer-events-none absolute inset-x-0 bottom-0 block bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4 pt-10 text-[0.88rem] leading-snug text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
             >
-              <Maximize2 className="size-3.5" />
-            </span>
-
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 bottom-0 block translate-y-2 p-4 text-white opacity-0 transition-all duration-400 ease-soft group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
-            >
-              <span className="mb-1 block text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#e6cc93]">
-                {categoryLabels[photo.category || "living"]}
-              </span>
-              <span className="block font-serif text-[0.92rem] font-light leading-snug text-[#f7f5f0]">{photo.caption}</span>
-              <span className="mt-2.5 block h-px w-8 origin-left scale-x-0 bg-[#e6cc93] transition-transform duration-500 ease-soft group-hover:scale-x-100 group-focus-visible:scale-x-100" />
-              <span className="mt-2 flex items-center gap-1.5 text-[0.72rem] uppercase tracking-[0.14em] text-[#ecdcc0]">
-                Inspect photograph <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </span>
+              {photo.caption}
             </span>
           </button>
         ))}

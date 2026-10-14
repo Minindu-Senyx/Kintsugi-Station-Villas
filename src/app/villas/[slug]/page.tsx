@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ExternalLink, Star } from "lucide-react";
-import { QuoteMark } from "@/components/brand/QuoteMark";
 import SpaceExplorer from "@/components/villas/SpaceExplorer";
 import VillaAmenities from "@/components/villas/VillaAmenities";
 import VillaGalleryLightbox from "@/components/villas/VillaGalleryLightbox";
@@ -15,11 +13,7 @@ export function generateStaticParams() {
   return allVillas.map((v) => ({ slug: v.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const villa = getVillaBySlug(slug);
 
@@ -33,11 +27,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function VillaDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-[#6f675d]";
+const h2 = "font-serif text-[2.2rem] leading-[1.1] text-ink sm:text-[2.5rem]";
+const label = "eyebrow text-[0.7rem] tracking-[0.2em] text-[#5a5c58]";
+
+export default async function VillaDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const villa = getVillaBySlug(slug);
 
@@ -47,458 +41,187 @@ export default async function VillaDetailPage({
 
   const sisterVilla = slug === "avalon" ? villas.acland : villas.avalon;
   const listing = airbnbListings[villa.slug];
+  const sister = airbnbListings[sisterVilla.slug];
   const bookUrl = airbnbUrl(villa.slug);
+  const proof = [
+    listing.rating && `${listing.rating.score.toFixed(1)} on Airbnb · ${listing.rating.count} reviews`,
+    ...listing.badges,
+  ].filter(Boolean);
 
   return (
     <main id="main-content" tabIndex={-1} className="bg-ivory text-ink">
-      {/* Villa Hero Section */}
-      <section className="relative min-h-[40rem] overflow-hidden lg:h-[36rem] lg:min-h-0">
-        <Image
-          src={villa.heroImage}
-          alt={villa.name}
-          fill
-          priority
-          sizes="100vw"
-          className="enter-settle object-cover object-[50%_40%]"
-        />
-        {/* Cinematic gradient overlays */}
+      {/* Hero */}
+      <section className="relative min-h-[36rem] overflow-hidden lg:h-[34rem] lg:min-h-0">
+        <Image src={villa.heroImage} alt="" fill priority sizes="100vw" className="enter-settle object-cover object-[50%_40%]" />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30 lg:bg-[linear-gradient(90deg,rgba(16,19,17,0.8)_0%,rgba(16,19,17,0.5)_55%,rgba(16,19,17,0.22)_100%)]"
+          className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/25 lg:bg-[linear-gradient(90deg,rgba(14,18,16,0.7)_0%,rgba(14,18,16,0.35)_55%,rgba(14,18,16,0.1)_100%)]"
         />
 
         <div className="frame relative flex h-full flex-col justify-end px-5 pb-10 pt-28 sm:pb-12 lg:justify-center lg:px-[3.625rem] lg:pt-16">
           <div className="max-w-2xl">
-            <p
-              style={delay(100)}
-              className="enter-rise eyebrow inline-block rounded-full bg-black/40 px-3.5 py-1 text-[0.7rem] font-medium tracking-[0.2em] text-[#d9b877] uppercase backdrop-blur-md"
-            >
+            <p style={delay(100)} className="enter-rise eyebrow text-[0.72rem] tracking-[0.2em] text-white/90">
               {villa.eyebrow}
             </p>
-            <h1
-              style={delay(200)}
-              className="enter-rise mt-3 font-serif text-[2.8rem] leading-[1.05] text-white sm:text-[3.6rem] lg:text-[4.2rem]"
-            >
+            <h1 style={delay(200)} className="enter-rise mt-4 font-serif text-[2.8rem] leading-[1.05] text-white sm:text-[3.6rem] lg:text-[4.2rem]">
               {villa.name}
             </h1>
-            <p
-              style={delay(350)}
-              className="enter-rise mt-3 max-w-xl font-serif text-[1.12rem] italic leading-snug text-white/90 sm:text-[1.25rem]"
-            >
+            <p style={delay(320)} className="enter-rise mt-3 max-w-xl font-serif text-[1.2rem] italic leading-snug text-white/90">
               {villa.tagline}
             </p>
-
-            {listing.rating && (
-              <p
-                style={delay(450)}
-                className="enter-rise mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.78rem] text-white/90"
-              >
-                <Star className="size-3.5 fill-[#d9b877] text-[#d9b877]" aria-hidden="true" />
-                <span>
-                  {listing.rating.score.toFixed(1)} · {listing.rating.count} reviews on Airbnb
-                </span>
-                {listing.badges.map((badge) => (
-                  <span key={badge} className="rounded-full bg-white/15 px-2.5 py-0.5 text-[0.7rem] tracking-[0.04em]">
-                    {badge}
-                  </span>
-                ))}
+            {proof.length > 0 && (
+              <p style={delay(420)} className="enter-rise mt-4 text-[0.82rem] text-white/90">
+                {proof.join(" · ")}
               </p>
             )}
 
-            <span
-              aria-hidden="true"
-              style={delay(500)}
-              className="enter-line mt-5 block h-px w-14 bg-gold"
-            />
-
-            {/* CTAs */}
-            <div style={delay(600)} className="enter-rise mt-7 flex flex-wrap items-center gap-4">
-              <a
-                href="#spaces"
-                className="sheen flex h-[2.5rem] items-center justify-center bg-gold px-6 text-[0.8rem] font-medium tracking-[0.06em] text-[#f7f1e4] shadow transition-colors hover:bg-gold-hover"
-              >
-                Step Inside & Explore
-              </a>
+            <div style={delay(520)} className="enter-rise mt-7 flex flex-wrap items-center gap-3">
               <a
                 href={bookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-[2.5rem] items-center justify-center gap-2 rounded-[2px] border border-white/50 bg-white/10 px-6 text-[0.8rem] tracking-[0.06em] text-white backdrop-blur-sm transition-colors hover:border-white hover:bg-white/20"
+                className="flex h-[2.6rem] items-center bg-gold px-7 text-[0.85rem] font-medium text-[#f7f1e4] transition-colors hover:bg-gold-hover"
               >
                 Book on Airbnb
-                <ExternalLink className="size-3.5" aria-hidden="true" />
-                <span className="sr-only">(opens in a new tab)</span>
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              <a
+                href="#spaces"
+                className="flex h-[2.6rem] items-center border border-white/60 px-7 text-[0.85rem] text-white transition-colors hover:bg-white/15"
+              >
+                See the spaces
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Villa Specifications Architectural Ledger */}
-      <section className="border-b border-[#e2dcd2] bg-mist/70">
-        <div className="frame px-5 py-6 lg:px-[3.625rem]">
-          <div className="grid grid-cols-2 gap-y-6 gap-x-4 sm:grid-cols-4 sm:divide-x sm:divide-[#e2dcd2]">
-            <div
-              data-reveal="up"
-              style={delay(50)}
-              className="flex flex-col sm:pr-6"
-            >
-              <span className="eyebrow text-[0.7rem] tracking-[0.28em] text-[#6f675d] uppercase">
-                Accommodates
-              </span>
-              <span className="mt-1 font-serif text-[1.18rem] text-ink sm:text-[1.25rem]">
-                {villa.specs.bedrooms} {villa.specs.bedrooms === 1 ? "Bedroom" : "Bedrooms"}
-              </span>
-              <span className="mt-0.5 text-[0.76rem] text-[#6b665e]">
-                {villa.specs.beds} {villa.specs.beds === 1 ? "bed" : "beds"} · Sleeps up to {villa.specs.maxGuests}
-              </span>
-            </div>
-
-            <div
-              data-reveal="up"
-              style={delay(120)}
-              className="flex flex-col sm:px-6"
-            >
-              <span className="eyebrow text-[0.7rem] tracking-[0.28em] text-[#6f675d] uppercase">
-                Bathrooms
-              </span>
-              <span className="mt-1 font-serif text-[1.18rem] text-ink sm:text-[1.25rem]">
-                {villa.specs.bathrooms} {villa.specs.bathrooms === 1 ? "Bathroom" : "Bathrooms"}
-              </span>
-              <span className="mt-0.5 text-[0.76rem] text-[#6b665e]">
-                Hot water throughout
-              </span>
-            </div>
-
-            <div
-              data-reveal="up"
-              style={delay(190)}
-              className="flex flex-col sm:px-6"
-            >
-              <span className="eyebrow text-[0.7rem] tracking-[0.28em] text-[#6f675d] uppercase">
-                Setting &amp; Grounds
-              </span>
-              <span className="mt-1 font-serif text-[1.18rem] text-ink sm:text-[1.25rem]">
-                {villa.specs.feature}
-              </span>
-              <span className="mt-0.5 text-[0.76rem] text-[#6b665e] line-clamp-1">
-                {villa.specs.setting}
-              </span>
-            </div>
-
-            <div
-              data-reveal="up"
-              style={delay(260)}
-              className="flex flex-col sm:pl-6"
-            >
-              <span className="eyebrow text-[0.7rem] tracking-[0.28em] text-[#6f675d] uppercase">
-                Airbnb Rate
-              </span>
-              <span className="mt-1 font-serif text-[1.18rem] text-ink sm:text-[1.25rem]">
-                USD {villa.specs.nightlyUSD} <span className="font-sans text-[0.72rem] font-normal text-[#6b665e]">/ night</span>
-              </span>
-              <span className="mt-0.5 text-[0.76rem] text-[#6b665e]">
-                Weekly 10% off · Monthly 30% off
-              </span>
-            </div>
-          </div>
+      {/* Key facts */}
+      <section className="border-b border-[#e0d9cc] bg-linen">
+        <div className="frame px-5 py-7 lg:px-[3.625rem]">
+          <dl className="grid grid-cols-2 gap-y-6 gap-x-4 sm:grid-cols-4 sm:divide-x sm:divide-[#d9d2c5]">
+            {[
+              { term: "Sleeps", value: `Up to ${villa.specs.maxGuests}`, note: `${villa.specs.bedrooms} ${villa.specs.bedrooms === 1 ? "bedroom" : "bedrooms"}, ${villa.specs.beds} ${villa.specs.beds === 1 ? "bed" : "beds"}` },
+              { term: "Bathrooms", value: String(villa.specs.bathrooms), note: "Hot water throughout" },
+              { term: "Feature", value: villa.specs.feature, note: villa.specs.setting },
+              { term: "Airbnb rate", value: `USD ${villa.specs.nightlyUSD} / night`, note: "Weekly 10% off · monthly 30% off" },
+            ].map((f, i) => (
+              <div key={f.term} data-reveal="up" style={delay(i * 70)} className="flex flex-col sm:px-6 sm:first:pl-0 sm:last:pr-0">
+                <dt className={label}>{f.term}</dt>
+                <dd className="mt-2 font-serif text-[1.3rem] leading-[1.15] text-ink">{f.value}</dd>
+                <dd className="mt-1 text-[0.78rem] leading-[1.15rem] text-[#5a5c58]">{f.note}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
-      {/* Narrative & Philosophy Section */}
-      <section className="bg-ivory py-16 sm:py-24">
-        <div className="frame px-5 lg:px-[3.625rem]">
-          {/* Top Row: Editorial Narrative & Architectural Photography Feature */}
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+      {/* About the villa */}
+      <section>
+        <div className="frame px-5 py-16 lg:px-[3.625rem] lg:py-[4.2rem]">
+          <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-5">
-              <p
-                data-reveal="up"
-                style={delay(100)}
-                className="eyebrow flex items-center gap-2.5 text-[0.7rem] tracking-[0.28em] text-[#6f675d] uppercase"
-              >
-                <span>Estate Architecture</span>
-                <span aria-hidden="true" className="h-px w-8 bg-[#c7b27a]" />
+              <p data-reveal="up" className={eyebrow}>
+                About the villa
               </p>
-              <h2
-                data-reveal="up"
-                style={delay(200)}
-                className="mt-3 font-serif text-[2.4rem] leading-[1.1] text-ink sm:text-[2.85rem]"
-              >
-                {slug === "avalon" ? (
-                  <>
-                    Crafted for Solitude.
-                    <br />
-                    Framed by Mist.
-                  </>
-                ) : (
-                  <>
-                    Carved from River Stone.
-                    <br />
-                    Sheltered by Canopy.
-                  </>
-                )}
+              <h2 data-reveal="up" style={delay(100)} className={`mt-4 ${h2}`}>
+                {villa.name}
               </h2>
-              <p
-                data-reveal="up"
-                style={delay(300)}
-                className="mt-4 text-[0.9rem] leading-[1.7] text-ink-soft"
-              >
-                {villa.summary}
-              </p>
-              <blockquote
-                data-reveal="up"
-                style={delay(400)}
-                className="mt-7 border-l border-[#d8caa4] pl-5"
-              >
-                <QuoteMark className="h-[1.1rem] text-[2.4rem]" />
-                <p className="mt-1 font-serif text-[1.08rem] italic leading-[1.5] text-[#2c2e29]">
-                  {slug === "avalon"
-                    ? "Where the Japanese spirit of kintsugi embraces the timeless mist of the Sri Lankan highlands."
-                    : "A quiet dwelling where weathered teak and river stone invite time to slow into stillness."}
-                </p>
-                <p className="eyebrow mt-3 flex items-center gap-2 text-[0.7rem] tracking-[0.32em] text-[#78673c] uppercase">
-                  <span aria-hidden="true" className="h-px w-6 bg-[#c7b27a]" />
-                  <span>Kintsugi Station · Kandy</span>
-                </p>
-              </blockquote>
-            </div>
-
-            {/* Authentic Architectural Photograph Anchor */}
-            <div className="lg:col-span-7">
-              <div
-                data-reveal="image"
-                style={delay(250)}
-                className="group relative aspect-[16/11] w-full overflow-hidden rounded-[2px] shadow-sm transition-shadow duration-500 hover:shadow-md"
-              >
-                <Image
-                  src={villa.architectureImage.src}
-                  alt={villa.architectureImage.alt}
-                  fill
-                  sizes="(min-width: 1024px) 55vw, 100vw"
-                  className="object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-70" />
-                <div className="absolute bottom-3.5 left-4 right-4 text-white">
-                  <p className="font-serif text-[0.92rem] italic text-white/95">
-                    {villa.architectureImage.caption}
+              <div className="mt-6 space-y-4 text-[0.95rem] leading-[1.55rem] text-ink-soft">
+                {villa.description.map((paragraph, i) => (
+                  <p key={paragraph} data-reveal="up" style={delay(180 + i * 80)}>
+                    {paragraph}
                   </p>
-                </div>
+                ))}
               </div>
+            </div>
+            <div data-reveal="image" style={delay(150)} className="relative aspect-[16/11] w-full overflow-hidden lg:col-span-7">
+              <Image
+                src={villa.architectureImage.src}
+                alt={villa.architectureImage.alt}
+                fill
+                sizes="(min-width: 1024px) 55vw, 100vw"
+                className="object-cover"
+              />
             </div>
           </div>
 
-          {/* Middle Row: Two-Column Editorial Narrative */}
-          <div className="mt-12 border-t border-[#e8e2d8] pt-10 sm:mt-16 sm:pt-12">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-14 text-[0.88rem] leading-[1.75] text-[#474c49]">
-              <div>
-                <p className="font-serif text-[1.12rem] italic text-ink mb-3 leading-snug">
-                  {slug === "avalon"
-                    ? "An intentional dialogue between raw highland timber, cantilevered decks, and shifting mountain light."
-                    : "An organic sanctuary where hand-chiseled stone plinths open to the cool mountain breeze."}
-                </p>
-                <p>{villa.description[0]}</p>
-              </div>
-              <div className="space-y-4">
-                <p>{villa.description[1]}</p>
-                {villa.description[2] && <p>{villa.description[2]}</p>}
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Row: Curated Residence Inclusions (Bespoke Editorial Strip) */}
-          <div
-            data-reveal="up"
-            style={delay(350)}
-            className="mt-12 rounded-[2px] border-y border-[#e2dcd2] bg-mist/60 px-6 py-8 sm:mt-16 sm:px-10 sm:py-10"
-          >
-            <div className="flex flex-col justify-between border-b border-[#e2dcd2]/80 pb-5 sm:flex-row sm:items-baseline">
-              <div>
-                <p className="eyebrow text-[0.7rem] tracking-[0.3em] text-[#6f675d] uppercase">
-                  What&rsquo;s Included
-                </p>
-                <h3 className="mt-1 font-serif text-[1.5rem] text-ink sm:text-[1.75rem]">
-                  Looked After, Start to Finish
-                </h3>
-              </div>
-              <p className="mt-2 font-serif text-[0.85rem] italic text-[#786e60] sm:mt-0">
-                Reserved for your party alone · Breakfast included
-              </p>
-            </div>
-
-            <div className="mt-7 grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
-              {villa.inclusions.map((inc, i) => (
-                <div key={inc} className="flex items-start gap-3.5">
-                  <span className="mt-0.5 font-serif text-[0.85rem] font-medium text-gold select-none">
-                    0{i + 1}
-                  </span>
-                  <p className="text-[0.82rem] leading-[1.55] text-[#3c3e3b]">
-                    {inc}
-                  </p>
-                </div>
+          <div data-reveal="up" className="mt-14 border-t border-[#e0d9cc] pt-8">
+            <h3 className={label}>Included in your stay</h3>
+            <ul className="mt-4 grid gap-x-12 sm:grid-cols-2">
+              {villa.inclusions.map((inc) => (
+                <li key={inc} className="border-b border-[#e8e2d8] py-3 text-[0.9rem] leading-[1.4rem] text-[#3c3e3b]">
+                  {inc}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* Step Inside: Interactive Space Explorer */}
-      <section id="spaces" className="scroll-mt-16 border-t border-[#e2dcd2] bg-mist py-16 sm:py-24">
-        <div className="frame px-5 lg:px-[3.625rem]">
-          <div className="mb-10 text-center sm:mb-12">
-            <p
-              data-reveal="up"
-              style={delay(100)}
-              className="eyebrow inline-block text-[0.7rem] tracking-[0.24em] text-gold uppercase"
-            >
-              Step Inside
-            </p>
-            <h2
-              data-reveal="up"
-              style={delay(200)}
-              className="mt-2 font-serif text-[2.4rem] leading-tight text-ink sm:text-[3rem]"
-            >
-              Explore the Spaces of {villa.name}
-            </h2>
-            <p
-              data-reveal="up"
-              style={delay(300)}
-              className="mx-auto mt-3 max-w-xl text-[0.9rem] text-ink-soft"
-            >
-              Every room, balcony and terrace, one space at a time.
-            </p>
-            <span
-              aria-hidden="true"
-              data-reveal="line"
-              style={delay(380)}
-              className="mx-auto mt-4 block h-px w-14 bg-gold"
-            />
-          </div>
-
+      {/* The spaces */}
+      <section id="spaces" className="scroll-mt-16 border-t border-[#e0d9cc] bg-mist">
+        <div className="frame px-5 py-16 lg:px-[3.625rem] lg:py-[4.2rem]">
+          <p data-reveal="up" className={eyebrow}>
+            Step inside
+          </p>
+          <h2 data-reveal="up" style={delay(100)} className={`mb-10 mt-4 ${h2}`}>
+            The spaces
+          </h2>
           <SpaceExplorer spaces={villa.spaces} />
         </div>
       </section>
 
-      {/* Amenities & Estate Services */}
-      <VillaAmenities
-        amenities={villa.amenities}
-        villaName={villa.name}
-      />
+      {/* Amenities */}
+      <VillaAmenities amenities={villa.amenities} villaName={villa.name} />
 
-      {/* Real Photography Visual Chronicle */}
-      <section className="border-t border-[#e2dcd2] bg-linen py-16 sm:py-24">
-        <div className="frame px-5 lg:px-[3.625rem]">
-          <div className="mb-10 text-center sm:mb-14">
-            <p
-              data-reveal="up"
-              style={delay(100)}
-              className="eyebrow text-[0.7rem] tracking-[0.24em] text-gold uppercase"
-            >
-              Visual Chronicle
-            </p>
-            <h2
-              data-reveal="up"
-              style={delay(200)}
-              className="mt-2 font-serif text-[2.4rem] text-ink sm:text-[3rem]"
-            >
-              Moments at {villa.name}
-            </h2>
-            <p
-              data-reveal="up"
-              style={delay(300)}
-              className="mx-auto mt-2 max-w-xl text-[0.88rem] text-ink-soft"
-            >
-              Light, timber and stillness at the villa. Hover over any frame to inspect details.
-            </p>
-            <span
-              aria-hidden="true"
-              data-reveal="line"
-              style={delay(380)}
-              className="mx-auto mt-4 block h-px w-14 bg-gold"
-            />
-          </div>
-
+      {/* Photographs */}
+      <section className="border-t border-[#e0d9cc] bg-linen">
+        <div className="frame px-5 py-16 lg:px-[3.625rem] lg:py-[4.2rem]">
+          <p data-reveal="up" className={eyebrow}>
+            Photographs
+          </p>
+          <h2 data-reveal="up" style={delay(100)} className={`mb-10 mt-4 ${h2}`}>
+            {villa.name} in pictures
+          </h2>
           <VillaGalleryLightbox photos={villa.gallery} />
         </div>
       </section>
 
-      {/* Sister Villa Showcase */}
-      <section className="border-t border-[#e2dcd2] bg-mist py-14">
-        <div className="frame px-5 lg:px-[3.625rem]">
-          <div
-            data-reveal="up"
-            style={delay(100)}
-            className="flex flex-col items-center justify-between gap-6 rounded-[2px] border border-[#dcd6ca] bg-ivory p-6 shadow-xs transition-shadow duration-500 hover:shadow-md sm:p-8 lg:flex-row lg:gap-10"
-          >
-            <div
-              data-reveal="image"
-              style={delay(150)}
-              className="relative aspect-[16/10] w-full overflow-hidden rounded-[2px] sm:w-72 lg:w-80 shrink-0"
-            >
-              <Image
-                src={sisterVilla.heroImage}
-                alt={sisterVilla.name}
-                fill
-                sizes="(min-width: 1024px) 320px, 100vw"
-                className="object-cover transition-transform duration-700 hover:scale-105"
-              />
-            </div>
-            <div className="flex-1 text-center lg:text-left">
-              <p className="eyebrow text-[0.7rem] tracking-[0.2em] text-gold uppercase">
-                Also at Kintsugi Station
-              </p>
-              <h3 className="mt-1 font-serif text-[1.8rem] text-ink sm:text-[2.1rem]">
-                Discover {sisterVilla.name}
-              </h3>
-              <p className="mt-2 text-[0.85rem] text-ink-soft sm:max-w-xl">
-                {sisterVilla.tagline} · {sisterVilla.specs.bedrooms} {sisterVilla.specs.bedrooms === 1 ? "bedroom" : "bedrooms"}, sleeping up to {sisterVilla.specs.maxGuests} guests. Or book both villas together for up to {airbnbListings.both.sleeps}.
-              </p>
-            </div>
-            <div className="shrink-0">
-              <Link
-                href={`/villas/${sisterVilla.slug}`}
-                className="sheen group flex items-center gap-2 rounded-[2px] bg-ink px-5 py-2.5 text-[0.8rem] text-white transition-colors hover:bg-gold hover:text-white"
-              >
-                <span>Explore {sisterVilla.name}</span>
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+      {/* The other villa, and booking */}
+      <section className="border-t border-[#e0d9cc] bg-ivory">
+        <div className="frame grid gap-10 px-5 py-14 lg:grid-cols-2 lg:gap-16 lg:px-[3.625rem] lg:py-[3.6rem]">
+          <div data-reveal="up">
+            <p className={eyebrow}>Also at Kintsugi Station</p>
+            <h2 className="mt-4 font-serif text-[1.9rem] leading-[1.1] text-ink">{sisterVilla.name}</h2>
+            <p className="mt-2 text-[0.9rem] text-[#3c3e3b]">
+              {sister.bedrooms} {sister.bedrooms === 1 ? "bedroom" : "bedrooms"} · sleeps {sister.sleeps} · USD {sister.nightlyUSD} a night
+            </p>
+            <p className="mt-3 text-[0.9rem] leading-[1.4rem] text-ink-soft">
+              Or book both villas together for up to {airbnbListings.both.sleeps} guests.
+            </p>
+            <p className="mt-4">
+              <Link href={`/villas/${sisterVilla.slug}`} className="inline-flex min-h-6 items-center text-[0.88rem] font-medium text-gold underline underline-offset-4 hover:text-gold-hover">
+                View {sisterVilla.name}
               </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Reservation CTA Strip */}
-      <section className="relative overflow-hidden bg-linen py-16 border-t border-[#e2dcd2]">
-        <div
-          data-reveal="up"
-          style={delay(100)}
-          className="frame relative flex flex-col items-center justify-between gap-8 px-5 text-center lg:flex-row lg:px-[3.625rem] lg:text-left"
-        >
-          <div>
-            <p className="eyebrow text-[0.7rem] tracking-[0.2em] text-gold uppercase">
-              Reserve Your Stay
-            </p>
-            <h2 className="mt-2 font-serif text-[2.4rem] leading-none text-ink sm:text-[2.8rem]">
-              Experience {villa.name}
-            </h2>
-            <p className="mt-3 text-[0.88rem] text-ink-soft">
-              Entire villa for your group · Breakfast included · Meals, transfers and tours on request.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <div className="text-center sm:text-right">
-              <p className="font-serif text-[1.8rem] leading-none text-ink">USD {villa.specs.nightlyUSD}</p>
-              <p className="mt-0.5 text-[0.7rem] text-[#6a6864]">per night · {discountNote}</p>
-            </div>
+          <div data-reveal="up" style={delay(120)} className="lg:border-l lg:border-[#e0d9cc] lg:pl-16">
+            <p className={eyebrow}>Reserve</p>
+            <h2 className="mt-4 font-serif text-[1.9rem] leading-[1.1] text-ink">Book {villa.name}</h2>
+            <p className="mt-2 font-serif text-[1.6rem] leading-none">
+              USD {villa.specs.nightlyUSD} <span className="font-sans text-[0.78rem] text-[#5a5c58]">/ night</span>
+            </p>
+            <p className="mt-2 text-[0.82rem] text-[#5a5c58]">{discountNote}. Breakfast is included.</p>
             <a
               href={bookUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="sheen flex h-[2.6rem] items-center justify-center gap-2 bg-gold px-7 text-[0.82rem] font-medium tracking-[0.06em] text-[#f7f1e4] shadow transition-colors hover:bg-gold-hover"
+              className="mt-5 inline-flex h-[2.6rem] items-center bg-gold px-8 text-[0.85rem] font-medium text-[#f7f1e4] transition-colors hover:bg-gold-hover"
             >
-              Book {villa.name} on Airbnb
-              <ExternalLink className="size-3.5" aria-hidden="true" />
-              <span className="sr-only">(opens in a new tab)</span>
+              Book on Airbnb
+              <span className="sr-only">: {villa.name} (opens in a new tab)</span>
             </a>
           </div>
         </div>

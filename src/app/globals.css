@@ -176,31 +176,6 @@ label:has(.picker-input:focus-visible) {
   }
 }
 
-@keyframes sheen {
-  from {
-    transform: translateX(-120%);
-  }
-  to {
-    transform: translateX(120%);
-  }
-}
-
-@keyframes pulse-ring {
-  from {
-    opacity: 0.9;
-    transform: scale(0.4);
-  }
-  to {
-    opacity: 0;
-    transform: scale(2.4);
-  }
-}
-
-/* Slow ripple under the estate's map marker. */
-.pulse-ring {
-  animation: pulse-ring 2.8s var(--ease-soft) infinite;
-}
-
 /* Entrances that play on first paint (heroes), so they need no JS. */
 .enter-rise {
   animation: rise 1.2s var(--ease-soft) both;
@@ -246,18 +221,6 @@ label:has(.picker-input:focus-visible) {
   opacity: 0;
 }
 
-/* Map marker drops onto its spot. */
-.js [data-reveal="drop"] {
-  transition:
-    opacity 0.6s ease,
-    transform 1s cubic-bezier(0.34, 1.4, 0.5, 1);
-  transition-delay: var(--d, 0ms);
-}
-.js [data-reveal="drop"]:not([data-shown]) {
-  opacity: 0;
-  transform: translateY(-1.25rem);
-}
-
 /* Gold hairlines extend from the left. */
 .js [data-reveal="line"] {
   transform-origin: left;
@@ -283,50 +246,10 @@ label:has(.picker-input:focus-visible) {
   transform: scale(1.12);
 }
 
-/*
- * Kintsugi roots: gold spreads outward from the corner the roots grow from,
- * like lacquer running into the cracks. Each KintsugiVeins variant sets
- * its own `--origin`.
- */
-@property --grow {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 120%;
-}
-
-.js [data-reveal="roots"] {
-  mask-image: radial-gradient(
-    circle farthest-corner at var(--origin, 0 0),
-    #000 calc(var(--grow) - 16%),
-    transparent var(--grow)
-  );
-  transition: --grow 3.8s cubic-bezier(0.45, 0, 0.2, 1);
-  transition-delay: var(--d, 150ms);
-}
-.js [data-reveal="roots"]:not([data-shown]) {
-  --grow: 0%;
-}
-
-/* A soft band of light sweeps across gilded buttons on hover. */
-@layer components {
-  .sheen {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-  }
-  .sheen::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(105deg, transparent 30%, rgb(255 244 214 / 0.32) 50%, transparent 70%);
-    transform: translateX(-120%);
-    pointer-events: none;
-  }
-  .sheen:hover::after,
-  .sheen:focus-visible::after {
-    animation: sheen 1s var(--ease-soft);
-  }
+/* The logo banner fades out on its right edge so its cream marble melts into the page. */
+.logo-fade {
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 52%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 52%, transparent 100%);
 }
 
 /* Sticky header: lifts with a hairline shadow once the page scrolls, slips
