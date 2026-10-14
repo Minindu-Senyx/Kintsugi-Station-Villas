@@ -45,7 +45,7 @@ const heroSlides: HeroSlide[] = [
 
 const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-[#6f675d]";
 const h2 = "font-serif text-[2.2rem] leading-[1.1] text-ink sm:text-[2.5rem]";
-const textLink = "inline-flex min-h-6 items-center text-[0.85rem] font-medium text-gold underline-offset-4 transition-colors hover:text-gold-hover hover:underline";
+const textLink = "inline-flex min-h-6 items-center text-[0.85rem] font-medium text-gold link-underline hover:text-gold-hover";
 
 export default function HomePage() {
   return (
@@ -127,8 +127,8 @@ export default function HomePage() {
           </div>
           <div className="mt-6 grid grid-cols-2 gap-2.5 lg:grid-cols-4">
             {glimpses.map((img, i) => (
-              <div key={img.src} data-reveal="image" style={delay(i * 100)} className="relative h-40 overflow-hidden lg:h-[10.5rem]">
-                <Image src={img.src} alt={img.alt} fill sizes="(min-width: 900px) 24vw, 50vw" className="object-cover" />
+              <div key={img.src} data-reveal="image" style={delay(i * 100)} className="group relative h-40 overflow-hidden lg:h-[10.5rem]">
+                <Image src={img.src} alt={img.alt} fill sizes="(min-width: 900px) 24vw, 50vw" className="object-cover group-hover:scale-[1.06]" />
               </div>
             ))}
           </div>
@@ -185,7 +185,7 @@ export default function HomePage() {
               <p className="mt-4 text-[0.82rem] text-[#5a5c58]">{discountNote}.</p>
               <Link
                 href={bookHref}
-                className="mt-6 inline-flex h-[2.6rem] items-center bg-gold px-8 text-[0.85rem] font-medium text-[#f7f1e4] transition-colors hover:bg-gold-hover"
+                className="sheen mt-6 inline-flex h-[2.6rem] items-center bg-gold px-8 text-[0.85rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)]"
               >
                 Book Your Stay
               </Link>

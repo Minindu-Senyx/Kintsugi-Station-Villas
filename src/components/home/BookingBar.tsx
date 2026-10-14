@@ -218,7 +218,7 @@ export default function BookingBar() {
       <div className="p-3 lg:shrink-0 lg:px-[1rem] lg:py-0">
         <button
           type="submit"
-          className="flex h-[2.5rem] w-full items-center justify-center whitespace-nowrap bg-gold text-[0.8rem] font-medium text-[#f7f1e4] transition-colors hover:bg-gold-hover lg:w-[8.5rem]"
+          className="sheen flex h-[2.5rem] w-full items-center justify-center whitespace-nowrap bg-gold text-[0.8rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)] lg:w-[8.5rem]"
         >
           Book on Airbnb
         </button>

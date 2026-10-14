@@ -50,7 +50,7 @@ export default function GalleryPage() {
         <div data-reveal="up" style={delay(150)} className="relative mt-[0.95rem]">
           <Link
             href={bookHref}
-            className="flex h-[2.4rem] w-[10rem] items-center justify-center bg-gold font-serif text-[0.97rem] text-[#f7f1e4] transition-colors hover:bg-gold-hover"
+            className="sheen flex h-[2.4rem] w-[10rem] items-center justify-center bg-gold font-serif text-[0.97rem] text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)]"
           >
             Book on Airbnb
           </Link>

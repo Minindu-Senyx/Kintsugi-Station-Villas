@@ -70,7 +70,7 @@ export default function HeroCarousel({
               preload={i === 0}
               sizes="100vw"
               style={{ objectPosition: slide.position ?? "50% 50%" }}
-              className={`object-cover transition-opacity duration-[1400ms] ease-in-out ${i === index ? "opacity-100" : "opacity-0"}`}
+              className={`object-cover transition-opacity duration-[1400ms] ease-in-out ${i === index ? "enter-settle opacity-100" : "opacity-0"}`}
             />
           ) : null,
         )}
@@ -118,7 +118,7 @@ export default function HeroCarousel({
           <button
             type="button"
             onClick={() => setPaused(running)}
-            className="ml-3 min-h-6 text-[0.8rem] text-white underline-offset-4 hover:underline"
+            className="link-underline ml-3 min-h-6 text-[0.8rem] text-white"
           >
             {running ? "Pause" : "Play"}
             <span className="sr-only"> slideshow</span>

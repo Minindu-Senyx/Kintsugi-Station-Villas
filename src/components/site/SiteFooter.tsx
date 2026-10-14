@@ -13,7 +13,7 @@ const explore = [
 ];
 
 const heading = "text-[0.75rem] font-medium uppercase tracking-[0.18em] text-[#a2a59b]";
-const link = "inline-block py-[0.28rem] text-[0.85rem] text-[#e6e5df] transition-colors hover:text-[#e6cc93]";
+const link = "inline-block py-[0.28rem] text-[0.85rem] text-[#e6e5df] transition-[color,translate] duration-500 ease-soft hover:translate-x-[0.2rem] hover:text-[#e6cc93]";
 
 export default function SiteFooter() {
   return (

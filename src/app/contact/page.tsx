@@ -14,7 +14,7 @@ const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-[#6f675d]";
 const h2 = "font-serif text-[2.2rem] leading-[1.1] text-ink";
 const section = "frame px-5 py-14 lg:px-[3.875rem] lg:py-[3.6rem]";
 const rule = "border-t border-[#d9d2c5]";
-const linkClass = "inline-block py-0.5 text-[#1d1f1d] underline-offset-4 transition-colors hover:text-gold hover:underline";
+const linkClass = "inline-block py-0.5 text-[#1d1f1d] link-underline hover:text-gold";
 
 function Group({ label, children }: { label: string; children: React.ReactNode }) {
   return (

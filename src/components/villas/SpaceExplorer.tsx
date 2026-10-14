@@ -101,11 +101,11 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
                   aria-pressed={idx === activePhotoIndex}
                   aria-label={`Show photo ${idx + 1} of ${photos.length}: ${photo.caption}`}
                   onClick={() => setActivePhotoIndex(idx)}
-                  className={`relative h-14 w-20 shrink-0 overflow-hidden transition-opacity sm:h-16 sm:w-24 ${
+                  className={`group relative h-14 w-20 shrink-0 overflow-hidden transition-opacity duration-300 sm:h-16 sm:w-24 ${
                     idx === activePhotoIndex ? "ring-2 ring-gold ring-offset-2 ring-offset-mist" : "opacity-60 hover:opacity-100"
                   }`}
                 >
-                  <Image src={photo.src} alt="" fill sizes="96px" className="object-cover" />
+                  <Image src={photo.src} alt="" fill sizes="96px" className="object-cover transition-transform duration-500 ease-soft group-hover:scale-110" />
                 </button>
               ))}
             </div>

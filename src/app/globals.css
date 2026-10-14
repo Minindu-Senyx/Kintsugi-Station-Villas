@@ -176,6 +176,15 @@ label:has(.picker-input:focus-visible) {
   }
 }
 
+@keyframes sheen {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
+
 /* Entrances that play on first paint (heroes), so they need no JS. */
 .enter-rise {
   animation: rise 1.2s var(--ease-soft) both;
@@ -268,6 +277,43 @@ label:has(.picker-input:focus-visible) {
 }
 .js [data-reveal="roots"]:not([data-shown]) {
   --grow: 0%;
+}
+
+/* A soft band of light sweeps across gilded buttons on hover. */
+@layer components {
+  .sheen {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(105deg, transparent 30%, rgb(255 244 214 / 0.32) 50%, transparent 70%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  .sheen:hover::after,
+  .sheen:focus-visible::after {
+    animation: sheen 1s var(--ease-soft);
+  }
+}
+
+/* Standalone text links draw their underline in from the left on hover or focus. */
+@layer components {
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0 1px;
+    transition: background-size 0.5s var(--ease-soft), color 0.3s ease;
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
 }
 
 /* The logo banner fades out on its right edge so its cream marble melts into the page. */

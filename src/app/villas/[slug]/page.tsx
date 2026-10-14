@@ -80,7 +80,7 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
                 href={bookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-[2.6rem] items-center bg-gold px-7 text-[0.85rem] font-medium text-[#f7f1e4] transition-colors hover:bg-gold-hover"
+                className="sheen flex h-[2.6rem] items-center bg-gold px-7 text-[0.85rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)]"
               >
                 Book on Airbnb
                 <span className="sr-only"> (opens in a new tab)</span>
@@ -218,7 +218,7 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
               href={bookUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex h-[2.6rem] items-center bg-gold px-8 text-[0.85rem] font-medium text-[#f7f1e4] transition-colors hover:bg-gold-hover"
+              className="sheen mt-5 inline-flex h-[2.6rem] items-center bg-gold px-8 text-[0.85rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)]"
             >
               Book on Airbnb
               <span className="sr-only">: {villa.name} (opens in a new tab)</span>

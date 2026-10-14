@@ -17,7 +17,7 @@ export default function NotFound() {
         <Link
           href="/"
           style={delay(650)}
-          className="enter-rise mt-8 flex h-[2.4rem] items-center bg-gold px-8 text-[0.8rem] text-[#f7f1e4] transition-colors hover:bg-gold-hover"
+          className="sheen enter-rise mt-8 flex h-[2.4rem] items-center bg-gold px-8 text-[0.8rem] text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)]"
         >
           Return Home
         </Link>

@@ -54,7 +54,7 @@ export default function VillaAmenities({ amenities, highlights, villaName }: Pro
                   key={item}
                   data-reveal="up"
                   style={delay(i * 50)}
-                  className="flex min-h-[5.2rem] items-end border-b border-r border-[#d9d2c5] p-4 font-serif text-[1.15rem] leading-[1.2] text-ink"
+                  className="flex min-h-[5.2rem] items-end border-b border-r border-[#d9d2c5] p-4 font-serif text-[1.15rem] leading-[1.2] text-ink transition-colors duration-500 ease-soft hover:bg-white/70"
                 >
                   {item}
                 </li>

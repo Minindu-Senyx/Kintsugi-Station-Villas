@@ -152,7 +152,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={sending}
-        className="flex h-[2.75rem] w-full items-center justify-center bg-gold text-[0.9rem] font-medium text-[#f7f1e4] transition-colors hover:bg-gold-hover disabled:cursor-wait disabled:opacity-80 sm:w-auto sm:px-10"
+        className="sheen flex h-[2.75rem] w-full items-center justify-center bg-gold text-[0.9rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)] disabled:cursor-wait disabled:opacity-80 sm:w-auto sm:px-10"
       >
         {sending ? "Sending…" : "Send message"}
       </button>
