@@ -1,52 +1,37 @@
+import Image from "next/image";
 import Link from "next/link";
 
-/** Hairline mountain ridge drawn above the wordmark. */
-function RidgeLine({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 92 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path pathLength={1} d="M1 15 L22 6 L30 9 L42 1 L55 9 L63 7 L70 11 L91 15" />
-      <path pathLength={1} d="M52 8 L60 11 L66 10" opacity="0.7" />
-    </svg>
-  );
-}
-
-const tones = {
-  light: { ridge: "text-[#a88d4a]", name: "text-[#191b1a]", tagline: "text-[#70685c]" },
-  dark: { ridge: "text-[#b9ab8a]", name: "text-[#eae5d5]", tagline: "text-[#9a9b8b]" },
-};
+/*
+ * The owners' logo: a banner of blue marble with gold kintsugi veins and the
+ * name on it. Header and footer use a 720px WebP (27 KB); the full-size PNG
+ * next to it is the master. The logo carries its own background, so it needs
+ * no light or dark variant.
+ */
+const LOGO = { src: "/assets/brand/kintsugi-station-villas-logo-720.webp", width: 720, height: 202 };
 
 type Props = {
-  tone?: keyof typeof tones;
-  /** Draw the ridge line in on page load (the header's logo). */
-  animate?: boolean;
+  /** Mark the logo as the page's largest image so it loads first (the header's). */
+  priority?: boolean;
+  /** Sizes the logo by height, e.g. "h-11 lg:h-[3.6rem]". */
   className?: string;
 };
 
-/** Centred wordmark: ridge line, name and tagline. */
-export default function SiteLogo({ tone = "light", animate = false, className = "" }: Props) {
-  const colors = tones[tone];
+/** Links home. The image is decorative: the link's label carries the name. */
+export default function SiteLogo({ priority = false, className = "" }: Props) {
   return (
     <Link
       href="/"
-      aria-label="Kintsugi Station, Kandy — home"
-      className={`flex w-fit shrink-0 flex-col items-center whitespace-nowrap leading-none ${className}`}
+      aria-label="Kintsugi Station Villas, Sri Lanka: home"
+      className={`block w-fit shrink-0 rounded-[2px] ${className}`}
     >
-      <RidgeLine className={`h-[0.95rem] w-[5.75rem] ${colors.ridge} ${animate ? "draw-ridge" : ""}`} />
-      <span className={`mt-[0.8rem] font-serif text-[1.02rem] tracking-[0.1em] ${colors.name}`}>
-        KINTSUGI STATION · KANDY
-      </span>
-      <span className={`mt-[0.55rem] font-serif text-[0.7rem] tracking-[0.24em] ${colors.tagline}`}>
-        PRIVATE VILLAS IN SRI LANKA
-      </span>
+      <Image
+        src={LOGO.src}
+        alt=""
+        width={LOGO.width}
+        height={LOGO.height}
+        priority={priority}
+        className="h-full w-auto rounded-[2px]"
+      />
     </Link>
   );
 }

@@ -72,6 +72,15 @@ Set `GEMINI_IMAGE_MODEL` to use a different or newer model. Some images in the
 generator's list (for example `contact_hero`) are no longer used by any page
 and their files were removed; `--all` would recreate them.
 
+### Logo
+
+The owners' logo lives in `public/assets/brand/`: the full-size master
+(`kintsugi-station-villas-logo.png`), a 720px WebP used by the header and footer
+(`...-720.webp`) and the 1200x630 social-share card (`og-image.jpg`). The
+favicon and app icon (`src/app/icon.png`, `apple-icon.png`) are a square crop of
+the marble from the left of the logo. `src/components/site/SiteLogo.tsx` renders
+it. If the logo changes, regenerate the three derived files from the master.
+
 ### Real photos of people
 
 `public/assets/images/people/` holds a real photograph of the owners from the old site

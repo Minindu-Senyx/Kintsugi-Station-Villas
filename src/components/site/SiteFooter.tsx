@@ -62,7 +62,7 @@ export default function SiteFooter() {
       <div className="frame relative px-5 lg:px-[3.625rem]">
         <div className="flex flex-col gap-10 pb-8 pt-12 lg:flex-row lg:items-start lg:justify-between lg:gap-6 lg:pb-[1.5rem] lg:pt-[2rem] flex-wrap xl:flex-nowrap">
           <div data-reveal="fade" className="shrink-0 self-start lg:mt-[0.35rem]">
-            <SiteLogo tone="dark" />
+            <SiteLogo className="h-[4.75rem] lg:h-[5rem]" />
           </div>
 
           <div

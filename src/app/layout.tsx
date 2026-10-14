@@ -37,7 +37,20 @@ export const metadata: Metadata = {
     siteName: "Kintsugi Station",
     locale: "en_US",
     type: "website",
-    images: ["/assets/images/homepage_hero.jpg"],
+    images: [
+      {
+        url: "/assets/brand/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Kintsugi Station Villas, Sri Lanka",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/assets/brand/og-image.jpg"],
   },
 };
 

@@ -176,12 +176,6 @@ label:has(.picker-input:focus-visible) {
   }
 }
 
-@keyframes draw-path {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 @keyframes sheen {
   from {
     transform: translateX(-120%);
@@ -227,13 +221,6 @@ label:has(.picker-input:focus-visible) {
 /* Hero photography drifts in from slightly closer, then holds still. */
 .enter-settle {
   animation: settle 9s var(--ease-soft) both;
-}
-
-/* Hairline logo ridge draws itself once on load. */
-.draw-ridge path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw-path 2.4s var(--ease-soft) 0.2s forwards;
 }
 
 /*

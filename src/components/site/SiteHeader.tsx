@@ -10,7 +10,7 @@ export default function SiteHeader() {
     <HeaderShell>
       <div className="frame relative flex items-center justify-between px-5 py-3 lg:h-[5.25rem] lg:px-[3.625rem] lg:py-0">
         <div className="flex shrink-0 items-center">
-          <SiteLogo animate />
+          <SiteLogo priority className="h-12 lg:h-[4.1rem]" />
         </div>
 
         <nav aria-label="Primary" className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-center lg:px-4 xl:px-8">
