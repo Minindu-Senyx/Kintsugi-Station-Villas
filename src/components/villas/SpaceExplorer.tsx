@@ -30,23 +30,24 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
     <div className="flex flex-col gap-8 lg:gap-12">
       {/* Space Selection Tabs */}
       <div className="flex items-center overflow-x-auto border-b border-[#e2dcd2] pb-px scrollbar-none">
-        <div className="flex min-w-full gap-2 sm:gap-4">
+        <div role="group" aria-label="Spaces" className="flex min-w-full gap-2 sm:gap-4">
           {spaces.map((space, idx) => {
             const isSelected = idx === activeSpaceIndex;
             return (
               <button
                 key={space.id}
                 type="button"
+                aria-pressed={isSelected}
                 onClick={() => handleSpaceChange(idx)}
                 className={`group relative whitespace-nowrap px-3 py-3 text-left transition-all duration-300 sm:px-5 ${
-                  isSelected ? "text-ink font-medium" : "text-[#787672] hover:text-ink"
+                  isSelected ? "text-ink font-medium" : "text-[#6b6966] hover:text-ink"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <span className="block text-[0.62rem] uppercase tracking-[0.16em] text-gold sm:text-[0.68rem]">
+                  <span className="block text-[0.7rem] uppercase tracking-[0.16em] text-gold sm:text-[0.7rem]">
                     Space 0{idx + 1}
                   </span>
-                  <span className="text-[0.62rem] text-[#8c8273]">
+                  <span className="text-[0.7rem] text-[#70685c]">
                     ({space.photos.length})
                   </span>
                 </div>
@@ -75,7 +76,7 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
         {/* Left Column: Details & Features */}
         <div className="flex flex-col justify-between lg:col-span-5">
           <div>
-            <p className="eyebrow text-[0.62rem] font-medium tracking-[0.24em] text-[#8e8578] uppercase">
+            <p className="eyebrow text-[0.7rem] font-medium tracking-[0.24em] text-[#6f675d] uppercase">
               {activeSpace.badge}
             </p>
             <h3 className="mt-2.5 font-serif text-[1.85rem] leading-[1.2] text-ink sm:text-[2.2rem]">
@@ -86,7 +87,7 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
             </p>
 
             <div className="mt-6 border-t border-[#e8e2d8] pt-6">
-              <p className="eyebrow text-[0.62rem] tracking-[0.24em] text-[#8e8578] uppercase">
+              <p className="eyebrow text-[0.7rem] tracking-[0.24em] text-[#6f675d] uppercase">
                 Space Architecture & Details
               </p>
               <ul className="mt-3.5 space-y-2.5">
@@ -105,12 +106,12 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
           </div>
 
           {/* Photo Counter & Controls */}
-          <div className="mt-8 flex items-center justify-between border-t border-[#e8e2d8] pt-4 text-[0.74rem] text-[#7d7a74]">
+          <div className="mt-8 flex items-center justify-between border-t border-[#e8e2d8] pt-4 text-[0.74rem] text-[#6a6863]">
             <div className="flex items-baseline gap-2">
-              <span className="eyebrow text-[0.58rem] tracking-[0.22em] text-[#8e8578] uppercase">Frame</span>
+              <span className="eyebrow text-[0.7rem] tracking-[0.22em] text-[#6f675d] uppercase">Frame</span>
               <span className="font-serif text-[0.95rem] text-ink">
                 <span className="font-medium text-gold">0{activePhotoIndex + 1}</span>
-                <span className="font-light text-[#948f86]"> / 0{photos.length}</span>
+                <span className="font-light text-[#6d6960]"> / 0{photos.length}</span>
               </span>
             </div>
             <div className="flex gap-2">
@@ -154,7 +155,7 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
 
             {/* Photo Caption Badge */}
             <div className="absolute bottom-3.5 left-4 right-4 flex flex-col justify-end text-white">
-              <span className="text-[0.6rem] font-medium uppercase tracking-[0.18em] text-[#d9bf87]">
+              <span className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[#d9bf87]">
                 {activeSpace.name}
               </span>
               <p className="font-serif text-[0.96rem] font-light leading-snug drop-shadow-sm sm:text-[1.1rem]">
@@ -167,7 +168,7 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
               type="button"
               onClick={prevPhoto}
               aria-label="Previous photo"
-              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2.5 text-white/90 backdrop-blur-sm transition-all hover:bg-gold hover:text-[#1c1d1a] sm:opacity-0 sm:group-hover:opacity-100"
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2.5 text-white/90 backdrop-blur-sm transition-all hover:bg-gold hover:text-white focus-visible:opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -175,7 +176,7 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
               type="button"
               onClick={nextPhoto}
               aria-label="Next photo"
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2.5 text-white/90 backdrop-blur-sm transition-all hover:bg-gold hover:text-[#1c1d1a] sm:opacity-0 sm:group-hover:opacity-100"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2.5 text-white/90 backdrop-blur-sm transition-all hover:bg-gold hover:text-white focus-visible:opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
             >
               <ChevronRight className="size-5" />
             </button>
@@ -188,6 +189,8 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
                 <button
                   key={photo.src}
                   type="button"
+                  aria-pressed={idx === activePhotoIndex}
+                  aria-label={`Show photo ${idx + 1} of ${photos.length}: ${photo.caption}`}
                   onClick={() => setActivePhotoIndex(idx)}
                   className={`group relative h-14 w-20 shrink-0 overflow-hidden rounded-[2px] transition-all duration-300 sm:h-16 sm:w-24 ${
                     idx === activePhotoIndex
@@ -197,7 +200,7 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
                 >
                   <Image
                     src={photo.src}
-                    alt={photo.alt}
+                    alt=""
                     fill
                     sizes="96px"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"

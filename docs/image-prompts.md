@@ -43,9 +43,9 @@ regenerating for a closer match to the mockups.
 > `scripts/generate-images.mjs`, not the ones in this file.
 
 > **Real photos only, do not generate:** `people/founders.jpg` (About, "The
-> Founders") and `people/kandy_team.jpg` (About, "The People Behind Your
-> Stay"). They are real photographs of real people, taken from the old site.
-> They have no prompts on purpose.
+> Founders"). It is a real photograph of real people, taken from the old site.
+> It has no prompt on purpose. The old team photo was removed at the owners'
+> request; any new team photos must also be real.
 
 ---
 

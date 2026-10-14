@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 
 export default function GalleryPage() {
   return (
-    <main className="bg-mist">
+    <main id="main-content" tabIndex={-1} className="bg-mist">
       <section className="pb-[1.95rem] pt-[2.2rem]">
         <p
           style={delay(100)}
-          className="enter-rise eyebrow text-center font-serif text-[0.66rem] font-medium tracking-[0.36em] text-[#3f3f38]"
+          className="enter-rise eyebrow text-center font-serif text-[0.7rem] font-medium tracking-[0.36em] text-[#3f3f38]"
         >
           Gallery
         </p>

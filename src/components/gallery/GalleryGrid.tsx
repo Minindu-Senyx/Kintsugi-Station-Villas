@@ -23,13 +23,13 @@ type Photo = {
   tags: Exclude<Category, "All">[];
 };
 
-// Real photographs showcasing Avalon Villa and Villa Acland in Kandy
+// Photographs of Avalon Villa and Villa Acland in Kandy
 const photos: Photo[] = [
   {
     id: "pool",
     src: "/assets/images/villas/avalon/avalon-hero.jpg",
-    alt: "Cantilevered infinity pool and sun deck at Avalon Villa",
-    caption: ["Avalon Villa", "Cantilevered Pool"],
+    alt: "Stone courtyard and garden pavilion at dawn at Avalon Villa",
+    caption: ["Avalon Villa", "Courtyard at Dawn"],
     tags: ["Avalon Villa", "Valley Views", "Living & Terraces"],
   },
   {
@@ -138,7 +138,7 @@ function Tile({ photo, className, sizes, wait, onOpen }: TileProps) {
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(0deg,rgba(10,14,11,0.62),rgba(10,14,11,0))]"
       />
-      <span className="absolute bottom-[1.3rem] left-[1.25rem] font-serif text-[0.6rem] leading-[1rem] tracking-[0.2em] text-[#f4f1e8] uppercase transition-transform duration-700 ease-soft group-hover:-translate-y-[0.3rem]">
+      <span className="absolute bottom-[1.3rem] left-[1.25rem] font-serif text-[0.7rem] leading-[1rem] tracking-[0.2em] text-[#f4f1e8] uppercase transition-transform duration-700 ease-soft group-hover:-translate-y-[0.3rem]">
         {photo.caption[0]}
         <br />
         {photo.caption[1]}

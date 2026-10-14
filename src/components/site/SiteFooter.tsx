@@ -4,7 +4,7 @@ import { PiWhatsappLogoLight } from "react-icons/pi";
 import { KintsugiVeins } from "@/components/brand/KintsugiVeins";
 import SiteLogo from "@/components/site/SiteLogo";
 import { delay } from "@/lib/motion";
-import { bookHref, contact } from "@/lib/site";
+import { bookHref, contact, primaryEmail, primaryPhone } from "@/lib/site";
 
 const quickLinks = [
   { href: "/", label: "Home" },
@@ -13,7 +13,7 @@ const quickLinks = [
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
-  { href: bookHref, label: "Book Now" },
+  { href: bookHref, label: "Book on Airbnb" },
 ];
 
 type ContactItemProps = {
@@ -37,11 +37,12 @@ function ContactItem({ icon, label, value, detail, href, external }: ContactItem
         {icon}
       </span>
       <span className="flex flex-col pt-[0.2rem] leading-none">
-        <span className="text-[0.52rem] tracking-[0.22em] text-[#a88d58] uppercase">{label}</span>
+        <span className="text-[0.7rem] tracking-[0.22em] text-[#a88d58] uppercase">{label}</span>
         <span className="mt-[0.5rem] text-[0.76rem] text-[#ecebe6] transition-colors group-hover:text-[#d9bf87]">
           {value}
         </span>
-        {detail && <span className="mt-[0.4rem] text-[0.6rem] tracking-[0.02em] text-[#7a7d74]">{detail}</span>}
+        {detail && <span className="mt-[0.4rem] text-[0.72rem] tracking-[0.02em] text-[#a2a59b]">{detail}</span>}
+        {external && <span className="sr-only">(opens in a new tab)</span>}
       </span>
     </a>
   );
@@ -72,20 +73,20 @@ export default function SiteFooter() {
             <ContactItem
               icon={<PiWhatsappLogoLight className="size-[1.05rem]" />}
               label="WhatsApp"
-              value={contact.phone}
-              href={contact.whatsappHref}
+              value={primaryPhone.phone}
+              href={primaryPhone.whatsappHref}
               external
             />
             <ContactItem
               icon={<Mail className="size-[0.95rem]" strokeWidth={1.3} />}
               label="Email"
-              value={contact.email}
-              href={`mailto:${contact.email}`}
+              value={primaryEmail}
+              href={`mailto:${primaryEmail}`}
             />
             <ContactItem
               icon={<MapPin className="size-[0.95rem]" strokeWidth={1.3} />}
               label="Location"
-              value="Kandy Hills, Sri Lanka"
+              value="Kandy, Sri Lanka"
               detail={contact.coordinates}
               href={contact.mapsHref}
               external
@@ -98,13 +99,13 @@ export default function SiteFooter() {
             style={delay(300)}
             className="shrink-0 border-[#6b5a37]/70 lg:border-l lg:pl-[1.75rem] lg:pr-[0.5rem] lg:mt-[0.35rem]"
           >
-            <p className="text-[0.69rem] text-[#e6e5df]">Quick Links</p>
-            <ul className="mt-[0.45rem] space-y-[0.28rem] text-[0.64rem] leading-[0.82rem] text-[#d8d7d0]">
+            <p className="text-[0.7rem] text-[#e6e5df]">Quick Links</p>
+            <ul className="mt-[0.3rem] text-[0.75rem] leading-[1rem] text-[#d8d7d0]">
               {quickLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="inline-block transition-[color,translate] duration-500 ease-soft hover:translate-x-[0.2rem] hover:text-[#d9bf87]"
+                    className="inline-block py-[0.28rem] transition-[color,translate] duration-500 ease-soft hover:translate-x-[0.2rem] hover:text-[#d9bf87]"
                   >
                     {link.label}
                   </Link>
@@ -115,8 +116,8 @@ export default function SiteFooter() {
         </div>
 
         <div className="flex flex-col gap-4 border-t border-[#3b3526] pb-10 pt-[1.1rem] sm:flex-row sm:items-center sm:justify-between lg:pb-[2.9rem] lg:pt-[1rem]">
-          <p className="text-[0.62rem] text-[#8b8d85]">© {new Date().getFullYear()} Kintsugi Station. All rights reserved.</p>
-          <p className="flex items-center gap-[0.6rem] text-[0.58rem] tracking-[0.12em] text-[#a8997a]">
+          <p className="text-[0.72rem] text-[#8b8d85]">© {new Date().getFullYear()} Kintsugi Station. All rights reserved.</p>
+          <p className="flex items-center gap-[0.6rem] text-[0.7rem] tracking-[0.12em] text-[#a8997a]">
             <span data-reveal="line" style={delay(300)} aria-hidden="true" className="h-px w-[2.5rem] bg-[#8e7440]" />
             NATURE RESTORES WHAT TIME BREAKS
           </p>

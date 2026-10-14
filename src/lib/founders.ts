@@ -4,8 +4,8 @@
  * photograph from that page: never swap it for a generated image.
  */
 export const founders = {
-  /** Their names aren't on the old site yet. While empty, the sign-off reads "A New Lease of Life". */
-  names: "",
+  /** As the owners appear on their Airbnb listings. While empty, the sign-off reads "A New Lease of Life". */
+  names: "Kian & Janah",
   photo: {
     src: "/assets/images/people/founders.jpg",
     alt: "The founders of Kintsugi Station, a smiling couple, embracing",

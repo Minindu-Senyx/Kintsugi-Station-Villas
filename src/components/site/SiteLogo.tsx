@@ -20,7 +20,7 @@ function RidgeLine({ className }: { className?: string }) {
 }
 
 const tones = {
-  light: { ridge: "text-[#a88d4a]", name: "text-[#191b1a]", tagline: "text-[#7d7466]" },
+  light: { ridge: "text-[#a88d4a]", name: "text-[#191b1a]", tagline: "text-[#70685c]" },
   dark: { ridge: "text-[#b9ab8a]", name: "text-[#eae5d5]", tagline: "text-[#9a9b8b]" },
 };
 
@@ -44,8 +44,8 @@ export default function SiteLogo({ tone = "light", animate = false, className = 
       <span className={`mt-[0.8rem] font-serif text-[1.02rem] tracking-[0.1em] ${colors.name}`}>
         KINTSUGI STATION · KANDY
       </span>
-      <span className={`mt-[0.55rem] font-serif text-[0.52rem] tracking-[0.24em] ${colors.tagline}`}>
-        A PRIVATE VILLA IN SRI LANKA
+      <span className={`mt-[0.55rem] font-serif text-[0.7rem] tracking-[0.24em] ${colors.tagline}`}>
+        PRIVATE VILLAS IN SRI LANKA
       </span>
     </Link>
   );

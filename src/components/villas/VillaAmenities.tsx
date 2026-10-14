@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import {
   ArrowRight,
@@ -12,6 +11,7 @@ import {
   Waves,
   Wifi,
 } from "lucide-react";
+import { contact } from "@/lib/site";
 import { delay } from "@/lib/motion";
 
 export interface AmenityGroup {
@@ -21,7 +21,6 @@ export interface AmenityGroup {
 
 interface VillaAmenitiesProps {
   amenities: AmenityGroup[];
-  villaSlug: string;
   villaName: string;
 }
 
@@ -69,7 +68,6 @@ function getCategoryMeta(category: string, index: number) {
 
 export default function VillaAmenities({
   amenities,
-  villaSlug,
   villaName,
 }: VillaAmenitiesProps) {
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
@@ -90,7 +88,7 @@ export default function VillaAmenities({
           <p
             data-reveal="up"
             style={delay(100)}
-            className="eyebrow text-[0.62rem] tracking-[0.28em] text-[#8e8578] uppercase"
+            className="eyebrow text-[0.7rem] tracking-[0.28em] text-[#6f675d] uppercase"
           >
             Estate Amenities &amp; Inclusions
           </p>
@@ -112,8 +110,8 @@ export default function VillaAmenities({
             style={delay(350)}
             className="mx-auto mt-3 max-w-xl text-[0.88rem] text-ink-soft"
           >
-            Impeccable personal service, culinary excellence, and restorative
-            wellness tailored exclusively for your party at {villaName}.
+            What comes with your stay at {villaName}, and what the team can arrange
+            for you on request.
           </p>
         </div>
 
@@ -163,10 +161,10 @@ export default function VillaAmenities({
                   {/* Category Header Top Row: Icon + Subtitle + Tag */}
                   <div className="flex items-center justify-between pb-3">
                     <div className="flex items-center gap-2.5">
-                      <div className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#e2dbce] bg-[#f2ece1] text-gold transition-colors duration-300 group-hover:border-gold group-hover:bg-gold group-hover:text-[#1c1d1a]">
+                      <div className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#e2dbce] bg-[#f2ece1] text-gold transition-colors duration-300 group-hover:border-gold group-hover:bg-gold group-hover:text-white">
                         <meta.Icon className="size-4" strokeWidth={1.8} />
                       </div>
-                      <span className="eyebrow text-[0.62rem] font-medium tracking-[0.18em] text-[#8e8578] uppercase">
+                      <span className="eyebrow text-[0.7rem] font-medium tracking-[0.18em] text-[#6f675d] uppercase">
                         {meta.subtitle}
                       </span>
                     </div>
@@ -205,8 +203,8 @@ export default function VillaAmenities({
 
                 {/* Subtle Card Footer Accent */}
                 <div className="mt-4 pt-3 text-right">
-                  <span className="text-[0.68rem] tracking-[0.12em] text-[#a49d91] uppercase transition-colors group-hover:text-gold">
-                    Included with Stay
+                  <span className="text-[0.7rem] tracking-[0.12em] text-[#6e675b] uppercase transition-colors group-hover:text-gold">
+                    Included or on request
                   </span>
                 </div>
               </div>
@@ -227,19 +225,21 @@ export default function VillaAmenities({
             <div>
               <p className="text-[0.82rem] leading-relaxed text-ink-soft">
                 <strong className="font-medium text-ink">
-                  Tailored Hospitality &amp; Private Requests:
+                  Anything else you need:
                 </strong>{" "}
-                Custom dietary requirements, private dining menus, wellness sessions, and guided mountain excursions can be pre-arranged with your estate host.
+                Pets, events or parties, special diets, tours and trips can be arranged in advance, and we are often flexible. Just message us on WhatsApp.
               </p>
             </div>
           </div>
-          <Link
-            href={`/contact?villa=${villaSlug}#inquiry`}
-            className="sheen group flex shrink-0 items-center gap-2 whitespace-nowrap rounded-[2px] bg-ink px-5 py-2.5 text-[0.76rem] font-medium tracking-[0.08em] text-white transition-all hover:bg-gold hover:text-[#1c1d1a]"
+          <a
+            href={contact.people[0].whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sheen group flex shrink-0 items-center gap-2 whitespace-nowrap rounded-[2px] bg-ink px-5 py-2.5 text-[0.76rem] font-medium tracking-[0.08em] text-white transition-all hover:bg-gold hover:text-white"
           >
-            <span>Inquire with Host</span>
+            <span>Message Us on WhatsApp</span>
             <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-          </Link>
+          </a>
         </div>
       </div>
     </section>

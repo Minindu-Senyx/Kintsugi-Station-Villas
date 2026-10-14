@@ -20,7 +20,7 @@ export default function SiteHeader() {
         <div className="hidden lg:flex lg:shrink-0 lg:items-center lg:justify-end">
           <Link
             href={bookHref}
-            className="sheen flex h-[2.0625rem] w-[6.125rem] items-center justify-center bg-gold text-[0.75rem] text-[#f7f1e4] shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-colors hover:bg-[#8f6d31]"
+            className="sheen flex h-[2.0625rem] w-[6.125rem] items-center justify-center bg-gold text-[0.75rem] text-[#f7f1e4] shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-colors hover:bg-gold-hover"
           >
             Book Now
           </Link>

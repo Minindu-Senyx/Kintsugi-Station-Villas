@@ -44,9 +44,11 @@ export default function TestimonialCarousel({ items }: { items: Testimonial[] })
           <blockquote className="mt-[0.4rem] font-serif text-[1.2rem] leading-[1.6rem] text-ink">
             <p>{current.excerpt}</p>
           </blockquote>
-          <figcaption className="eyebrow mt-[1rem] flex items-center gap-[0.6rem] text-[0.6rem] tracking-[0.14em] text-[#8e8578]">
-            <span aria-hidden="true" className="h-px w-[1.8rem] bg-[#c3a876]" />
-            {current.name} · {current.date}
+          <figcaption className="mt-[1rem] flex items-start gap-[0.6rem] text-[0.7rem] uppercase leading-[1.1rem] tracking-[0.14em] text-[#6f675d]">
+            <span aria-hidden="true" className="mt-[0.55rem] h-px w-[1.8rem] shrink-0 bg-[#c3a876]" />
+            <span>
+              {current.name} · {current.date} · {current.stay}
+            </span>
           </figcaption>
         </figure>
       </div>
@@ -60,7 +62,7 @@ export default function TestimonialCarousel({ items }: { items: Testimonial[] })
         >
           <ChevronLeft className="size-[0.9rem]" strokeWidth={1.6} aria-hidden="true" />
         </button>
-        <div className="flex items-center gap-[0.15rem]">
+        <div className="flex items-center">
           {items.map((t, i) => (
             <button
               key={t.name}
@@ -68,7 +70,7 @@ export default function TestimonialCarousel({ items }: { items: Testimonial[] })
               onClick={() => setIndex(i)}
               aria-label={`Show review ${i + 1} of ${count}`}
               aria-current={i === index ? "true" : undefined}
-              className="grid size-[1.1rem] place-items-center"
+              className="grid size-6 place-items-center"
             >
               <span
                 aria-hidden="true"
@@ -87,7 +89,7 @@ export default function TestimonialCarousel({ items }: { items: Testimonial[] })
         >
           <ChevronRight className="size-[0.9rem]" strokeWidth={1.6} aria-hidden="true" />
         </button>
-        <p className="ml-auto text-[0.66rem] tracking-[0.14em] text-[#a89a86]">
+        <p className="ml-auto text-[0.7rem] tracking-[0.14em] text-[#746754]">
           {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
         </p>
       </div>

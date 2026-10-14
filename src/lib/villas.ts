@@ -1,3 +1,5 @@
+import { airbnbListings } from "@/lib/booking";
+
 export type RoomSpace = {
   id: string;
   name: string;
@@ -23,12 +25,14 @@ export type Villa = {
   description: string[];
   specs: {
     bedrooms: number;
+    beds: number;
     bathrooms: number;
     maxGuests: number;
-    poolType: string;
+    /** The one feature that sets this villa apart, shown beside the specs. */
+    feature: string;
     view: string;
     setting: string;
-    rateFromUSD: number;
+    nightlyUSD: number;
   };
   heroImage: string;
   architectureImage: {
@@ -47,23 +51,24 @@ export const villas: Record<"avalon" | "acland", Villa> = {
   avalon: {
     slug: "avalon",
     name: "Avalon Villa",
-    eyebrow: "Kandy Hilltop Estate · 3-Bedroom Residence",
+    eyebrow: "Kandy · 3-Bedroom Villa · Sleeps 6",
     tagline: "The Grand Panoramic Hillside Residence",
     summary:
-      "Commanding an eagle's nest vantage point across the mist-cloaked valley of Kandy, Avalon Villa is an expansive three-bedroom estate residence featuring a private cantilevered infinity pool, teak sundecks, soaring open-air living pavilions, and dedicated chef service.",
+      "A restored three-bedroom villa on a quiet Kandy hillside, a short walk from the Temple of the Tooth. Open verandas, a private garden, balconies, a library, a cinema room and a jacuzzi hot tub, with views across the forest to the Hanthana mountain range.",
     description: [
-      "Perched high on the Upper Hantana slopes above Kandy, Avalon Villa was conceived as an ode to openness, natural timber, and shifting mountain light. Designed for families, gatherings of friends, or couples seeking generous private space, it offers complete seclusion within private grounds.",
-      "The residence centres around a grand timber-beamed living pavilion that transitions seamlessly onto a wide deck. Here, the private infinity pool appears to spill directly into the forested valley below, reflecting the morning mist and evening amber skies.",
-      "Every detail — from the three individually designed bedroom suites to the long banquet dining table and private chef's kitchen — is curated to create an effortless retreat where time slows and every moment feels whole.",
+      "Avalon Villa sits among trees on a Kandy hillside, a short walk from the Temple of the Tooth and about 15 minutes on foot from the lake and city centre. It sleeps up to six, and the whole villa and its garden are yours for the length of your stay.",
+      "Days here centre on the open verandah, the spacious living and dining areas, the private garden and the balconies, where monkeys and birds are regular visitors. The views take in sunrises, morning mist, the forest, the Hanthana mountain range and the lights of Kandy at night.",
+      "Inside there is a fully equipped kitchen, a library, a cinema room with a projector and a jacuzzi hot tub. Breakfast is included, and the team can arrange home-cooked meals, transfers, tours and anything else you need.",
     ],
     specs: {
-      bedrooms: 3,
-      bathrooms: 3.5,
-      maxGuests: 8,
-      poolType: "Private Cantilevered Infinity Pool",
-      view: "360° Mountain, Valley & Forest Panorama",
-      setting: "Upper Hantana Mountain Ridge, Kandy",
-      rateFromUSD: 450,
+      bedrooms: airbnbListings.avalon.bedrooms,
+      beds: airbnbListings.avalon.beds,
+      bathrooms: airbnbListings.avalon.bathrooms,
+      maxGuests: airbnbListings.avalon.sleeps,
+      feature: "Jacuzzi Hot Tub",
+      view: "Forest, Hanthana Mountains & Kandy City Lights",
+      setting: "Kandy hillside, 1.2 km from the Temple of the Tooth",
+      nightlyUSD: airbnbListings.avalon.nightlyUSD,
     },
     heroImage: "/assets/images/villas/avalon/avalon-hero.jpg",
     architectureImage: {
@@ -198,52 +203,83 @@ export const villas: Record<"avalon" | "acland", Villa> = {
     ],
     amenities: [
       {
-        category: "Exclusivity & Service",
-        items: ["Entire villa reserved for one group", "Dedicated private estate chef", "Personal villa host & butler", "Daily housekeeping & evening turndown"],
+        category: "Hospitality & Services",
+        items: [
+          "Entire villa reserved for your group",
+          "Manager and caretakers on hand",
+          "Airport and railway station transfers",
+          "Tours and shuttles with English-speaking, licensed tourist drivers",
+          "Tuk-tuk rides, guided walks and tea estate visits",
+          "Local recommendations and bookings: dance shows, gem, jewellery and batik shops, temples",
+        ],
       },
       {
-        category: "Dining & Culinary",
-        items: ["Artisanal Ceylon breakfast included", "Bespoke seasonal dining menu", "Daily morning tea ritual", "Full open-pass kitchen & cocktail bar"],
+        category: "Food & Dining",
+        items: [
+          "Breakfast included, Sri Lankan or Western",
+          "Home-cooked Sri Lankan rice and curry lunch or dinner on request, LKR 5,000 per person",
+          "Private chef for Sri Lankan and Western meals on request",
+          "Daily Ceylon tea ritual",
+          "Fully equipped kitchen with gas stove, oven, microwave and toaster",
+          "Complimentary water, tea and coffee",
+        ],
       },
       {
         category: "Outdoor & Wellness",
-        items: ["Private infinity pool with valley views", "Expansive timber sun terrace & daybeds", "Al fresco dining pergola", "Private garden trails"],
+        items: [
+          "Jacuzzi hot tub",
+          "Private garden",
+          "Balconies and an open verandah",
+          "Open-air pavilion and tea terrace",
+          "Yoga and meditation space",
+          "Views of the forest and the Hanthana mountains",
+        ],
       },
       {
-        category: "Comfort & Connectivity",
-        items: ["High-speed fiber Wi-Fi throughout", "Organic Ceylon cotton linens & bathrobes", "Botanical bath amenities", "Sonos sound system"],
+        category: "Comfort & Leisure",
+        items: [
+          "Fast Wi-Fi and a dedicated workspace",
+          "Air conditioning, fans and hot water",
+          "Cinema room with projector and Bluetooth sound system",
+          "Library, games and a vintage piano",
+          "Laundry, a safe and free parking",
+          "Mosquito nets, vaporizers and an electronic mosquito catcher",
+          "Baby cot, mattress and high chair",
+          "MagGo wireless charger and charging ports",
+        ],
       },
     ],
     inclusions: [
-      "Exclusive access to the entire 3-bedroom villa and private grounds",
-      "Daily gourmet Sri Lankan and continental breakfast",
-      "Personal estate chef to prepare curated meals on request",
-      "Signature Ceylon morning and afternoon tea rituals",
-      "Dedicated villa host and mountain concierge for Kandy excursions",
-      "Full use of private infinity pool and sundecks",
+      "The entire 3-bedroom villa and its private garden for your group",
+      "Breakfast every morning, Sri Lankan or Western",
+      "Complimentary water, tea and coffee, and a daily Ceylon tea ritual",
+      "Home-cooked lunch and dinner, or a private chef, on request",
+      "A manager and caretakers on hand, with local recommendations and trip planning",
+      "Transfers, tours and shuttles arranged on request",
     ],
   },
 
   acland: {
     slug: "acland",
     name: "Villa Acland",
-    eyebrow: "Kandy Hilltop Estate · Artisan Sanctuary",
+    eyebrow: "Kandy · 1-Bedroom Villa · Sleeps 2",
     tagline: "The Secluded Sanctuary & Artisan Haven",
     summary:
-      "Tucked into the lush hillside canopy of the Kandy estate, Villa Acland is an intimate private hideaway carved out of reclaimed teak and river stone, offering pure restorative tranquility, open living verandas, and deep connection with nature.",
+      "A private one-bedroom villa beside Avalon Villa, made for two. A king-size bed, two balconies, a fully equipped kitchen and a leafy setting alive with birdsong, a short walk from the centre of Kandy.",
     description: [
-      "Nestled along a quiet forested slope within the estate, Villa Acland was designed as a tranquil sanctuary for couples, honeymooners, or solo travelers seeking stillness and contemplation.",
-      "The architecture celebrates organic textures: warm heritage Ceylon teak, hand-chiseled river stone, woven cane, and natural linen. The master bedroom suite opens directly onto an expansive covered veranda where the mountain breeze rustles through the bamboo canopy.",
-      "A carved stone soaking bath brings the outside in, while dedicated host and dining services allow you to savor private meals overlooking the mist without ever having to leave your personal hillside haven.",
+      "Villa Acland sits in the grounds of Avalon Villa, among the same trees and quiet hillside. It was made for couples, honeymooners and solo travellers who want stillness close to the centre of Kandy, and it sleeps two.",
+      "The bedroom has a king-size bed, and there are two balconies for slow mornings with a view of the trees, the birds and the occasional macaque. A fully equipped kitchen, air conditioning and a Bluetooth speaker make it easy to settle in.",
+      "Breakfast is included, and the team can arrange home-cooked meals, transfers, tours and anything else you need, or leave you to your own devices when you'd rather have quiet.",
     ],
     specs: {
-      bedrooms: 1,
-      bathrooms: 1.5,
-      maxGuests: 3,
-      poolType: "Private Stone Bath & Estate Pool Access",
-      view: "Lush Hillside Canopy & Valley Mist",
-      setting: "Secluded Slope of Avalon Estate, Kandy",
-      rateFromUSD: 320,
+      bedrooms: airbnbListings.acland.bedrooms,
+      beds: airbnbListings.acland.beds,
+      bathrooms: airbnbListings.acland.bathrooms,
+      maxGuests: airbnbListings.acland.sleeps,
+      feature: "Two Private Balconies",
+      view: "Garden, Trees & Birdlife",
+      setting: "In the grounds of Avalon Villa, Kandy",
+      nightlyUSD: airbnbListings.acland.nightlyUSD,
     },
     heroImage: "/assets/images/villas/acland/acland-hero.jpg",
     architectureImage: {
@@ -353,29 +389,58 @@ export const villas: Record<"avalon" | "acland", Villa> = {
     ],
     amenities: [
       {
-        category: "Intimate Seclusion",
-        items: ["Entire villa reserved for private use", "Dedicated personal villa host", "Private in-villa dining service", "Daily housekeeping & turndown"],
+        category: "Hospitality & Services",
+        items: [
+          "Entire villa reserved for you",
+          "Manager and caretakers on hand, daily housekeeping",
+          "Airport and railway station transfers",
+          "Tours and shuttles with English-speaking, licensed tourist drivers",
+          "Tuk-tuk rides, guided walks and tea estate visits",
+          "Local recommendations and bookings: dance shows, gem, jewellery and batik shops, temples",
+        ],
       },
       {
-        category: "Artisan Wellness",
-        items: ["Carved river stone soaking tub", "Herbal bath salts & botanical oils", "Plush organic cotton robes & towels", "Private garden meditation spots"],
+        category: "Food & Dining",
+        items: [
+          "Breakfast included, Sri Lankan or Western",
+          "Home-cooked Sri Lankan rice and curry lunch or dinner on request, LKR 5,000 per person",
+          "Private chef for Sri Lankan and Western meals on request",
+          "Daily Ceylon tea ritual",
+          "Fully equipped kitchen with gas stove, oven, microwave and toaster",
+          "Complimentary water, tea and coffee",
+        ],
       },
       {
-        category: "Culinary & Rituals",
-        items: ["Artisanal Ceylon breakfast delivered to veranda", "Private chef dinners upon request", "Morning Ceylon tea ritual", "Espresso machine & curated tea selection"],
+        category: "Outdoor & Wellness",
+        items: [
+          "Two private balconies",
+          "Private garden",
+          "Open-air pavilion and tea terrace",
+          "Yoga and meditation space",
+          "Birds and monkeys outside your window",
+        ],
       },
       {
-        category: "Comfort & Nature",
-        items: ["High-speed fiber Wi-Fi", "Sheltered veranda with valley views", "Direct forest walking trail access", "Full access to estate grounds"],
+        category: "Comfort & Leisure",
+        items: [
+          "Fast Wi-Fi and a dedicated workspace",
+          "Air conditioning, fans and hot water",
+          "TV and a Bluetooth speaker",
+          "Games and a vintage piano",
+          "Laundry, a safe and free parking",
+          "Mosquito nets, vaporizers and an electronic mosquito catcher",
+          "Baby cot, mattress and high chair",
+          "MagGo wireless charger and charging ports",
+        ],
       },
     ],
     inclusions: [
-      "Exclusive private use of Villa Acland and its private terraces",
-      "Daily gourmet Sri Lankan and continental breakfast",
-      "Private veranda dining service with dedicated host",
-      "Signature morning tea ritual with single-origin teas",
-      "Access to the wider estate grounds and walking paths",
-      "Full concierge assistance for excursions in Kandy and surrounding hills",
+      "Exclusive use of Villa Acland and its two balconies",
+      "Breakfast every morning, Sri Lankan or Western",
+      "Complimentary water, tea and coffee, and a daily Ceylon tea ritual",
+      "Home-cooked lunch and dinner, or a private chef, on request",
+      "A manager and caretakers on hand, with local recommendations and trip planning",
+      "Transfers, tours and shuttles arranged on request",
     ],
   },
 };

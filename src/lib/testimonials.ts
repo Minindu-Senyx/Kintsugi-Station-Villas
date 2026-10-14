@@ -6,7 +6,7 @@
 export type Testimonial = {
   name: string;
   date: string;
-  /** Villa the guest stayed in on the old site. Not shown for now (see docs/plan-testimonials-founders-staff.md). */
+  /** Villa the guest stayed in, shown beside the name and date (the owners asked for stay details). */
   stay: string;
   /** The full review, one string per paragraph. */
   quote: string[];

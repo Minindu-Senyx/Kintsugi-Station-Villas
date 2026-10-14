@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BedDouble, Compass, Users, Waves } from "lucide-react";
+import { ArrowRight, BedDouble, ExternalLink, Sparkles, Users, Wallet } from "lucide-react";
+import BookOnAirbnb from "@/components/villas/BookOnAirbnb";
+import { airbnbUrl, discountNote } from "@/lib/booking";
 import { delay } from "@/lib/motion";
 import { allVillas } from "@/lib/villas";
 
 export const metadata: Metadata = {
   title: "The Villas · Kandy Estate · Kintsugi Station",
   description:
-    "Discover our two private luxury residences in Kandy, Sri Lanka: Avalon Villa (3-Bedroom Hillside Residence) and Villa Acland (Artisan Secluded Sanctuary).",
+    "Two private villas in Kandy, Sri Lanka: Avalon Villa (3 bedrooms, sleeps 6) and Villa Acland (1 bedroom, sleeps 2), or book both together for 8. Reserve on Airbnb.",
 };
 
 export default function VillasOverviewPage() {
   return (
-    <main className="bg-ivory text-ink">
+    <main id="main-content" tabIndex={-1} className="bg-ivory text-ink">
       {/* Hero Section */}
       <section className="relative overflow-hidden border-b border-[#e2dcd2] bg-mist py-16 sm:py-24">
         {/* Subtle background radial glow */}
@@ -25,7 +27,7 @@ export default function VillasOverviewPage() {
         <div className="frame relative px-5 text-center lg:px-[3.625rem]">
           <p
             style={delay(100)}
-            className="enter-rise eyebrow flex items-center justify-center gap-2.5 text-[0.64rem] tracking-[0.3em] text-[#8e8578] uppercase"
+            className="enter-rise eyebrow flex items-center justify-center gap-2.5 text-[0.7rem] tracking-[0.3em] text-[#6f675d] uppercase"
           >
             <span>Kandy Branch · Sri Lanka</span>
             <span aria-hidden="true" className="h-px w-8 bg-[#c7b27a]" />
@@ -42,7 +44,7 @@ export default function VillasOverviewPage() {
             style={delay(350)}
             className="enter-rise mx-auto mt-4 max-w-2xl text-[0.95rem] leading-[1.65] text-ink-soft sm:text-[1rem]"
           >
-            Perched high in the mist-veiled hills of Upper Hantana, our Kandy estate comprises two distinct architectural villas, each reserved exclusively for one party at a time.
+            On a quiet Kandy hillside, a short walk from the Temple of the Tooth, stand two private villas. Each is reserved for one party at a time, and you can book either one or both together.
           </p>
 
           <div
@@ -83,8 +85,8 @@ export default function VillasOverviewPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40" />
 
-                    <div className="absolute left-4 top-4 rounded-full bg-black/50 px-3.5 py-1 text-[0.64rem] font-medium tracking-[0.14em] text-white uppercase backdrop-blur-md">
-                      {villa.specs.bedrooms} {villa.specs.bedrooms === 1 ? "Bedroom Suite" : "Bedroom Residence"}
+                    <div className="absolute left-4 top-4 rounded-full bg-black/50 px-3.5 py-1 text-[0.7rem] font-medium tracking-[0.14em] text-white uppercase backdrop-blur-md">
+                      {villa.specs.bedrooms} {villa.specs.bedrooms === 1 ? "Bedroom" : "Bedrooms"} · Sleeps {villa.specs.maxGuests}
                     </div>
 
                     <div className="absolute bottom-4 left-4 right-4 text-white sm:opacity-0 sm:group-hover:opacity-100 sm:transition-opacity sm:duration-300">
@@ -99,7 +101,7 @@ export default function VillasOverviewPage() {
                     <p
                       data-reveal="up"
                       style={delay(150)}
-                      className="eyebrow text-[0.64rem] tracking-[0.2em] text-gold uppercase"
+                      className="eyebrow text-[0.7rem] tracking-[0.2em] text-gold uppercase"
                     >
                       {villa.eyebrow}
                     </p>
@@ -143,19 +145,19 @@ export default function VillasOverviewPage() {
                     >
                       <div className="flex items-center gap-2.5">
                         <BedDouble className="size-4 text-gold shrink-0" />
-                        <span>{villa.specs.bedrooms} Luxury {villa.specs.bedrooms === 1 ? "Suite" : "Suites"}</span>
+                        <span>{villa.specs.bedrooms} {villa.specs.bedrooms === 1 ? "Bedroom" : "Bedrooms"} · {villa.specs.beds} {villa.specs.beds === 1 ? "bed" : "beds"}</span>
                       </div>
                       <div className="flex items-center gap-2.5">
                         <Users className="size-4 text-gold shrink-0" />
                         <span>Up to {villa.specs.maxGuests} Guests</span>
                       </div>
                       <div className="flex items-center gap-2.5">
-                        <Waves className="size-4 text-gold shrink-0" />
-                        <span>{villa.specs.poolType.includes("Infinity") ? "Infinity Pool" : "Stone Soaking Bath"}</span>
+                        <Sparkles className="size-4 text-gold shrink-0" />
+                        <span>{villa.specs.feature}</span>
                       </div>
                       <div className="flex items-center gap-2.5">
-                        <Compass className="size-4 text-gold shrink-0" />
-                        <span>USD {villa.specs.rateFromUSD} / night</span>
+                        <Wallet className="size-4 text-gold shrink-0" />
+                        <span>USD {villa.specs.nightlyUSD} / night</span>
                       </div>
                     </div>
 
@@ -167,23 +169,72 @@ export default function VillasOverviewPage() {
                     >
                       <Link
                         href={`/villas/${villa.slug}`}
-                        className="sheen flex h-[2.5rem] items-center justify-center bg-gold px-6 text-[0.8rem] font-medium tracking-[0.06em] text-[#2c2a19] shadow-sm transition-all hover:bg-[#8f6d31]"
+                        className="sheen flex h-[2.5rem] items-center justify-center bg-gold px-6 text-[0.8rem] font-medium tracking-[0.06em] text-[#f7f1e4] shadow-sm transition-all hover:bg-gold-hover"
                       >
                         <span>Step Inside & Explore</span>
                         <ArrowRight className="ml-2 size-4" />
                       </Link>
-                      <Link
-                        href={`/contact?villa=${villa.slug}#inquiry`}
-                        className="flex h-[2.5rem] items-center justify-center rounded-[2px] border border-[#cfc8bc] bg-white px-5 text-[0.8rem] text-[#333] transition-colors hover:border-gold hover:text-gold"
+                      <a
+                        href={airbnbUrl(villa.slug)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-[2.5rem] items-center justify-center gap-2 rounded-[2px] border border-[#cfc8bc] bg-white px-5 text-[0.8rem] text-[#333] transition-colors hover:border-gold hover:text-gold"
                       >
-                        Reserve Villa
-                      </Link>
+                        Book on Airbnb
+                        <ExternalLink className="size-3.5" aria-hidden="true" />
+                        <span className="sr-only">(opens in a new tab)</span>
+                      </a>
                     </div>
                   </div>
                 </div>
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Book on Airbnb */}
+      <section id="book" className="scroll-mt-16 border-t border-[#e2dcd2] bg-linen py-16 sm:py-24">
+        <div className="frame px-5 lg:px-[3.625rem]">
+          <div className="mb-10 text-center sm:mb-12">
+            <p
+              data-reveal="up"
+              style={delay(100)}
+              className="eyebrow text-[0.7rem] tracking-[0.24em] text-gold uppercase"
+            >
+              Reserve Your Stay
+            </p>
+            <h2
+              data-reveal="up"
+              style={delay(200)}
+              className="mt-2 font-serif text-[2.4rem] leading-tight text-ink sm:text-[3rem]"
+            >
+              Book on Airbnb
+            </h2>
+            <p
+              data-reveal="up"
+              style={delay(300)}
+              className="mx-auto mt-3 max-w-xl text-[0.9rem] text-ink-soft"
+            >
+              Bookings are made securely through Airbnb, where you can see live availability and our guest reviews.
+              {" "}
+              {discountNote}.
+            </p>
+            <span
+              aria-hidden="true"
+              data-reveal="line"
+              style={delay(380)}
+              className="mx-auto mt-4 block h-px w-14 bg-gold"
+            />
+          </div>
+          <BookOnAirbnb />
+          <p className="mt-8 text-center text-[0.8rem] text-ink-soft">
+            Travelling with pets, or planning an event? Message us on{" "}
+            <Link href="/contact" className="text-gold underline-offset-2 hover:underline">
+              WhatsApp
+            </Link>{" "}
+            first, as we can often be flexible.
+          </p>
         </div>
       </section>
     </main>

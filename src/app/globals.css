@@ -26,11 +26,12 @@
   --color-pine-ink: #0f2a22; /* about headings */
 
   /* Golds */
-  --color-gold: #a47f3d; /* home buttons */
-  --color-gold-olive: #9e823c; /* about */
-  --color-brass: #b39550; /* gallery */
-  --color-bronze: #a38150; /* contact */
-  --color-taupe: #b19b68; /* about eyebrow labels */
+  --color-gold: #816430; /* brand gold: 4.6:1+ on every page surface, light text on it is 5:1+ */
+  --color-gold-hover: #5f4a23;
+  --color-gold-olive: #7b652f; /* about */
+  --color-brass: #b39550; /* gallery (used on dark or as a fill only) */
+  --color-bronze: #7f653e; /* contact */
+  --color-taupe: #78663e; /* about eyebrow labels */
 
   /* Dark greens */
   --color-night: #1a201b; /* home footer */
@@ -55,6 +56,59 @@ body {
   background: var(--color-ivory);
   color: var(--color-ink);
   font-family: var(--font-sans);
+}
+
+/* Anchors (#book, #spaces) land clear of the sticky header. */
+html {
+  scroll-padding-top: 6rem;
+}
+
+/*
+ * Keyboard focus: one clear ring everywhere. Deep gold on the light pages, pale
+ * gold wherever the surface is dark (footer, dialogs). Mouse clicks show nothing.
+ */
+:focus-visible {
+  outline: 2px solid var(--color-gold-hover);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+footer :focus-visible,
+dialog :focus-visible,
+.on-dark :focus-visible {
+  outline-color: #e6cc93;
+}
+main:focus {
+  outline: none;
+}
+/* The date inputs are invisible overlays: ring their whole field instead. */
+label:has(.picker-input:focus-visible) {
+  outline: 2px solid var(--color-gold-hover);
+  outline-offset: -2px;
+}
+
+/* "Skip to main content": hidden until a keyboard user tabs to it. */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 100;
+  padding: 0.65rem 1rem;
+  background: var(--color-ink);
+  color: #fff;
+  font-size: 0.875rem;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus {
+  transform: none;
+}
+
+/* Horizontal tab rows scroll without a visible bar. */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 .frame {

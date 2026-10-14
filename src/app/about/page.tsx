@@ -4,7 +4,7 @@ import { KintsugiVeins } from "@/components/brand/KintsugiVeins";
 import { QuoteMark } from "@/components/brand/QuoteMark";
 import { founders } from "@/lib/founders";
 import { delay } from "@/lib/motion";
-import { team, teamPhoto } from "@/lib/team";
+import { team } from "@/lib/team";
 
 export const metadata: Metadata = {
   title: "About",
@@ -35,7 +35,7 @@ const materials = [
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p data-reveal="up" className="eyebrow text-[0.6rem] font-medium tracking-[0.3em] text-taupe">
+    <p data-reveal="up" className="eyebrow text-[0.7rem] font-medium tracking-[0.3em] text-taupe">
       {children}
     </p>
   );
@@ -45,7 +45,7 @@ function Signoff({ children }: { children: React.ReactNode }) {
   return (
     <p
       data-reveal="fade"
-      className="eyebrow flex items-center gap-[0.75rem] text-[0.53rem] font-medium tracking-[0.38em] text-[#b5a06a]"
+      className="eyebrow flex items-center gap-[0.75rem] text-[0.7rem] font-medium tracking-[0.38em] text-[#78673c]"
     >
       <span data-reveal="line" style={delay(300)} aria-hidden="true" className="h-px w-[2rem] bg-[#c7b27a]" />
       {children}
@@ -55,7 +55,7 @@ function Signoff({ children }: { children: React.ReactNode }) {
 
 export default function AboutPage() {
   return (
-    <main className="bg-paper">
+    <main id="main-content" tabIndex={-1} className="bg-paper">
       {/* Hero */}
       <section className="relative overflow-hidden lg:h-[12.8rem]">
         <div className="absolute inset-y-0 right-0 w-full lg:left-[max(20.5rem,calc(50vw-11.5rem))] lg:w-auto">
@@ -197,7 +197,7 @@ export default function AboutPage() {
               </div>
               <div data-reveal="up" style={delay(i * 160 + 300)} className="px-[0.2rem]">
                 <h3 className="mt-[0.6rem] font-serif text-[1.16rem] leading-[1.3rem] text-[#1c2e2a]">{item.title}</h3>
-                <p className="mt-[0.2rem] text-[0.82rem] leading-[1.13rem] text-[#747573]">{item.text}</p>
+                <p className="mt-[0.2rem] text-[0.82rem] leading-[1.13rem] text-[#666866]">{item.text}</p>
               </div>
             </article>
           ))}
@@ -223,8 +223,9 @@ export default function AboutPage() {
             Exclusively Yours
           </h2>
           <p data-reveal="up" style={delay(200)} className="mt-[1rem] max-w-[24rem] text-[0.8rem] leading-[1.16rem] text-[#3f4442]">
-            Enjoy private, resident chef dining inspired by Sri Lankan flavors, bespoke morning Ceylon tea rituals, and
-            absolute privacy with only one party at a time. Every detail is curated for a slower, more meaningful stay.
+            Breakfast is included every morning, with home-cooked Sri Lankan meals or a private chef on request, a daily
+            Ceylon tea ritual, and the whole villa to yourselves, one party at a time. Every detail is there for a
+            slower, more meaningful stay.
           </p>
           <div className="mt-[1.2rem]">
             <Signoff>A More Human Way to Travel</Signoff>
@@ -234,25 +235,15 @@ export default function AboutPage() {
 
       {/* The People Behind Your Stay */}
       <section className="frame px-5 pb-14 pt-8 lg:px-[4.25rem] lg:pb-[2.4rem] lg:pt-[1.6rem]">
-        <div className="flex flex-col gap-8 border-t border-[#ece9e1] pt-8 lg:flex-row lg:items-center lg:gap-[2.7rem] lg:pt-[1.6rem]">
-          <div
-            data-reveal="image"
-            className="relative h-[28rem] shrink-0 overflow-hidden lg:order-last lg:h-[21rem] lg:w-[15.75rem]"
-          >
-            <Image
-              src={teamPhoto.src}
-              alt={teamPhoto.alt}
-              fill
-              sizes="(min-width: 900px) 25vw, 100vw"
-              className="object-cover object-[50%_80%]"
-            />
-          </div>
-          <div className="flex-1">
+        <div className="flex flex-col gap-8 border-t border-[#ece9e1] pt-8 lg:flex-row lg:items-start lg:gap-[2.7rem] lg:pt-[1.6rem]">
+          <div className="lg:w-[24rem] lg:shrink-0">
             <Label>The People Behind Your Stay</Label>
             <h2 data-reveal="up" style={delay(100)} className="mt-[0.75rem] font-serif text-[1.9rem] leading-[1.95rem] text-pine-ink">
               Meet the Kandy Team
             </h2>
-            <ul className="mt-[0.9rem] divide-y divide-[#ece9e1]">
+          </div>
+          <div className="flex-1 lg:max-w-[34rem]">
+            <ul className="divide-y divide-[#ece9e1] lg:-mt-[0.9rem]">
               {team.map((member, i) => (
                 <li key={member.name} data-reveal="up" style={delay(200 + i * 150)} className="py-[0.9rem]">
                   {member.quote ? (
@@ -265,9 +256,9 @@ export default function AboutPage() {
                   ) : (
                     <p className="text-[0.8rem] leading-[1.16rem] text-[#3f4442]">{member.about}</p>
                   )}
-                  <p className="eyebrow mt-[0.65rem] text-[0.55rem] font-medium tracking-[0.3em] text-taupe">
+                  <p className="eyebrow mt-[0.65rem] text-[0.7rem] font-medium tracking-[0.3em] text-taupe">
                     {member.name}
-                    <span className="text-[#a9a59c]"> · {member.role}</span>
+                    <span className="text-[#6c685e]"> · {member.role}</span>
                   </p>
                 </li>
               ))}

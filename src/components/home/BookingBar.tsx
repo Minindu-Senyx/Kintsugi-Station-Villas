@@ -1,7 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import {
   BedDouble,
   CalendarCheck2,
@@ -10,6 +9,7 @@ import {
   ChevronDown,
   UserRound,
 } from "lucide-react";
+import { airbnbListings, airbnbUrl, type ListingKey } from "@/lib/booking";
 
 const formatDate = (value: string) =>
   value
@@ -21,34 +21,36 @@ const formatDate = (value: string) =>
     : "Select date";
 
 interface VillaOption {
-  value: string;
+  value: ListingKey;
   name: string;
   badge: string;
   desc: string;
+  maxGuests: number;
 }
 
 const villaOptions: VillaOption[] = [
   {
     value: "avalon",
     name: "Avalon Villa",
-    badge: "3 Beds · Infinity Pool",
-    desc: "Panoramic hillside residence · up to 8 guests",
+    badge: "3 Bedrooms · Sleeps 6",
+    desc: "Hillside villa with a hot tub and cinema room",
+    maxGuests: airbnbListings.avalon.sleeps,
   },
   {
     value: "acland",
     name: "Villa Acland",
-    badge: "1 Bed · Secluded Sanctuary",
-    desc: "Artisan forest haven · up to 3 guests",
+    badge: "1 Bedroom · Sleeps 2",
+    desc: "A private retreat for two, with two balconies",
+    maxGuests: airbnbListings.acland.sleeps,
   },
   {
-    value: "estate",
-    name: "Entire Estate",
-    badge: "Both Villas · Full Buyout",
-    desc: "Exclusive estate hire · all 4 suites",
+    value: "both",
+    name: "Both Villas",
+    badge: "4 Bedrooms · Sleeps 8",
+    desc: "Avalon and Acland together, for larger groups",
+    maxGuests: airbnbListings.both.sleeps,
   },
 ];
-
-const guestOptions = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
 const divider = (
   <span
@@ -58,8 +60,7 @@ const divider = (
 );
 
 export default function BookingBar() {
-  const router = useRouter();
-  const [villa, setVilla] = useState("avalon");
+  const [villa, setVilla] = useState<ListingKey>("avalon");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState("2");
@@ -69,6 +70,10 @@ export default function BookingBar() {
   );
   const containerRef = useRef<HTMLFormElement>(null);
   const dateInputRef = useRef<HTMLInputElement>(null);
+  const villaButtonRef = useRef<HTMLButtonElement>(null);
+  const guestButtonRef = useRef<HTMLButtonElement>(null);
+  const villaPanelId = useId();
+  const guestPanelId = useId();
 
   const today = new Date().toISOString().slice(0, 10);
 
@@ -82,8 +87,10 @@ export default function BookingBar() {
         setOpenDropdown(null);
       }
     }
+    // Escape closes the open list and hands focus back to the button that opened it.
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && openDropdown) {
+        (openDropdown === "villa" ? villaButtonRef : guestButtonRef).current?.focus();
         setOpenDropdown(null);
       }
     }
@@ -94,7 +101,7 @@ export default function BookingBar() {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [openDropdown]);
 
   const openPicker = (e: React.MouseEvent<HTMLInputElement>) => {
     try {
@@ -104,16 +111,16 @@ export default function BookingBar() {
     }
   };
 
+  // Booking happens on Airbnb: open the chosen listing with these dates and guests filled in.
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const params = new URLSearchParams({ villa, guests });
-    if (checkIn) params.set("arrival", checkIn);
-    if (checkOut) params.set("departure", checkOut);
-    router.push(`/contact?${params.toString()}#inquiry`);
+    const url = airbnbUrl(villa, { checkIn, checkOut, guests: Number(guests) });
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const selectedVillaObj =
     villaOptions.find((v) => v.value === villa) || villaOptions[0];
+  const guestOptions = Array.from({ length: selectedVillaObj.maxGuests }, (_, i) => String(i + 1));
 
   return (
     <form
@@ -123,11 +130,17 @@ export default function BookingBar() {
       className="relative flex flex-col divide-y divide-[#e2dcd2] rounded-[3px] bg-[#f6f3ef] shadow-[0_8px_30px_rgba(0,0,0,0.18)] lg:h-[4.0625rem] lg:flex-row lg:items-center lg:divide-y-0"
     >
       {/* Villa Selector */}
-      <div className="group relative flex h-full flex-1 items-center">
+      <div
+        className="group relative flex h-full flex-1 items-center"
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget as Node | null) && openDropdown === "villa") setOpenDropdown(null);
+        }}
+      >
         <button
+          ref={villaButtonRef}
           type="button"
-          aria-haspopup="listbox"
           aria-expanded={openDropdown === "villa"}
+          aria-controls={openDropdown === "villa" ? villaPanelId : undefined}
           onClick={() =>
             setOpenDropdown(openDropdown === "villa" ? null : "villa")
           }
@@ -156,11 +169,12 @@ export default function BookingBar() {
         {/* Custom Villa Dropdown Menu */}
         {openDropdown === "villa" && (
           <div
-            role="listbox"
-            aria-label="Select Villa"
+            id={villaPanelId}
+            role="group"
+            aria-label="Choose a villa"
             className="enter-rise absolute left-0 top-[calc(100%+0.35rem)] z-50 w-full min-w-[17.5rem] rounded-[3px] border border-[#e0dad0] bg-[#fbf9f5] p-1.5 shadow-[0_12px_36px_rgba(20,24,21,0.18)]"
           >
-            <div className="px-2.5 py-1 text-[0.62rem] font-medium uppercase tracking-[0.14em] text-[#938774]">
+            <div className="px-2.5 py-1 text-[0.7rem] font-medium uppercase tracking-[0.14em] text-[#726858]">
               Select Sanctuary
             </div>
             <div className="space-y-1">
@@ -170,10 +184,11 @@ export default function BookingBar() {
                   <button
                     key={opt.value}
                     type="button"
-                    role="option"
-                    aria-selected={isSelected}
+                    aria-pressed={isSelected}
                     onClick={() => {
                       setVilla(opt.value);
+                      // A smaller villa can't take the party we'd picked for a larger one.
+                      if (Number(guests) > opt.maxGuests) setGuests(String(opt.maxGuests));
                       setOpenDropdown(null);
                     }}
                     className={`group/opt flex w-full cursor-pointer items-start justify-between rounded-[2px] px-2.5 py-2 text-left transition-colors ${
@@ -191,11 +206,11 @@ export default function BookingBar() {
                         >
                           {opt.name}
                         </span>
-                        <span className="rounded-[2px] bg-black/5 px-1.5 py-0.5 text-[0.58rem] tracking-[0.04em] text-[#7a6b52]">
+                        <span className="rounded-[2px] bg-black/5 px-1.5 py-0.5 text-[0.7rem] tracking-[0.04em] text-[#7a6b52]">
                           {opt.badge}
                         </span>
                       </div>
-                      <p className="mt-0.5 text-[0.68rem] text-[#6b6760]">
+                      <p className="mt-0.5 text-[0.7rem] text-[#6b6760]">
                         {opt.desc}
                       </p>
                     </div>
@@ -275,11 +290,17 @@ export default function BookingBar() {
       {divider}
 
       {/* Guests Selector */}
-      <div className="group relative flex h-full flex-1 items-center">
+      <div
+        className="group relative flex h-full flex-1 items-center"
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget as Node | null) && openDropdown === "guests") setOpenDropdown(null);
+        }}
+      >
         <button
+          ref={guestButtonRef}
           type="button"
-          aria-haspopup="listbox"
           aria-expanded={openDropdown === "guests"}
+          aria-controls={openDropdown === "guests" ? guestPanelId : undefined}
           onClick={() =>
             setOpenDropdown(openDropdown === "guests" ? null : "guests")
           }
@@ -308,12 +329,13 @@ export default function BookingBar() {
         {/* Custom Guests Dropdown Menu */}
         {openDropdown === "guests" && (
           <div
-            role="listbox"
-            aria-label="Select number of guests"
+            id={guestPanelId}
+            role="group"
+            aria-label="Number of guests"
             className="enter-rise absolute left-0 top-[calc(100%+0.35rem)] z-50 w-full min-w-[13rem] rounded-[3px] border border-[#e0dad0] bg-[#fbf9f5] p-1.5 shadow-[0_12px_36px_rgba(20,24,21,0.18)]"
           >
-            <div className="px-2.5 py-1 text-[0.62rem] font-medium uppercase tracking-[0.14em] text-[#938774]">
-              Party Size (Up to 8)
+            <div className="px-2.5 py-1 text-[0.7rem] font-medium uppercase tracking-[0.14em] text-[#726858]">
+              Party Size (Up to {selectedVillaObj.maxGuests})
             </div>
             <div className="grid grid-cols-2 gap-1 sm:grid-cols-1">
               {guestOptions.map((n) => {
@@ -322,8 +344,7 @@ export default function BookingBar() {
                   <button
                     key={n}
                     type="button"
-                    role="option"
-                    aria-selected={isSelected}
+                    aria-pressed={isSelected}
                     onClick={() => {
                       setGuests(n);
                       setOpenDropdown(null);
@@ -354,9 +375,9 @@ export default function BookingBar() {
       <div className="p-4 lg:px-[1.15rem] lg:py-0 lg:pl-[1.25rem] lg:shrink-0">
         <button
           type="submit"
-          className="sheen flex h-[2.35rem] w-full items-center justify-center bg-gold text-[0.78rem] font-medium text-[#f7f1e4] shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-colors hover:bg-[#8f6d31] lg:w-[8rem] whitespace-nowrap"
+          className="sheen flex h-[2.35rem] w-full items-center justify-center bg-gold text-[0.78rem] font-medium text-[#f7f1e4] shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-colors hover:bg-gold-hover lg:w-[8rem] whitespace-nowrap"
         >
-          Check Dates
+          Book on Airbnb
         </button>
       </div>
     </form>
