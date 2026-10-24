@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import ContactForm from "@/components/contact/ContactForm";
-import BookOnAirbnb from "@/components/villas/BookOnAirbnb";
 import { delay } from "@/lib/motion";
-import { contact, distances, nearbyRecommendations, social } from "@/lib/site";
+import { bookHref, contact, distances, nearbyRecommendations, social } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -55,24 +55,14 @@ export default function ContactPage() {
           Get in touch
         </h1>
         <p style={delay(340)} className="enter-rise mt-4 max-w-[28rem] text-[1rem] leading-[1.5rem] text-ink-soft">
-          Book on Airbnb, or message us with any question before you do.
+          Message us with any question, before or after you book.
         </p>
-      </section>
-
-      {/* Book */}
-      <section id="book" className={`${section} scroll-mt-6`}>
-        <div className="grid gap-8 lg:grid-cols-[17rem_1fr] lg:gap-12">
-          <div data-reveal="up">
-            <p className={eyebrow}>Reserve</p>
-            <h2 className={`mt-4 ${h2}`}>Book on Airbnb</h2>
-            <p className="mt-3 max-w-[16rem] text-[0.9rem] leading-[1.4rem] text-ink-soft">
-              Live availability and our guest reviews are on Airbnb.
-            </p>
-          </div>
-          <div data-reveal="up" style={delay(120)}>
-            <BookOnAirbnb />
-          </div>
-        </div>
+        <p style={delay(440)} className="enter-rise mt-3 text-[0.9rem] text-ink-soft">
+          Ready to book?{" "}
+          <Link href={bookHref} className="font-medium text-gold underline underline-offset-4 hover:text-gold-hover">
+            See prices and availability on the Villas page
+          </Link>
+        </p>
       </section>
 
       {/* Contact details and the message form */}
@@ -129,44 +119,41 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Finding us */}
+      {/* Finding us: the map on the left balances the distance lists on the right. */}
       <section className={`${section} ${rule}`}>
-        <div className="grid gap-8 lg:grid-cols-[17rem_1fr] lg:gap-12">
-          <div data-reveal="up">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-14">
+          <div data-reveal="up" className="flex flex-col">
             <p className={eyebrow}>Getting here</p>
             <h2 className={`mt-4 ${h2}`}>Finding us</h2>
-            <p className="mt-3 max-w-[16rem] text-[0.9rem] leading-[1.4rem] text-ink-soft">
+            <p className="mt-3 max-w-[24rem] text-[0.9rem] leading-[1.4rem] text-ink-soft">
               A short walk or tuk-tuk ride from the centre of Kandy. We arrange airport and station transfers on request.
+            </p>
+            <iframe
+              title="Map showing the villas' location in Kandy"
+              src="https://www.google.com/maps?q=7.298970,80.639688&z=15&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="mt-8 h-[20rem] w-full border-0 bg-linen lg:h-auto lg:min-h-[20rem] lg:flex-1"
+            />
+            <p className="mt-3 text-[0.82rem]">
+              <a href={contact.mapsHref} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-6 items-center font-medium text-gold underline underline-offset-4 hover:text-gold-hover">
+                Open in Google Maps
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
             </p>
           </div>
 
           <div data-reveal="up" style={delay(120)}>
-            <div className="grid gap-10 sm:grid-cols-2">
+            <div className="grid gap-10">
               <Distances title="Around Kandy" rows={distances.kandy} />
               <Distances title="Further afield" rows={distances.further} />
             </div>
             <p className="mt-4 text-[0.8rem] text-muted">By road from the villa. Allow extra time for traffic and hill roads.</p>
-            <p className="mt-6 max-w-[34rem] text-[0.88rem] leading-[1.4rem] text-ink-soft">
+            <p className="mt-6 text-[0.88rem] leading-[1.4rem] text-ink-soft">
               <span className="text-[0.75rem] uppercase tracking-[0.14em] text-muted">Nearby we recommend</span>
               <br />
               {nearbyRecommendations.join(" · ")}
             </p>
-
-            <div className="mt-8">
-              <iframe
-                title="Map showing the villas' location in Kandy"
-                src="https://www.google.com/maps?q=7.298970,80.639688&z=15&output=embed"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="h-[20rem] w-full border-0 bg-linen"
-              />
-              <p className="mt-3 text-[0.82rem]">
-                <a href={contact.mapsHref} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-6 items-center font-medium text-gold underline underline-offset-4 hover:text-gold-hover">
-                  Open in Google Maps
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
-              </p>
-            </div>
           </div>
         </div>
       </section>
