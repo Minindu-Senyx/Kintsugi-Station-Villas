@@ -42,7 +42,7 @@ export default function TestimonialCarousel({ items }: { items: Testimonial[] })
           <blockquote className="font-serif text-[1.3rem] leading-[1.7rem] text-ink">
             <p>&ldquo;{current.excerpt}&rdquo;</p>
           </blockquote>
-          <figcaption className="mt-[1rem] text-[0.75rem] leading-[1.2rem] text-[#5a5c58]">
+          <figcaption className="mt-[1rem] text-[0.75rem] leading-[1.2rem] text-muted">
             {current.name} · {current.date} · {current.stay}
           </figcaption>
         </figure>
@@ -53,7 +53,7 @@ export default function TestimonialCarousel({ items }: { items: Testimonial[] })
           type="button"
           onClick={() => go(-1)}
           aria-label="Previous review"
-          className="grid size-[2rem] place-items-center rounded-full border border-[#d9cfbf] text-[#2b2c2a] transition-colors hover:border-gold hover:text-gold"
+          className="grid size-[2rem] place-items-center rounded-full border border-line text-ink-soft transition-colors hover:border-gold hover:text-gold"
         >
           <ChevronLeft className="size-[0.9rem]" strokeWidth={1.6} aria-hidden="true" />
         </button>
@@ -70,7 +70,7 @@ export default function TestimonialCarousel({ items }: { items: Testimonial[] })
               <span
                 aria-hidden="true"
                 className={`block size-[0.38rem] rounded-full transition-colors duration-500 ${
-                  i === index ? "bg-gold" : "bg-[#d9cfbf] hover:bg-[#c3a876]"
+                  i === index ? "bg-gold" : "bg-line hover:bg-gold/60"
                 }`}
               />
             </button>
@@ -80,11 +80,11 @@ export default function TestimonialCarousel({ items }: { items: Testimonial[] })
           type="button"
           onClick={() => go(1)}
           aria-label="Next review"
-          className="grid size-[2rem] place-items-center rounded-full border border-[#d9cfbf] text-[#2b2c2a] transition-colors hover:border-gold hover:text-gold"
+          className="grid size-[2rem] place-items-center rounded-full border border-line text-ink-soft transition-colors hover:border-gold hover:text-gold"
         >
           <ChevronRight className="size-[0.9rem]" strokeWidth={1.6} aria-hidden="true" />
         </button>
-        <p className="ml-auto text-[0.7rem] tracking-[0.14em] text-[#746754]">
+        <p className="ml-auto text-[0.7rem] tracking-[0.14em] text-muted">
           {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
         </p>
       </div>

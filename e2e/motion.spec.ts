@@ -33,7 +33,7 @@ for (const path of pages) {
 test("the shimmer plays when a gold button is hovered", async ({ page, isMobile }) => {
   test.skip(!!isMobile, "hover is a pointer behaviour");
   await page.goto("/");
-  const button = page.getByRole("link", { name: "Book Now" }).first();
+  const button = page.locator("header").getByRole("link", { name: "Book on Airbnb" }).first();
   await button.hover();
   const animation = await button.evaluate((el) => getComputedStyle(el, "::after").animationName);
   expect(animation).toBe("sheen");

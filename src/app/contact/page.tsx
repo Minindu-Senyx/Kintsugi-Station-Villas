@@ -10,17 +10,17 @@ export const metadata: Metadata = {
     "Book Kintsugi Station on Airbnb, or message us on WhatsApp or by email with any questions. Avalon Villa and Villa Acland, Kandy, Sri Lanka.",
 };
 
-const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-[#6f675d]";
+const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-gold";
 const h2 = "font-serif text-[2.2rem] leading-[1.1] text-ink";
 const section = "frame px-5 py-14 lg:px-[3.875rem] lg:py-[3.6rem]";
-const rule = "border-t border-[#d9d2c5]";
-const linkClass = "inline-block py-0.5 text-[#1d1f1d] link-underline hover:text-gold";
+const rule = "border-t border-line";
+const linkClass = "inline-block py-0.5 text-ink link-underline hover:text-gold";
 
 function Group({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className={`${rule} py-4 first:border-t-0 first:pt-0`}>
-      <dt className="text-[0.75rem] uppercase tracking-[0.14em] text-[#5a5c58]">{label}</dt>
-      <dd className="mt-2 space-y-1 text-[1rem] leading-[1.45rem] text-[#1d1f1d]">{children}</dd>
+      <dt className="text-[0.75rem] uppercase tracking-[0.14em] text-muted">{label}</dt>
+      <dd className="mt-2 space-y-1 text-[1rem] leading-[1.45rem] text-ink">{children}</dd>
     </div>
   );
 }
@@ -28,12 +28,12 @@ function Group({ label, children }: { label: string; children: React.ReactNode }
 function Distances({ title, rows }: { title: string; rows: { place: string; distance: string; time: string }[] }) {
   return (
     <div>
-      <h3 className="text-[0.75rem] uppercase tracking-[0.14em] text-[#5a5c58]">{title}</h3>
+      <h3 className="text-[0.75rem] uppercase tracking-[0.14em] text-muted">{title}</h3>
       <dl className="mt-3">
         {rows.map((r) => (
           <div key={r.place} className={`${rule} flex justify-between gap-4 py-[0.55rem] text-[0.88rem]`}>
-            <dt className="text-[#1d1f1d]">{r.place}</dt>
-            <dd className="shrink-0 text-[#5a5c58]">
+            <dt className="text-ink">{r.place}</dt>
+            <dd className="shrink-0 text-muted">
               {r.distance} · {r.time}
             </dd>
           </div>
@@ -45,7 +45,7 @@ function Distances({ title, rows }: { title: string; rows: { place: string; dist
 
 export default function ContactPage() {
   return (
-    <main id="main-content" tabIndex={-1} className="bg-sand">
+    <main id="main-content" tabIndex={-1} className="bg-ivory">
       {/* Title */}
       <section className="frame px-5 pb-6 pt-14 lg:px-[3.875rem] lg:pb-[2rem] lg:pt-[4rem]">
         <p style={delay(100)} className={`enter-rise ${eyebrow}`}>
@@ -88,7 +88,7 @@ export default function ContactPage() {
                     <a href={p.whatsappHref} target="_blank" rel="noopener noreferrer" className={linkClass}>
                       {p.phone}
                     </a>{" "}
-                    <span className="text-[0.82rem] text-[#5a5c58]">
+                    <span className="text-[0.82rem] text-muted">
                       {p.name}, {p.role}
                     </span>
                   </p>
@@ -145,9 +145,9 @@ export default function ContactPage() {
               <Distances title="Around Kandy" rows={distances.kandy} />
               <Distances title="Further afield" rows={distances.further} />
             </div>
-            <p className="mt-4 text-[0.8rem] text-[#5a5c58]">By road from the villa. Allow extra time for traffic and hill roads.</p>
+            <p className="mt-4 text-[0.8rem] text-muted">By road from the villa. Allow extra time for traffic and hill roads.</p>
             <p className="mt-6 max-w-[34rem] text-[0.88rem] leading-[1.4rem] text-ink-soft">
-              <span className="text-[0.75rem] uppercase tracking-[0.14em] text-[#5a5c58]">Nearby we recommend</span>
+              <span className="text-[0.75rem] uppercase tracking-[0.14em] text-muted">Nearby we recommend</span>
               <br />
               {nearbyRecommendations.join(" · ")}
             </p>
@@ -158,7 +158,7 @@ export default function ContactPage() {
                 src="https://www.google.com/maps?q=7.298970,80.639688&z=15&output=embed"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="h-[20rem] w-full border-0 bg-[#e6e1d6]"
+                className="h-[20rem] w-full border-0 bg-linen"
               />
               <p className="mt-3 text-[0.82rem]">
                 <a href={contact.mapsHref} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-6 items-center font-medium text-gold underline underline-offset-4 hover:text-gold-hover">

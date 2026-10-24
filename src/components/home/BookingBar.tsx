@@ -9,6 +9,12 @@ const formatDate = (value: string) =>
     ? new Date(`${value}T00:00:00`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })
     : "Select date";
 
+const nextDay = (value: string) => {
+  const date = new Date(value + "T12:00:00");
+  date.setDate(date.getDate() + 1);
+  return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
+};
+
 type VillaOption = { value: ListingKey; name: string; detail: string; maxGuests: number };
 
 const villaOptions: VillaOption[] = [
@@ -18,13 +24,13 @@ const villaOptions: VillaOption[] = [
 ];
 
 const fieldClass =
-  "relative flex h-full flex-1 items-center border-[#e2dcd2] max-lg:border-b lg:border-r";
+  "relative flex h-full flex-1 items-center border-line max-lg:border-b lg:border-r";
 const triggerClass =
-  "flex h-full w-full cursor-pointer items-center justify-between gap-3 px-5 py-3 text-left transition-colors hover:bg-[#f0ebe3] lg:py-0";
-const labelClass = "block text-[0.72rem] leading-none text-[#5a5c58]";
-const valueClass = "mt-[0.4rem] block text-[0.85rem] font-medium leading-none text-ink whitespace-nowrap";
+  "flex h-full w-full cursor-pointer items-center justify-between gap-3 px-5 py-3 text-left transition-colors hover:bg-linen lg:py-0";
+const labelClass = "block text-[max(13px,0.72rem)] leading-none text-muted";
+const valueClass = "mt-[0.4rem] block text-[max(14px,0.85rem)] font-medium leading-none text-ink whitespace-nowrap";
 const panelClass =
-  "enter-fade absolute left-0 top-[calc(100%+0.35rem)] z-50 w-full min-w-[15rem] rounded-[2px] border border-[#d9d2c5] bg-[#fbf9f5] p-1.5 shadow-[0_12px_36px_rgba(20,24,21,0.18)]";
+  "enter-fade absolute left-0 top-[calc(100%+0.35rem)] z-50 w-full min-w-[15rem] rounded-[2px] border border-line bg-ivory p-1.5 shadow-[0_12px_36px_rgba(20,24,21,0.18)]";
 
 export default function BookingBar() {
   const [villa, setVilla] = useState<ListingKey>("avalon");
@@ -85,7 +91,7 @@ export default function BookingBar() {
       ref={containerRef}
       onSubmit={submit}
       aria-label="Check availability"
-      className="relative flex flex-col rounded-[2px] bg-[#faf8f4] shadow-[0_8px_30px_rgba(0,0,0,0.18)] lg:h-[4.0625rem] lg:flex-row lg:items-center"
+      className="relative flex flex-col rounded-[2px] bg-ivory shadow-[0_8px_30px_rgba(0,0,0,0.18)] lg:h-[4.0625rem] lg:flex-row lg:items-center"
     >
       {/* Villa */}
       <div className={fieldClass} onBlur={leaveGroup("villa")}>
@@ -101,7 +107,7 @@ export default function BookingBar() {
             <span className={labelClass}>Villa</span>
             <span className={valueClass}>{selected.name}</span>
           </span>
-          <ChevronDown className={`size-[0.8rem] shrink-0 text-[#3a3a38] transition-transform duration-300 ${openDropdown === "villa" ? "rotate-180" : ""}`} strokeWidth={1.6} aria-hidden="true" />
+          <ChevronDown className={`size-[0.8rem] shrink-0 text-ink-soft transition-transform duration-300 ${openDropdown === "villa" ? "rotate-180" : ""}`} strokeWidth={1.6} aria-hidden="true" />
         </button>
         {openDropdown === "villa" && (
           <div id={villaPanelId} role="group" aria-label="Choose a villa" className={panelClass}>
@@ -119,11 +125,11 @@ export default function BookingBar() {
                     setOpenDropdown(null);
                   }}
                   className={`block w-full cursor-pointer rounded-[2px] px-3 py-2 text-left transition-colors ${
-                    isSelected ? "bg-[#ece4d6]" : "hover:bg-[#f2ece2]"
+                    isSelected ? "bg-linen" : "hover:bg-linen/70"
                   }`}
                 >
                   <span className={`block font-serif text-[1rem] text-ink ${isSelected ? "font-semibold" : ""}`}>{opt.name}</span>
-                  <span className="mt-0.5 block text-[0.75rem] text-[#5a5c58]">{opt.detail}</span>
+                  <span className="mt-0.5 block text-[0.75rem] text-muted">{opt.detail}</span>
                 </button>
               );
             })}
@@ -132,7 +138,7 @@ export default function BookingBar() {
       </div>
 
       {/* Check-in */}
-      <label className={`${fieldClass} cursor-pointer px-5 py-3 transition-colors hover:bg-[#f0ebe3] lg:py-0`}>
+      <label className={`${fieldClass} cursor-pointer px-5 py-3 transition-colors hover:bg-linen lg:py-0`}>
         <span>
           <span className={labelClass}>Check-in</span>
           <span className={valueClass}>{formatDate(checkIn)}</span>
@@ -152,7 +158,7 @@ export default function BookingBar() {
       </label>
 
       {/* Check-out */}
-      <label className={`${fieldClass} cursor-pointer px-5 py-3 transition-colors hover:bg-[#f0ebe3] lg:py-0`}>
+      <label className={`${fieldClass} cursor-pointer px-5 py-3 transition-colors hover:bg-linen lg:py-0`}>
         <span>
           <span className={labelClass}>Check-out</span>
           <span className={valueClass}>{formatDate(checkOut)}</span>
@@ -160,7 +166,7 @@ export default function BookingBar() {
         <input
           type="date"
           aria-label="Check-out date"
-          min={checkIn || today}
+          min={checkIn ? nextDay(checkIn) : today}
           value={checkOut}
           onClick={openPicker}
           onChange={(e) => setCheckOut(e.target.value)}
@@ -184,11 +190,11 @@ export default function BookingBar() {
               {guests} {guests === "1" ? "guest" : "guests"}
             </span>
           </span>
-          <ChevronDown className={`size-[0.8rem] shrink-0 text-[#3a3a38] transition-transform duration-300 ${openDropdown === "guests" ? "rotate-180" : ""}`} strokeWidth={1.6} aria-hidden="true" />
+          <ChevronDown className={`size-[0.8rem] shrink-0 text-ink-soft transition-transform duration-300 ${openDropdown === "guests" ? "rotate-180" : ""}`} strokeWidth={1.6} aria-hidden="true" />
         </button>
         {openDropdown === "guests" && (
           <div id={guestPanelId} role="group" aria-label="Number of guests" className={`${panelClass} min-w-[11rem]`}>
-            <p className="px-3 pb-1 pt-1.5 text-[0.72rem] text-[#5a5c58]">Up to {selected.maxGuests} guests</p>
+            <p className="px-3 pb-1 pt-1.5 text-[0.72rem] text-muted">Up to {selected.maxGuests} guests</p>
             <div className="grid grid-cols-2 gap-1">
               {guestOptions.map((n) => {
                 const isSelected = n === guests;
@@ -202,7 +208,7 @@ export default function BookingBar() {
                       setOpenDropdown(null);
                     }}
                     className={`cursor-pointer rounded-[2px] px-3 py-1.5 text-left text-[0.82rem] transition-colors ${
-                      isSelected ? "bg-[#ece4d6] font-medium text-ink" : "text-[#3e3f3d] hover:bg-[#f2ece2]"
+                      isSelected ? "bg-linen font-medium text-ink" : "text-ink-soft hover:bg-linen/70"
                     }`}
                   >
                     {n} {n === "1" ? "guest" : "guests"}
@@ -218,7 +224,7 @@ export default function BookingBar() {
       <div className="p-3 lg:shrink-0 lg:px-[1rem] lg:py-0">
         <button
           type="submit"
-          className="sheen flex h-[2.5rem] w-full items-center justify-center whitespace-nowrap bg-gold text-[0.8rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)] lg:w-[8.5rem]"
+          className="sheen btn-primary w-full lg:w-auto lg:px-6"
         >
           Book on Airbnb
         </button>

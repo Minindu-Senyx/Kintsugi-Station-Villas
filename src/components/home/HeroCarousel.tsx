@@ -58,7 +58,7 @@ export default function HeroCarousel({
       aria-label="Photographs of the villas"
       className="relative h-auto min-h-[36rem] lg:h-[31rem] lg:min-h-0"
     >
-      <div className="absolute inset-0 overflow-hidden bg-[#161a17]">
+      <div className="absolute inset-0 overflow-hidden bg-marble">
         {slides.map((slide, i) =>
           i === 0 || loadRest ? (
             <Image

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     "Two private villas in Kandy, Sri Lanka: Avalon Villa (3 bedrooms, sleeps 6) and Villa Acland (1 bedroom, sleeps 2), or book both together for 8. Reserve on Airbnb.",
 };
 
-const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-[#6f675d]";
+const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-gold";
 const h2 = "font-serif text-[2.2rem] leading-[1.1] text-ink sm:text-[2.5rem]";
 
 export default function VillasOverviewPage() {
@@ -60,14 +60,14 @@ export default function VillasOverviewPage() {
                   <h2 data-reveal="up" style={delay(150)} className={h2}>
                     {villa.name}
                   </h2>
-                  <p data-reveal="up" style={delay(220)} className="mt-3 text-[0.9rem] text-[#3c3e3b]">
+                  <p data-reveal="up" style={delay(220)} className="mt-3 text-[0.9rem] text-ink-soft">
                     {l.bedrooms} {l.bedrooms === 1 ? "bedroom" : "bedrooms"} · {l.beds} {l.beds === 1 ? "bed" : "beds"} · sleeps {l.sleeps}
                   </p>
                   <p data-reveal="up" style={delay(280)} className="mt-4 max-w-[26rem] text-[0.95rem] leading-[1.5rem] text-ink-soft">
                     {villa.short}
                   </p>
                   <p data-reveal="up" style={delay(340)} className="mt-5 font-serif text-[1.5rem] leading-none">
-                    USD {l.nightlyUSD} <span className="font-sans text-[0.78rem] text-[#5a5c58]">/ night</span>
+                    USD {l.nightlyUSD} <span className="font-sans text-[0.78rem] text-muted">/ night</span>
                   </p>
                   <div data-reveal="up" style={delay(400)} className="mt-6 flex flex-wrap items-center gap-3">
                     <Link
@@ -80,7 +80,7 @@ export default function VillasOverviewPage() {
                       href={airbnbUrl(villa.slug)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="sheen flex h-[2.5rem] items-center bg-gold px-6 text-[0.82rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)]"
+                      className="sheen btn-primary"
                     >
                       Book on Airbnb
                       <span className="sr-only">: {villa.name} (opens in a new tab)</span>
@@ -94,7 +94,7 @@ export default function VillasOverviewPage() {
       </section>
 
       {/* Book */}
-      <section id="book" className="scroll-mt-16 border-t border-[#e0d9cc] bg-linen">
+      <section id="book" className="scroll-mt-16 border-t border-line bg-linen">
         <div className="frame px-5 py-16 lg:px-[3.625rem] lg:py-[4rem]">
           <div className="grid gap-8 lg:grid-cols-[17rem_1fr] lg:gap-12">
             <div data-reveal="up">
@@ -106,7 +106,7 @@ export default function VillasOverviewPage() {
             </div>
             <div data-reveal="up" style={delay(120)}>
               <BookOnAirbnb />
-              <p className="mt-6 text-[0.85rem] text-[#3c3e3b]">
+              <p className="mt-6 text-[0.85rem] text-ink-soft">
                 Travelling with pets, or planning an event? Message us on{" "}
                 <a href={contact.people[0].whatsappHref} target="_blank" rel="noopener noreferrer" className="font-medium text-gold underline underline-offset-4 hover:text-gold-hover">
                   WhatsApp

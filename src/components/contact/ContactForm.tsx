@@ -7,8 +7,8 @@ import { contact, messageForm } from "@/lib/site";
 type Status = "idle" | "sending" | "sent" | "error";
 
 const fieldClass =
-  "block w-full rounded-[2px] border border-[#8f8a80] bg-white/60 px-[0.8rem] text-[0.9rem] text-[#1d1f1d] transition-[border-color,background-color] duration-300 placeholder:text-[#6b665e] hover:border-[#5f4a23] focus:border-[#5f4a23] focus:bg-white";
-const labelClass = "block text-[0.85rem] leading-none text-[#1d1f1d]";
+  "block w-full rounded-[2px] border border-line-strong bg-white/60 px-[0.8rem] text-[0.9rem] text-ink transition-[border-color,background-color] duration-300 placeholder:text-muted hover:border-gold-hover focus:border-gold-hover focus:bg-white";
+const labelClass = "block text-[0.85rem] leading-none text-ink";
 
 const villaChoices = ["Not sure yet", "Avalon Villa", "Villa Acland", "Both villas"];
 
@@ -54,9 +54,9 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div ref={thanksRef} tabIndex={-1} role="status" className="border-t border-[#d9d2c5] pt-[1.4rem] outline-none">
+      <div ref={thanksRef} tabIndex={-1} role="status" className="border-t border-line pt-[1.4rem] outline-none">
         <h3 className="font-serif text-[1.6rem] leading-none text-ink">Thank you, message sent</h3>
-        <p className="mt-[0.6rem] text-[0.88rem] leading-[1.35rem] text-[#3c3e3b]">
+        <p className="mt-[0.6rem] text-[0.88rem] leading-[1.35rem] text-ink-soft">
           We&rsquo;ll reply by email or WhatsApp as soon as we can.
         </p>
         <button
@@ -104,7 +104,7 @@ export default function ContactForm() {
         </div>
         <div>
           <label htmlFor="cf-phone" className={labelClass}>
-            WhatsApp <span className="text-[#5a5c58]">(optional)</span>
+            WhatsApp <span className="text-muted">(optional)</span>
           </label>
           <input
             id="cf-phone"
@@ -128,7 +128,7 @@ export default function ContactForm() {
             ))}
           </select>
           <ChevronDown
-            className="pointer-events-none absolute right-[0.85rem] top-1/2 size-[1rem] -translate-y-1/2 text-[#3a3a38]"
+            className="pointer-events-none absolute right-[0.85rem] top-1/2 size-[1rem] -translate-y-1/2 text-ink-soft"
             strokeWidth={1.6}
             aria-hidden="true"
           />
@@ -152,7 +152,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={sending}
-        className="sheen flex h-[2.75rem] w-full items-center justify-center bg-gold text-[0.9rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)] disabled:cursor-wait disabled:opacity-80 sm:w-auto sm:px-10"
+        className="sheen btn-primary w-full disabled:cursor-wait disabled:opacity-80 sm:w-auto sm:px-10"
       >
         {sending ? "Sending…" : "Send message"}
       </button>

@@ -51,10 +51,10 @@ test("every Book button on the villas page goes to Airbnb", async ({ page }) => 
   }
 });
 
-test("header Book Now lands on the three listings", async ({ page, isMobile }) => {
+test("header Book on Airbnb lands on the three listings", async ({ page, isMobile }) => {
   await page.goto("/gallery");
   if (isMobile) await page.getByRole("button", { name: "Open menu" }).click();
-  await page.getByRole("link", { name: "Book Now" }).first().click();
+  await page.locator("header").getByRole("link", { name: "Book on Airbnb" }).first().click();
   await expect(page).toHaveURL(/\/villas#book$/);
   await expect(page.getByRole("heading", { name: "Book on Airbnb" })).toBeVisible();
 });

@@ -1,0 +1,93 @@
+.page { background: var(--color-ivory); color: var(--color-ink-soft); font-size: 16px; line-height: 1.8; }
+.page h1, .page h2, .page h3 { font-family: var(--font-serif); font-weight: 400; color: var(--color-ink); }
+.eyebrow { font-size: 11px; line-height: 1.5; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--color-gold); }
+.hero { position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto 1fr; column-gap: 64px; max-width: 1440px; margin: auto; padding: 80px 64px 76px; min-height: 620px; }
+.hero > .eyebrow { padding-top: 22px; }
+.heroTitle { font-size: clamp(52px, 5.5vw, 84px); line-height: 1.02; letter-spacing: -.035em; margin-top: 30px; grid-column: 1; max-width: 610px; }
+.heroIntro { grid-column: 1; max-width: 350px; margin-top: 32px; font-size: 17px; color: var(--color-ink-soft); }
+.heroImage { position: relative; grid-column: 2; grid-row: 1 / 4; min-height: 480px; margin-bottom: 28px; }
+.heroImage::after { content: ""; position: absolute; inset: 22px -20px -22px 22px; border: 1px solid color-mix(in srgb, var(--color-gold) 60%, transparent); pointer-events: none; z-index: 0; }
+.heroImage img { z-index: 1; }
+.cover { object-fit: cover; }
+.heroImage .cover { object-position: 57% 50%; }
+.story { max-width: 1280px; margin: 0 auto; padding: 50px 64px 110px; display: grid; grid-template-columns: .95fr 1fr; gap: 90px; align-items: center; }
+.storyImage { position: relative; min-height: 650px; height: 100%; }
+.storyImage .cover { object-position: 45% 50%; }
+.storyCopy { padding: 16px 0; }
+.copyInner { max-width: 510px; }
+.sectionTitle { font-size: clamp(34px, 3.2vw, 48px); line-height: 1.13; letter-spacing: -.02em; margin-top: 20px; }
+.prose { margin-top: 28px; color: var(--color-ink-soft); }
+.prose p + p { margin-top: 20px; }
+.signature { margin-top: 32px; }
+.signoff { display: flex; align-items: center; gap: 14px; font-size: 11px; line-height: 1.7; letter-spacing: .15em; text-transform: uppercase; color: var(--color-gold); }
+.goldLine { display: block; width: 32px; height: 1px; background: var(--color-gold); flex-shrink: 0; }
+.founders { background: var(--color-marble); color: var(--color-on-dark); padding: 82px 64px; }
+.founderGrid { max-width: 1080px; margin: auto; display: grid; grid-template-columns: 350px 1fr; gap: 100px; align-items: center; }
+.portrait { position: relative; aspect-ratio: 4 / 5; }
+.portrait::after { content: ""; position: absolute; inset: 16px; border: 1px solid #f7f0df55; pointer-events: none; }
+.portraitPhoto { object-fit: cover; object-position: top; }
+.founderCopy { max-width: 520px; }
+.founders h2 { color: var(--color-on-dark); }
+.founders .eyebrow, .founders .signoff { color: var(--color-gold-light); }
+.founders .prose { color: var(--color-on-dark); }
+.founders .sectionTitle { font-size: clamp(38px, 3.7vw, 54px); }
+.materials { max-width: 1280px; padding: 100px 64px; margin: auto; }
+.materialsTitle { max-width: 770px; font-size: clamp(36px, 3.7vw, 52px); line-height: 1.12; letter-spacing: -.02em; margin: 20px 0 46px; }
+.materialGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.material:nth-child(2) { margin-top: 48px; }
+.material:nth-child(3) { margin-top: 96px; }
+.materialImage { position: relative; aspect-ratio: 4 / 3; }
+.materialCopy { padding-top: 22px; }
+.materialTitle { font-size: 27px; line-height: 1.18; margin-bottom: 12px; }
+.bodyCopy { color: var(--color-ink-soft); }
+.hosting { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; max-width: 1280px; padding: 0 64px 100px; gap: 64px; margin: auto; }
+.hostImage { position: relative; min-height: 420px; }
+.hostCopy { padding-block: 30px; border-block: 1px solid var(--color-line); }
+.hostCopy .bodyCopy { margin-top: 24px; }
+.team { padding: 0 64px 100px; max-width: 1280px; margin: auto; }
+.teamGrid { border-top: 1px solid var(--color-line); padding-top: 50px; display: grid; grid-template-columns: .85fr 1.15fr; gap: 64px; }
+.teamHeading { max-width: 350px; }
+.teamCopy { min-width: 0; }
+.teamList { display: grid; gap: 28px; }
+.teamMember + .teamMember { border-top: 1px solid var(--color-line); padding-top: 28px; }
+.teamName { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-gold); margin-top: 16px; }
+.role { color: var(--color-muted); }
+.quote { font: italic 25px/1.4 var(--font-serif); }
+.quoteMark { height: 30px; font-size: 42px; }
+@media (max-width: 1050px) {
+  .hero { padding: 56px 40px; gap: 36px; min-height: 540px; }
+  .heroImage { min-height: 430px; }
+  .heroTitle { font-size: 60px; }
+  .story { padding: 35px 40px 76px; gap: 48px; }
+  .founders { padding: 64px 40px; }
+  .founderGrid { grid-template-columns: 290px 1fr; gap: 50px; }
+  .materials { padding: 76px 40px; }
+  .hosting { padding: 0 40px 76px; gap: 40px; }
+  .team { padding: 0 40px 76px; }
+  .teamGrid { gap: 40px; }
+}
+@media (max-width: 700px) {
+  .hero { display: block; min-height: 0; padding: 40px 24px 44px; }
+  .hero > .eyebrow { padding: 0; }
+  .heroTitle { font-size: clamp(46px, 10vw, 64px); margin-top: 24px; max-width: 440px; }
+  .heroIntro { margin-top: 24px; font-size: 16px; }
+  .heroImage { min-height: 0; height: 340px; margin: 34px 12px 16px 0; }
+  .heroImage::after { inset: 12px -12px -12px 12px; }
+  .story { display: flex; flex-direction: column-reverse; padding: 12px 24px 56px; gap: 28px; align-items: stretch; }
+  .storyImage { min-height: 0; height: 400px; }
+  .storyCopy { padding: 0; }
+  .sectionTitle { font-size: 36px; }
+  .founders { padding: 48px 24px; }
+  .founderGrid { display: flex; flex-direction: column; align-items: stretch; gap: 34px; }
+  .portrait { width: 100%; max-width: 360px; margin: auto; }
+  .founders .sectionTitle { font-size: 40px; }
+  .materials { padding: 56px 24px; }
+  .materialsTitle { font-size: 36px; margin-bottom: 32px; }
+  .materialGrid { grid-template-columns: 1fr; gap: 36px; }
+  .material:nth-child(n) { margin-top: 0; }
+  .hosting { padding: 0 24px 56px; grid-template-columns: 1fr; gap: 30px; }
+  .hostImage { min-height: 0; height: 280px; }
+  .hostCopy { padding-block: 28px; }
+  .team { padding: 0 24px 56px; }
+  .teamGrid { grid-template-columns: 1fr; gap: 30px; padding-top: 34px; }
+}

@@ -43,7 +43,7 @@ const heroSlides: HeroSlide[] = [
   },
 ];
 
-const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-[#6f675d]";
+const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-gold";
 const h2 = "font-serif text-[2.2rem] leading-[1.1] text-ink sm:text-[2.5rem]";
 const textLink = "inline-flex min-h-6 items-center text-[0.85rem] font-medium text-gold link-underline hover:text-gold-hover";
 
@@ -91,7 +91,7 @@ export default function HomePage() {
                     </div>
                   </Link>
                   <h3 className="mt-5 font-serif text-[1.7rem] leading-none text-ink">{villa.name}</h3>
-                  <p className="mt-2 text-[0.88rem] text-[#3c3e3b]">
+                  <p className="mt-2 text-[0.88rem] text-ink-soft">
                     {l.bedrooms} {l.bedrooms === 1 ? "bedroom" : "bedrooms"} · sleeps {l.sleeps} · from USD {l.nightlyUSD} a night
                   </p>
                   <p className="mt-3 max-w-[26rem] text-[0.9rem] leading-[1.4rem] text-ink-soft">{villa.short}</p>
@@ -105,7 +105,7 @@ export default function HomePage() {
             })}
           </div>
 
-          <p data-reveal="up" className="mt-10 border-t border-[#e0d9cc] pt-5 text-[0.88rem] text-[#3c3e3b]">
+          <p data-reveal="up" className="mt-10 border-t border-line pt-5 text-[0.88rem] text-ink-soft">
             Travelling in a larger group? Book both villas together: sleeps {airbnbListings.both.sleeps}, USD {airbnbListings.both.nightlyUSD} a night.{" "}
             <Link href="/villas" className="font-medium text-gold underline underline-offset-4 hover:text-gold-hover">
               Compare the villas
@@ -117,7 +117,7 @@ export default function HomePage() {
       {/* Photographs */}
       <section className="bg-ivory">
         <div className="frame px-5 pb-16 lg:px-[3.625rem] lg:pb-[4.2rem]">
-          <div className="flex items-baseline justify-between gap-4 border-t border-[#e0d9cc] pt-6">
+          <div className="flex items-baseline justify-between gap-4 border-t border-line pt-6">
             <p data-reveal="up" className={eyebrow}>
               Gallery
             </p>
@@ -145,7 +145,7 @@ export default function HomePage() {
             </div>
             <div data-reveal="up" style={delay(150)} className="lg:max-w-[34rem]">
               <TestimonialCarousel items={featuredTestimonials} />
-              <p className="mt-6 border-t border-[#d9d2c5] pt-4 text-[0.82rem] text-[#3c3e3b]">
+              <p className="mt-6 border-t border-line pt-4 text-[0.82rem] text-ink-soft">
                 Rated {airbnbListings.avalon.rating?.score.toFixed(1)} on Airbnb. Guest favourite, in the top 5% of homes.{" "}
                 <a href={airbnbUrl("avalon")} target="_blank" rel="noopener noreferrer" className="font-medium text-gold underline underline-offset-4 hover:text-gold-hover">
                   Read all reviews
@@ -169,25 +169,25 @@ export default function HomePage() {
               </p>
             </div>
             <div data-reveal="up" style={delay(150)} className="lg:max-w-[34rem]">
-              <dl className="border-b border-[#d9d2c5]">
+              <dl className="border-b border-line">
                 {(["avalon", "acland", "both"] as const).map((key) => (
-                  <div key={key} className="flex items-baseline justify-between gap-4 border-t border-[#d9d2c5] py-4">
+                  <div key={key} className="flex items-baseline justify-between gap-4 border-t border-line py-4">
                     <dt className="text-[0.95rem] text-ink">
                       {airbnbListings[key].name}
-                      <span className="ml-3 text-[0.8rem] text-[#5a5c58]">sleeps {airbnbListings[key].sleeps}</span>
+                      <span className="ml-3 text-[0.8rem] text-muted">sleeps {airbnbListings[key].sleeps}</span>
                     </dt>
                     <dd className="font-serif text-[1.35rem] text-ink">
-                      USD {airbnbListings[key].nightlyUSD} <span className="font-sans text-[0.75rem] text-[#5a5c58]">/ night</span>
+                      USD {airbnbListings[key].nightlyUSD} <span className="font-sans text-[0.75rem] text-muted">/ night</span>
                     </dd>
                   </div>
                 ))}
               </dl>
-              <p className="mt-4 text-[0.82rem] text-[#5a5c58]">{discountNote}.</p>
+              <p className="mt-4 text-[0.82rem] text-muted">{discountNote}.</p>
               <Link
                 href={bookHref}
-                className="sheen mt-6 inline-flex h-[2.6rem] items-center bg-gold px-8 text-[0.85rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)]"
+                className="sheen btn-primary mt-6"
               >
-                Book Your Stay
+                Book on Airbnb
               </Link>
             </div>
           </div>

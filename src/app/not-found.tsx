@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <main id="main-content" tabIndex={-1} className="bg-ivory">
       <div className="frame flex min-h-[60vh] flex-col items-center justify-center px-5 py-20 text-center">
-        <p style={delay(100)} className="enter-rise eyebrow text-[0.7rem] tracking-[0.14em] text-[#6f675d]">
+        <p style={delay(100)} className="enter-rise eyebrow text-[0.7rem] tracking-[0.14em] text-gold">
           Page not found
         </p>
         <h1 style={delay(250)} className="enter-rise mt-5 font-serif text-[2.7rem] leading-tight text-ink">
@@ -17,7 +17,7 @@ export default function NotFound() {
         <Link
           href="/"
           style={delay(650)}
-          className="sheen enter-rise mt-8 flex h-[2.4rem] items-center bg-gold px-8 text-[0.8rem] text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)]"
+          className="btn-secondary enter-rise mt-8"
         >
           Return Home
         </Link>

@@ -27,9 +27,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-[#6f675d]";
+const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-gold";
 const h2 = "font-serif text-[2.2rem] leading-[1.1] text-ink sm:text-[2.5rem]";
-const label = "eyebrow text-[0.7rem] tracking-[0.2em] text-[#5a5c58]";
+const label = "eyebrow text-[0.7rem] tracking-[0.2em] text-muted";
 
 export default async function VillaDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -80,7 +80,7 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
                 href={bookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sheen flex h-[2.6rem] items-center bg-gold px-7 text-[0.85rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)]"
+                className="sheen btn-primary"
               >
                 Book on Airbnb
                 <span className="sr-only"> (opens in a new tab)</span>
@@ -97,9 +97,9 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
       </section>
 
       {/* Key facts */}
-      <section className="border-b border-[#e0d9cc] bg-linen">
+      <section className="border-b border-line bg-linen">
         <div className="frame px-5 py-7 lg:px-[3.625rem]">
-          <dl className="grid grid-cols-2 gap-y-6 gap-x-4 sm:grid-cols-4 sm:divide-x sm:divide-[#d9d2c5]">
+          <dl className="grid grid-cols-2 gap-y-6 gap-x-4 sm:grid-cols-4 sm:divide-x sm:divide-line">
             {[
               { term: "Sleeps", value: `Up to ${villa.specs.maxGuests}`, note: `${villa.specs.bedrooms} ${villa.specs.bedrooms === 1 ? "bedroom" : "bedrooms"}, ${villa.specs.beds} ${villa.specs.beds === 1 ? "bed" : "beds"}` },
               { term: "Bathrooms", value: String(villa.specs.bathrooms), note: "Hot water throughout" },
@@ -109,7 +109,7 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
               <div key={f.term} data-reveal="up" style={delay(i * 70)} className="flex flex-col sm:px-6 sm:first:pl-0 sm:last:pr-0">
                 <dt className={label}>{f.term}</dt>
                 <dd className="mt-2 font-serif text-[1.3rem] leading-[1.15] text-ink">{f.value}</dd>
-                <dd className="mt-1 text-[0.78rem] leading-[1.15rem] text-[#5a5c58]">{f.note}</dd>
+                <dd className="mt-1 text-[0.78rem] leading-[1.15rem] text-muted">{f.note}</dd>
               </div>
             ))}
           </dl>
@@ -146,11 +146,11 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
             </div>
           </div>
 
-          <div data-reveal="up" className="mt-14 border-t border-[#e0d9cc] pt-8">
+          <div data-reveal="up" className="mt-14 border-t border-line pt-8">
             <h3 className={label}>Included in your stay</h3>
             <ul className="mt-4 grid gap-x-12 sm:grid-cols-2">
               {villa.inclusions.map((inc) => (
-                <li key={inc} className="border-b border-[#e8e2d8] py-3 text-[0.9rem] leading-[1.4rem] text-[#3c3e3b]">
+                <li key={inc} className="border-b border-line py-3 text-[0.9rem] leading-[1.4rem] text-ink-soft">
                   {inc}
                 </li>
               ))}
@@ -160,7 +160,7 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
       </section>
 
       {/* The spaces */}
-      <section id="spaces" className="scroll-mt-16 border-t border-[#e0d9cc] bg-mist">
+      <section id="spaces" className="scroll-mt-16 border-t border-line bg-ivory">
         <div className="frame px-5 py-16 lg:px-[3.625rem] lg:py-[4.2rem]">
           <p data-reveal="up" className={eyebrow}>
             Step inside
@@ -176,7 +176,7 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
       <VillaAmenities amenities={villa.amenities} highlights={villa.highlights} villaName={villa.name} />
 
       {/* Photographs */}
-      <section className="border-t border-[#e0d9cc] bg-linen">
+      <section className="border-t border-line bg-linen">
         <div className="frame px-5 py-16 lg:px-[3.625rem] lg:py-[4.2rem]">
           <p data-reveal="up" className={eyebrow}>
             Photographs
@@ -189,12 +189,12 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
       </section>
 
       {/* The other villa, and booking */}
-      <section className="border-t border-[#e0d9cc] bg-ivory">
+      <section className="border-t border-line bg-ivory">
         <div className="frame grid gap-10 px-5 py-14 lg:grid-cols-2 lg:gap-16 lg:px-[3.625rem] lg:py-[3.6rem]">
           <div data-reveal="up">
             <p className={eyebrow}>Also at Kintsugi Station</p>
             <h2 className="mt-4 font-serif text-[1.9rem] leading-[1.1] text-ink">{sisterVilla.name}</h2>
-            <p className="mt-2 text-[0.9rem] text-[#3c3e3b]">
+            <p className="mt-2 text-[0.9rem] text-ink-soft">
               {sister.bedrooms} {sister.bedrooms === 1 ? "bedroom" : "bedrooms"} · sleeps {sister.sleeps} · USD {sister.nightlyUSD} a night
             </p>
             <p className="mt-3 text-[0.9rem] leading-[1.4rem] text-ink-soft">
@@ -207,18 +207,18 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
             </p>
           </div>
 
-          <div data-reveal="up" style={delay(120)} className="lg:border-l lg:border-[#e0d9cc] lg:pl-16">
+          <div data-reveal="up" style={delay(120)} className="lg:border-l lg:border-line lg:pl-16">
             <p className={eyebrow}>Reserve</p>
             <h2 className="mt-4 font-serif text-[1.9rem] leading-[1.1] text-ink">Book {villa.name}</h2>
             <p className="mt-2 font-serif text-[1.6rem] leading-none">
-              USD {villa.specs.nightlyUSD} <span className="font-sans text-[0.78rem] text-[#5a5c58]">/ night</span>
+              USD {villa.specs.nightlyUSD} <span className="font-sans text-[0.78rem] text-muted">/ night</span>
             </p>
-            <p className="mt-2 text-[0.82rem] text-[#5a5c58]">{discountNote}. Breakfast is included.</p>
+            <p className="mt-2 text-[0.82rem] text-muted">{discountNote}. Breakfast is included.</p>
             <a
               href={bookUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="sheen mt-5 inline-flex h-[2.6rem] items-center bg-gold px-8 text-[0.85rem] font-medium text-[#f7f1e4] transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-[0_6px_18px_-8px_rgba(95,74,35,0.65)]"
+              className="sheen btn-primary mt-5"
             >
               Book on Airbnb
               <span className="sr-only">: {villa.name} (opens in a new tab)</span>

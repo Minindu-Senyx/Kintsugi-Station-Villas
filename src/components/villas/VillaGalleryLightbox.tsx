@@ -55,12 +55,12 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
               onClick={() => setActiveCategory(catId)}
               className={`h-[2.1rem] rounded-full border px-4 font-serif text-[0.84rem] transition-colors duration-300 ${
                 isSelected
-                  ? "border-[#1b261d] bg-[#1b261d] text-[#f1ede9]"
-                  : "border-[#8f8a80] bg-transparent text-[#2b2b25] hover:border-[#1b261d] hover:bg-[#1b261d]/5"
+                  ? "border-marble bg-marble text-ivory"
+                  : "border-line-strong bg-transparent text-ink-soft hover:border-marble hover:bg-marble/5"
               }`}
             >
               <span>{categoryLabels[catId]}</span>
-              <span className={`ml-1.5 text-[0.75rem] ${isSelected ? "text-[#d9c88f]" : "text-[#6b6861]"}`}>({count})</span>
+              <span className={`ml-1.5 text-[0.75rem] ${isSelected ? "text-gold-light" : "text-muted"}`}>({count})</span>
             </button>
           );
         })}
@@ -76,7 +76,7 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
             style={delay((idx % 6) * 70)}
             onClick={() => setLightboxIndex(idx)}
             aria-label={`View photo: ${photo.caption}`}
-            className="group relative block aspect-[4/3] w-full cursor-pointer overflow-hidden bg-[#1a1c1a] text-left focus-visible:outline-offset-[-3px]"
+            className="group relative block aspect-[4/3] w-full cursor-pointer overflow-hidden bg-marble text-left focus-visible:outline-offset-[-3px]"
           >
             <Image
               src={photo.src}
@@ -115,7 +115,7 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
               <Image src={active.src} alt={active.alt} fill sizes="92vw" className="object-contain" />
             </div>
             <figcaption className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-white">
-              <span className="rounded-full bg-white/15 px-2.5 py-0.5 text-[0.72rem] uppercase tracking-[0.16em] text-[#ecdcc0]">
+              <span className="rounded-full bg-white/15 px-2.5 py-0.5 text-[0.72rem] uppercase tracking-[0.16em] text-gold-light">
                 {categoryLabels[active.category || "living"]}
               </span>
               <span className="font-serif text-[1rem] tracking-wide">{active.caption}</span>

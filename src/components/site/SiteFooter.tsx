@@ -12,17 +12,17 @@ const explore = [
   { href: bookHref, label: "Book on Airbnb" },
 ];
 
-const heading = "text-[0.75rem] font-medium uppercase tracking-[0.18em] text-[#a2a59b]";
-const link = "inline-block py-[0.28rem] text-[0.85rem] text-[#e6e5df] transition-[color,translate] duration-500 ease-soft hover:translate-x-[0.2rem] hover:text-[#e6cc93]";
+const heading = "text-[0.75rem] font-medium uppercase tracking-[0.18em] text-on-dark-muted";
+const link = "inline-block py-[0.28rem] text-[0.85rem] text-on-dark transition-[color,translate] duration-500 ease-soft hover:translate-x-[0.2rem] hover:text-gold-light";
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-night">
+    <footer className="footer-marble">
       <div className="frame px-5 pb-8 pt-12 lg:px-[3.625rem] lg:pb-[1.8rem] lg:pt-[3.2rem]">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_0.8fr] lg:gap-8">
           <div>
             <SiteLogo fade className="h-[4.75rem] lg:h-[5rem]" />
-            <p className="mt-4 max-w-[17rem] text-[0.85rem] leading-[1.3rem] text-[#a2a59b]">
+            <p className="mt-4 max-w-[17rem] text-[0.85rem] leading-[1.3rem] text-on-dark-muted">
               Two private villas on a quiet hillside in Kandy, Sri Lanka.
             </p>
           </div>
@@ -53,14 +53,14 @@ export default function SiteFooter() {
           <div>
             <h2 className={heading}>Find us</h2>
             <ul className="mt-3">
-              <li className="py-[0.28rem] text-[0.85rem] text-[#e6e5df]">Kandy, Sri Lanka</li>
+              <li className="py-[0.28rem] text-[0.85rem] text-on-dark">Kandy, Sri Lanka</li>
               <li>
                 <a href={contact.mapsHref} target="_blank" rel="noopener noreferrer" className={link}>
                   Open in Google Maps
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </li>
-              <li className="py-[0.28rem] text-[0.78rem] text-[#a2a59b]">{contact.coordinates}</li>
+              <li className="py-[0.28rem] text-[0.78rem] text-on-dark-muted">{contact.coordinates}</li>
             </ul>
           </div>
 
@@ -78,7 +78,7 @@ export default function SiteFooter() {
           </nav>
         </div>
 
-        <p className="mt-10 border-t border-white/10 pt-5 text-[0.75rem] text-[#8b8d85]">
+        <p className="mt-10 border-t border-white/10 pt-5 text-[0.75rem] text-on-dark-muted">
           © {new Date().getFullYear()} Kintsugi Station Villas. All rights reserved.
         </p>
       </div>

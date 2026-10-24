@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { KintsugiVeins } from "@/components/brand/KintsugiVeins";
 import { QuoteMark } from "@/components/brand/QuoteMark";
 import { founders } from "@/lib/founders";
-import { delay } from "@/lib/motion";
+import styles from "./about.module.css";
 import { team } from "@/lib/team";
 
 export const metadata: Metadata = {
@@ -35,7 +34,7 @@ const materials = [
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p data-reveal="up" className="eyebrow text-[0.7rem] font-medium tracking-[0.3em] text-taupe">
+    <p className={styles.eyebrow}>
       {children}
     </p>
   );
@@ -44,10 +43,9 @@ function Label({ children }: { children: React.ReactNode }) {
 function Signoff({ children }: { children: React.ReactNode }) {
   return (
     <p
-      data-reveal="fade"
-      className="eyebrow flex items-center gap-[0.75rem] text-[0.7rem] font-medium tracking-[0.38em] text-[#78673c]"
+      className={styles.signoff}
     >
-      <span data-reveal="line" style={delay(300)} aria-hidden="true" className="h-px w-[2rem] bg-[#c7b27a]" />
+      <span aria-hidden="true" className={styles.goldLine} />
       {children}
     </p>
   );
@@ -55,75 +53,72 @@ function Signoff({ children }: { children: React.ReactNode }) {
 
 export default function AboutPage() {
   return (
-    <main id="main-content" tabIndex={-1} className="bg-paper">
+    <main id="main-content" tabIndex={-1} className={styles.page}>
       {/* Hero */}
-      <section className="frame px-5 pb-6 pt-12 lg:px-[4.25rem] lg:pb-[2rem] lg:pt-[3.4rem]">
-        <p style={delay(100)} className="enter-rise eyebrow text-[0.72rem] tracking-[0.2em] text-[#6f675d]">
+      <section className={styles.hero}>
+        <p className={styles.eyebrow}>
           About
         </p>
         <h1
-          style={delay(220)}
-          className="enter-rise mt-4 font-serif text-[2.6rem] leading-[1.05] text-pine-ink sm:text-[3.2rem] lg:text-[3.6rem]"
+          className={styles.heroTitle}
         >
           The Philosophy of Restoration
         </h1>
-        <p style={delay(340)} className="enter-rise mt-4 max-w-[30rem] text-[1rem] leading-[1.5rem] text-[#474d4a]">
+        <p className={styles.heroIntro}>
           Where Japanese wabi-sabi philosophy meets the timeless mist of the Kandy hills.
         </p>
-        <div data-reveal="image" style={delay(200)} className="relative mt-9 aspect-[16/9] w-full overflow-hidden sm:aspect-[2.4/1] lg:aspect-[3/1]">
+        <div className={styles.heroImage}>
           <Image
             src="/assets/images/about_hero_panorama.jpg"
             alt="Misty forested hills and a still lake near Kandy"
             fill
             preload
             sizes="(min-width: 900px) 90vw, 100vw"
-            className="object-cover object-[50%_58%]"
+            className={styles.cover}
           />
         </div>
       </section>
 
       {/* Our Story */}
-      <section className="relative mt-[1.05rem]">
+      <section className={styles.story}>
         <div
-          data-reveal="image"
-          style={delay(200)}
-          className="relative h-72 overflow-hidden lg:absolute lg:inset-y-0 lg:left-[max(29.25rem,calc(50vw-2.75rem))] lg:right-0 lg:h-auto"
+          className={styles.storyImage}
         >
           <Image
             src="/assets/images/villa_forest_exterior.jpg"
             alt="Timber villa veranda with stone plinth nestled in the misty hillside rainforest"
             fill
             sizes="(min-width: 900px) 55vw, 100vw"
-            className="object-cover object-[45%_50%]"
+            className={styles.cover}
           />
         </div>
-        <div className="frame px-5 py-10 lg:min-h-[25.45rem] lg:px-[4.25rem] lg:py-0 lg:pt-[1.3rem]">
-          <div className="lg:w-[22.7rem]">
+        <div className={styles.storyCopy}>
+          <div className={styles.copyInner}>
             <Label>Our Story</Label>
-            <h2 data-reveal="up" style={delay(100)} className="mt-[0.55rem] font-serif text-[1.9rem] leading-[1.95rem] text-pine-ink">
+            <h2 className={styles.sectionTitle}>
               More Than a Villa,
               <br />
               A Meeting of Worlds
             </h2>
-            <div className="mt-[0.95rem] space-y-[0.85rem] text-[0.79rem] leading-[1.16rem] text-[#494d4b]">
-              <p data-reveal="up" style={delay(200)}>
+            <div className={styles.prose}>
+              <p>
                 Kintsugi Station is named for the Japanese art of kintsugi — the practice of mending what is broken
                 with gold, finding deeper beauty in the scars. It is a philosophy that reminds us that life&rsquo;s
                 imperfections are not flaws, but part of a richer story.
               </p>
-              <p data-reveal="up" style={delay(300)}>
+              <p>
                 Set in the misty hills of Kandy, our villa is a sanctuary dedicated to slowing down, mending the
                 spirit, and finding beauty in simplicity. Here, Japanese wabi-sabi meets Sri Lanka&rsquo;s colonial
                 hill-country railway heritage — a place where time moves differently, and the everyday feels
                 extraordinary.
               </p>
-              <p data-reveal="up" style={delay(400)}>
+              <p>
                 Once a station along a journey, Kintsugi Station is now a destination — a private home for those who
                 seek stillness, connection and renewal, surrounded by lush mountain valleys and the gentle rhythm of
                 nature.
               </p>
             </div>
-            <div className="mt-[1rem]">
+            <div className={styles.signature}>
               <Signoff>Beauty Lives On</Signoff>
             </div>
           </div>
@@ -131,36 +126,32 @@ export default function AboutPage() {
       </section>
 
       {/* The Founders */}
-      <section className="relative overflow-hidden">
-        <KintsugiVeins
-          variant="founders"
-          className="pointer-events-none absolute right-[calc(max(0rem,50vw-32rem)-30rem)] top-0 hidden h-[23.375rem] w-[48rem] max-w-none lg:block"
-        />
-        <div className="frame relative flex flex-col gap-8 px-5 pb-8 pt-4 lg:flex-row lg:items-center lg:pb-0 lg:gap-[2.7rem] lg:px-[4.25rem] lg:pt-[2.4rem]">
-          <div data-reveal="image" className="relative h-[26rem] shrink-0 overflow-hidden lg:h-[21rem] lg:w-[15.75rem]">
+      <section className={styles.founders}>
+        <div className={styles.founderGrid}>
+          <div className={styles.portrait}>
             <Image
               src={founders.photo.src}
               alt={founders.photo.alt}
               fill
               sizes="(min-width: 900px) 25vw, 100vw"
-              className="object-cover object-top"
+              className={styles.portraitPhoto}
             />
           </div>
-          <div className="lg:w-[24rem]">
+          <div className={styles.founderCopy}>
             <Label>The Founders</Label>
-            <h2 data-reveal="up" style={delay(100)} className="mt-[0.55rem] font-serif text-[1.9rem] leading-[1.95rem] text-pine-ink">
+            <h2 className={styles.sectionTitle}>
               At Home in Sri Lanka
               <br />
               Since 2011
             </h2>
-            <div className="mt-[0.95rem] space-y-[0.85rem] text-[0.79rem] leading-[1.16rem] text-[#494d4b]">
-              {founders.bio.map((paragraph, i) => (
-                <p key={paragraph} data-reveal="up" style={delay(200 + i * 100)}>
+            <div className={styles.prose}>
+              {founders.bio.map((paragraph) => (
+                <p key={paragraph}>
                   {paragraph}
                 </p>
               ))}
             </div>
-            <div className="mt-[1rem]">
+            <div className={styles.signature}>
               <Signoff>{founders.names || "A New Lease of Life"}</Signoff>
             </div>
           </div>
@@ -168,26 +159,26 @@ export default function AboutPage() {
       </section>
 
       {/* Craft & Materials */}
-      <section className="frame px-5 pt-4 lg:px-[4.25rem] lg:pt-[2.4rem]">
+      <section className={styles.materials}>
         <Label>Craft &amp; Materials</Label>
-        <h2 data-reveal="up" style={delay(100)} className="mt-[0.7rem] font-serif text-[1.935rem] leading-[2rem] text-pine-ink">
+        <h2 className={styles.materialsTitle}>
           Rooted in Place, Crafted for a Kinder Tomorrow.
         </h2>
-        <div className="mt-[0.7rem] grid gap-8 border-b border-[#ece9e1] pb-6 sm:grid-cols-3 sm:gap-[1.27rem] lg:pb-[0.9rem]">
-          {materials.map((item, i) => (
-            <article key={item.title} className="group">
-              <div data-reveal="image" style={delay(i * 160)} className="relative h-44 overflow-hidden lg:h-[8rem]">
+        <div className={styles.materialGrid}>
+          {materials.map((item) => (
+            <article key={item.title} className={styles.material}>
+              <div className={styles.materialImage}>
                 <Image
                   src={item.src}
                   alt={item.alt}
                   fill
                   sizes="(min-width: 640px) 28vw, 100vw"
-                  className="object-cover group-hover:scale-[1.05]"
+                  className={styles.cover}
                 />
               </div>
-              <div data-reveal="up" style={delay(i * 160 + 300)} className="px-[0.2rem]">
-                <h3 className="mt-[0.6rem] font-serif text-[1.16rem] leading-[1.3rem] text-[#1c2e2a]">{item.title}</h3>
-                <p className="mt-[0.2rem] text-[0.82rem] leading-[1.13rem] text-[#666866]">{item.text}</p>
+              <div className={styles.materialCopy}>
+                <h3 className={styles.materialTitle}>{item.title}</h3>
+                <p className={styles.bodyCopy}>{item.text}</p>
               </div>
             </article>
           ))}
@@ -195,60 +186,60 @@ export default function AboutPage() {
       </section>
 
       {/* The Host Experience */}
-      <section className="frame flex flex-col gap-8 px-5 pb-4 pt-8 lg:flex-row lg:items-start lg:gap-[2.7rem] lg:px-[4.25rem] lg:pb-[0.9rem] lg:pt-[1.05rem]">
-        <div data-reveal="image" className="relative h-56 shrink-0 overflow-hidden lg:h-[12.625rem] lg:w-[27.75rem]">
+      <section className={styles.hosting}>
+        <div className={styles.hostImage}>
           <Image
             src="/assets/images/host_dining_ritual.jpg"
             alt="Private outdoor dining patio overlooking the hills with curated estate dining"
             fill
             sizes="(min-width: 900px) 44vw, 100vw"
-            className="object-cover"
+            className={styles.cover}
           />
         </div>
-        <div className="lg:pt-[0.2rem]">
+        <div className={styles.hostCopy}>
           <Label>The Host Experience</Label>
-          <h2 data-reveal="up" style={delay(100)} className="mt-[0.75rem] font-serif text-[1.9rem] leading-[1.95rem] text-pine-ink">
+          <h2 className={styles.sectionTitle}>
             Thoughtful Living,
             <br />
             Exclusively Yours
           </h2>
-          <p data-reveal="up" style={delay(200)} className="mt-[1rem] max-w-[24rem] text-[0.8rem] leading-[1.16rem] text-[#3f4442]">
+          <p className={styles.bodyCopy}>
             Breakfast is included every morning, with home-cooked Sri Lankan meals or a private chef on request, a daily
             Ceylon tea ritual, and the whole villa to yourselves, one party at a time. Every detail is there for a
             slower, more meaningful stay.
           </p>
-          <div className="mt-[1.2rem]">
+          <div className={styles.signature}>
             <Signoff>A More Human Way to Travel</Signoff>
           </div>
         </div>
       </section>
 
       {/* The People Behind Your Stay */}
-      <section className="frame px-5 pb-14 pt-8 lg:px-[4.25rem] lg:pb-[2.4rem] lg:pt-[1.6rem]">
-        <div className="flex flex-col gap-8 border-t border-[#ece9e1] pt-8 lg:flex-row lg:items-start lg:gap-[2.7rem] lg:pt-[1.6rem]">
-          <div className="lg:w-[24rem] lg:shrink-0">
+      <section className={styles.team}>
+        <div className={styles.teamGrid}>
+          <div className={styles.teamHeading}>
             <Label>The People Behind Your Stay</Label>
-            <h2 data-reveal="up" style={delay(100)} className="mt-[0.75rem] font-serif text-[1.9rem] leading-[1.95rem] text-pine-ink">
+            <h2 className={styles.sectionTitle}>
               Meet the Kandy Team
             </h2>
           </div>
-          <div className="flex-1 lg:max-w-[34rem]">
-            <ul className="divide-y divide-[#ece9e1] lg:-mt-[0.9rem]">
-              {team.map((member, i) => (
-                <li key={member.name} data-reveal="up" style={delay(200 + i * 150)} className="py-[0.9rem]">
+          <div className={styles.teamCopy}>
+            <ul className={styles.teamList}>
+              {team.map((member) => (
+                <li key={member.name} className={styles.teamMember}>
                   {member.quote ? (
                     <blockquote>
-                      <QuoteMark className="h-[1.2rem] text-[2.6rem]" />
-                      <p className="mt-[0.3rem] font-serif text-[1.05rem] italic leading-[1.4rem] text-[#1c2e2a]">
+                      <QuoteMark className={styles.quoteMark} />
+                      <p className={styles.quote}>
                         {member.quote}
                       </p>
                     </blockquote>
                   ) : (
-                    <p className="text-[0.8rem] leading-[1.16rem] text-[#3f4442]">{member.about}</p>
+                    <p className={styles.bodyCopy}>{member.about}</p>
                   )}
-                  <p className="eyebrow mt-[0.65rem] text-[0.7rem] font-medium tracking-[0.3em] text-taupe">
+                  <p className={styles.teamName}>
                     {member.name}
-                    <span className="text-[#6c685e]"> · {member.role}</span>
+                    <span className={styles.role}> · {member.role}</span>
                   </p>
                 </li>
               ))}

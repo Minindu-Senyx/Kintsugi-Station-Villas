@@ -50,7 +50,7 @@ export default function MobileMenu() {
         }`}
       >
         <div className="overflow-hidden">
-          <div className="border-t border-black/5 px-5 pb-6 pt-2">
+          <div className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-t border-black/5 px-5 pb-6 pt-2">
             <ul>
               {navItems.map((item, i) => (
                 <li
@@ -69,7 +69,7 @@ export default function MobileMenu() {
                     {item.label}
                   </Link>
                   {item.children && (
-                    <ul className="mb-2 ml-1 border-l border-[#d9cfbf] pl-4">
+                    <ul className="mb-2 ml-1 border-l border-line pl-4">
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
@@ -81,7 +81,7 @@ export default function MobileMenu() {
                             <span className={`block font-serif text-base ${child.href === pathname ? "text-gold" : ""}`}>
                               {child.label}
                             </span>
-                            <span className="block text-[0.8rem] text-[#5a5c58]">{child.detail}</span>
+                            <span className="block text-[0.8rem] text-muted">{child.detail}</span>
                           </Link>
                         </li>
                       ))}
@@ -94,11 +94,11 @@ export default function MobileMenu() {
               href={bookHref}
               onClick={() => setOpen(false)}
               style={delay(open ? 80 + navItems.length * 60 : 0)}
-              className={`sheen mt-3 block rounded-[3px] bg-gold py-3 text-center text-sm text-white transition-[opacity,translate] delay-(--d) duration-600 ease-soft ${
+              className={`sheen btn-primary mt-3 w-full transition-[opacity,translate,background-color] delay-(--d) duration-600 ease-soft ${
                 open ? "" : "-translate-y-2 opacity-0"
               }`}
             >
-              Book Now
+              Book on Airbnb
             </Link>
           </div>
         </div>

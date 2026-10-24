@@ -30,7 +30,7 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
   return (
     <div className="flex flex-col gap-8">
       {/* Space tabs */}
-      <div className="scrollbar-none overflow-x-auto border-b border-[#d9d2c5]">
+      <div className="scrollbar-none overflow-x-auto border-b border-line">
         <div role="group" aria-label="Spaces" className="flex min-w-max gap-6 sm:gap-8">
           {spaces.map((space, idx) => {
             const isSelected = idx === activeSpaceIndex;
@@ -41,7 +41,7 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
                 aria-pressed={isSelected}
                 onClick={() => handleSpaceChange(idx)}
                 className={`relative whitespace-nowrap pb-3 text-left font-serif text-[1.05rem] transition-colors sm:text-[1.15rem] ${
-                  isSelected ? "text-ink" : "text-[#5a5c58] hover:text-ink"
+                  isSelected ? "text-ink" : "text-muted hover:text-ink"
                 }`}
               >
                 {space.name}
@@ -58,14 +58,14 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
       <div key={activeSpace.id} className="enter-fade grid gap-8 lg:grid-cols-12 lg:gap-10">
         {/* Description */}
         <div className="lg:col-span-4">
-          <p className="eyebrow text-[0.7rem] tracking-[0.2em] text-[#5a5c58]">{activeSpace.badge}</p>
+          <p className="eyebrow text-[0.7rem] tracking-[0.2em] text-muted">{activeSpace.badge}</p>
           <h3 className="mt-3 font-serif text-[1.8rem] leading-[1.15] text-ink">{activeSpace.name}</h3>
           <p className="mt-4 text-[0.92rem] leading-[1.55rem] text-ink-soft">{activeSpace.description}</p>
         </div>
 
         {/* Photos */}
         <div className="lg:col-span-8">
-          <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1a1c1a]">
+          <div className="relative aspect-[16/10] w-full overflow-hidden bg-marble">
             <Image
               key={currentPhoto.src}
               src={currentPhoto.src}
@@ -85,9 +85,9 @@ export default function SpaceExplorer({ spaces }: { spaces: RoomSpace[] }) {
               </>
             )}
           </div>
-          <p className="mt-3 flex items-baseline justify-between gap-4 text-[0.82rem] text-[#3c3e3b]">
+          <p className="mt-3 flex items-baseline justify-between gap-4 text-[0.82rem] text-ink-soft">
             <span>{currentPhoto.caption}</span>
-            <span className="shrink-0 text-[#5a5c58]">
+            <span className="shrink-0 text-muted">
               {activePhotoIndex + 1} / {photos.length}
             </span>
           </p>

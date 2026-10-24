@@ -20,7 +20,7 @@ export default function NavLinks() {
   const pathname = usePathname();
 
   return (
-    <ul className="flex items-center gap-[0.75rem] xl:gap-[1.35rem] 2xl:gap-[1.6rem] text-[0.74rem] xl:text-[0.78rem] text-[#353737] whitespace-nowrap">
+    <ul className="flex items-center gap-[0.75rem] xl:gap-[1.35rem] 2xl:gap-[1.6rem] text-[max(14px,0.78rem)] text-ink-soft whitespace-nowrap">
       {navItems.map((item) => {
         const active = item.href === pathname || (!!item.children && pathname.startsWith(`${item.href}/`));
         return item.children ? (
@@ -40,12 +40,12 @@ function NavLink({ href, label, active }: { href: string; label: string; active:
     <Link
       href={href}
       aria-current={active ? "page" : undefined}
-      className={`group relative block py-[0.3rem] ${active ? "text-[#7c6546]" : "transition-colors hover:text-gold"}`}
+      className={`group relative block py-[0.3rem] ${active ? "text-gold" : "transition-colors hover:text-gold"}`}
     >
       {label}
       {active ? (
         <ViewTransition name="nav-indicator">
-          <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-[#816430]" />
+          <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-gold" />
         </ViewTransition>
       ) : (
         <span
@@ -126,7 +126,7 @@ function VillasMenu({ item, active, pathname }: { item: NavItem; active: boolean
               requestAnimationFrame(() => listRef.current?.querySelector("a")?.focus());
             }
           }}
-          className="-mr-1 ml-[0.15rem] grid size-6 place-items-center text-[#353737] transition-colors hover:text-gold"
+          className="-mr-1 ml-[0.15rem] grid size-6 place-items-center text-ink-soft transition-colors hover:text-gold"
         >
           <ChevronDown
             className={`size-[0.8rem] transition-transform duration-300 ease-soft ${open ? "rotate-180" : ""}`}
@@ -141,7 +141,7 @@ function VillasMenu({ item, active, pathname }: { item: NavItem; active: boolean
           <ul
             ref={listRef}
             id={menuId}
-            className="enter-fade w-[17.5rem] rounded-[3px] border border-[#e0dad0] bg-[#fbf9f5] p-[0.4rem] shadow-[0_12px_36px_rgba(20,24,21,0.18)]"
+            className="enter-fade w-[17.5rem] rounded-[3px] border border-line bg-ivory p-[0.4rem] shadow-[0_12px_36px_rgba(20,24,21,0.18)]"
             style={{ animationDuration: "0.35s" }}
           >
             {item.children?.map((child) => {
@@ -152,21 +152,21 @@ function VillasMenu({ item, active, pathname }: { item: NavItem; active: boolean
                     href={child.href}
                     aria-current={current ? "page" : undefined}
                     onClick={() => setOpen(false)}
-                    className="block rounded-[2px] px-[0.8rem] py-[0.6rem] transition-colors hover:bg-[#f2ece2] focus-visible:bg-[#f2ece2]"
+                    className="block rounded-[2px] px-[0.8rem] py-[0.6rem] transition-colors hover:bg-linen/70 focus-visible:bg-linen/70"
                   >
                     <span className={`block font-serif text-[1.05rem] leading-tight ${current ? "text-gold" : "text-ink"}`}>
                       {child.label}
                     </span>
-                    <span className="mt-[0.2rem] block text-[0.74rem] text-[#5a5c58]">{child.detail}</span>
+                    <span className="mt-[0.2rem] block text-[0.74rem] text-muted">{child.detail}</span>
                   </Link>
                 </li>
               );
             })}
-            <li className="mt-[0.3rem] border-t border-[#e8e2d8] pt-[0.3rem]">
+            <li className="mt-[0.3rem] border-t border-line pt-[0.3rem]">
               <Link
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-[2px] px-[0.8rem] py-[0.55rem] text-[0.76rem] font-medium text-gold transition-colors hover:bg-[#f2ece2] hover:text-gold-hover"
+                className="block rounded-[2px] px-[0.8rem] py-[0.55rem] text-[0.76rem] font-medium text-gold transition-colors hover:bg-linen/70 hover:text-gold-hover"
               >
                 Compare the villas
               </Link>
