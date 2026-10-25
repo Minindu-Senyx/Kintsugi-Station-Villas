@@ -5,13 +5,16 @@ import NavLinks from "@/components/site/NavLinks";
 import SiteLogo from "@/components/site/SiteLogo";
 import { bookHref } from "@/lib/site";
 
+/*
+ * The logo is as tall as the header and bleeds off the left edge of the screen
+ * (the negative margin cancels the frame's padding and, on very wide screens,
+ * the centred frame's side margin), with its right side fading into the page.
+ */
 export default function SiteHeader() {
   return (
     <HeaderShell>
-      <div className="frame relative flex items-center justify-between px-5 py-3 lg:h-[5.25rem] lg:px-[3.625rem] lg:py-0">
-        <div className="flex shrink-0 items-center">
-          <SiteLogo animate />
-        </div>
+      <div className="frame relative flex h-[4.5rem] items-center justify-between px-5 lg:h-[5.25rem] lg:px-[3.625rem]">
+        <SiteLogo priority fade className="-ml-5 h-full lg:-ml-[calc(3.625rem+max(0px,(100vw-64rem)/2))]" />
 
         <nav aria-label="Primary" className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-center lg:px-4 xl:px-8">
           <NavLinks />
@@ -20,9 +23,9 @@ export default function SiteHeader() {
         <div className="hidden lg:flex lg:shrink-0 lg:items-center lg:justify-end">
           <Link
             href={bookHref}
-            className="sheen flex h-[2.0625rem] w-[6.125rem] items-center justify-center bg-gold text-[0.75rem] text-[#f7f1e4] shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-colors hover:bg-[#8f6d31]"
+            className="sheen btn-primary btn-compact"
           >
-            Book Now
+            Book on Airbnb
           </Link>
         </div>
 

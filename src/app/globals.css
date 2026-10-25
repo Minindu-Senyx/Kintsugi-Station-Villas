@@ -2,41 +2,45 @@
 
 /*
  * Every page is built to the 1024px-wide UI mockups in /Ui Mockup, where
- * 1rem = 16px. From the desktop breakpoint up, the root font-size scales with
- * the viewport so the whole layout stays proportionally identical to the
- * mockup at any width. Below it, pages fall back to stacked mobile layouts.
+ * 1rem = 16px. Desktop layouts scale up on larger screens, but never shrink
+ * the root below 16px. Below the breakpoint, pages use stacked layouts.
  */
 @theme {
   --breakpoint-lg: 56.25rem; /* 900px — desktop (mockup) layout */
 
   --font-serif: var(--font-garamond), "EB Garamond", Georgia, serif;
   --font-sans: var(--font-figtree), "Figtree", system-ui, sans-serif;
+}
 
+/*
+ * One palette for the whole site, taken from the logo: deep blue marble, gold
+ * kintsugi veins and the cream at its edge. Marble is the dark (footer, dark
+ * bands, headings), gold is the accent (booking buttons, links, eyebrows) and
+ * cream is the page. Contrast: gold and muted text are 4.6:1+ on both creams.
+ * `static` emits every variable so the About page's CSS module can use them.
+ */
+@theme static {
   /* Surfaces */
-  --color-ivory: #f6f3ee; /* home */
-  --color-linen: #f0ebe5; /* home reserve band */
-  --color-paper: #f9f8f4; /* about */
-  --color-mist: #f1ede9; /* gallery */
-  --color-sand: #f3efe9; /* contact */
-  --color-card: #f9f6f2; /* contact form card */
+  --color-ivory: #f6f3ee; /* the page */
+  --color-linen: #f0ebe3; /* alternate bands and cards */
+  --color-line: #ddd5c8; /* hairlines and dividers */
+  --color-line-strong: #7d868e; /* form fields and chips: 3:1+ */
 
-  /* Ink */
-  --color-ink: #0c100e;
-  --color-ink-soft: #333331;
-  --color-pine-ink: #0f2a22; /* about headings */
+  /* Ink: marble-tinted text */
+  --color-ink: #1b2731; /* headings */
+  --color-ink-soft: #36434c; /* body copy */
+  --color-muted: #5b666e; /* notes and captions */
 
-  /* Golds */
-  --color-gold: #a47f3d; /* home buttons */
-  --color-gold-olive: #9e823c; /* about */
-  --color-brass: #b39550; /* gallery */
-  --color-bronze: #a38150; /* contact */
-  --color-taupe: #b19b68; /* about eyebrow labels */
+  /* Gold */
+  --color-gold: #816430; /* buttons, links, eyebrows */
+  --color-gold-hover: #5f4a23;
+  --color-gold-light: #e6cc93; /* gold on marble */
+  --color-on-gold: #f7f1e4; /* text on gold buttons */
 
-  /* Dark greens */
-  --color-night: #1a201b; /* home footer */
-  --color-pine: #152e28; /* about footer */
-  --color-moss: #1b271e; /* gallery header/footer */
-  --color-forest: #19221b; /* contact header/footer */
+  /* Marble */
+  --color-marble: #1b2731; /* footer and dark bands */
+  --color-on-dark: #e8e6df; /* text on marble */
+  --color-on-dark-muted: #9eabb4;
 }
 
 html {
@@ -46,7 +50,7 @@ html {
 
 @media (min-width: 56.25rem) {
   html {
-    font-size: clamp(14px, 1.5625vw, 20px);
+    font-size: clamp(16px, 1.5625vw, 20px);
   }
 }
 
@@ -55,6 +59,59 @@ body {
   background: var(--color-ivory);
   color: var(--color-ink);
   font-family: var(--font-sans);
+}
+
+/* Anchors (#book, #spaces) land clear of the sticky header. */
+html {
+  scroll-padding-top: 6rem;
+}
+
+/*
+ * Keyboard focus: one clear ring everywhere. Deep gold on the light pages, pale
+ * gold wherever the surface is dark (footer, dialogs). Mouse clicks show nothing.
+ */
+:focus-visible {
+  outline: 2px solid var(--color-gold-hover);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+footer :focus-visible,
+dialog :focus-visible,
+.on-dark :focus-visible {
+  outline-color: var(--color-gold-light);
+}
+main:focus {
+  outline: none;
+}
+/* The date inputs are invisible overlays: ring their whole field instead. */
+label:has(.picker-input:focus-visible) {
+  outline: 2px solid var(--color-gold-hover);
+  outline-offset: -2px;
+}
+
+/* "Skip to main content": hidden until a keyboard user tabs to it. */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 100;
+  padding: 0.65rem 1rem;
+  background: var(--color-ink);
+  color: #fff;
+  font-size: 0.875rem;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus {
+  transform: none;
+}
+
+/* Horizontal tab rows scroll without a visible bar. */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 .frame {
@@ -82,7 +139,7 @@ body {
 
 ::selection {
   background: #c9a96a;
-  color: #0c100e;
+  color: var(--color-ink);
 }
 
 /* ------------------------------------------------------------------ */
@@ -122,12 +179,6 @@ body {
   }
 }
 
-@keyframes draw-path {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 @keyframes sheen {
   from {
     transform: translateX(-120%);
@@ -135,22 +186,6 @@ body {
   to {
     transform: translateX(120%);
   }
-}
-
-@keyframes pulse-ring {
-  from {
-    opacity: 0.9;
-    transform: scale(0.4);
-  }
-  to {
-    opacity: 0;
-    transform: scale(2.4);
-  }
-}
-
-/* Slow ripple under the estate's map marker. */
-.pulse-ring {
-  animation: pulse-ring 2.8s var(--ease-soft) infinite;
 }
 
 /* Entrances that play on first paint (heroes), so they need no JS. */
@@ -175,13 +210,6 @@ body {
   animation: settle 9s var(--ease-soft) both;
 }
 
-/* Hairline logo ridge draws itself once on load. */
-.draw-ridge path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw-path 2.4s var(--ease-soft) 0.2s forwards;
-}
-
 /*
  * Scroll reveals. RevealObserver sets [data-shown] as each [data-reveal]
  * element enters the viewport. The hidden states only apply once the inline
@@ -203,18 +231,6 @@ body {
 
 .js [data-reveal="fade"]:not([data-shown]) {
   opacity: 0;
-}
-
-/* Map marker drops onto its spot. */
-.js [data-reveal="drop"] {
-  transition:
-    opacity 0.6s ease,
-    transform 1s cubic-bezier(0.34, 1.4, 0.5, 1);
-  transition-delay: var(--d, 0ms);
-}
-.js [data-reveal="drop"]:not([data-shown]) {
-  opacity: 0;
-  transform: translateY(-1.25rem);
 }
 
 /* Gold hairlines extend from the left. */
@@ -288,6 +304,88 @@ body {
   }
 }
 
+/*
+ * Buttons. Primary (gold) is only for booking; secondary (marble outline) is
+ * for everything else. `btn-compact` is the smaller size the header uses.
+ */
+@layer components {
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    height: 2.6rem;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 2rem;
+    white-space: nowrap;
+    font-size: max(14px, 0.85rem);
+    font-weight: 500;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  .btn-primary {
+    background-color: var(--color-gold);
+    color: var(--color-on-gold);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-gold-hover);
+    box-shadow: 0 6px 18px -8px rgb(95 74 35 / 0.65);
+  }
+  .btn-secondary {
+    border: 1px solid var(--color-marble);
+    color: var(--color-marble);
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-marble);
+    color: var(--color-ivory);
+  }
+  .btn-compact {
+    height: 2.0625rem;
+    padding-inline: 1.1rem;
+    font-size: max(14px, 0.75rem);
+  }
+}
+
+/* Standalone text links draw their underline in from the left on hover or focus. */
+@layer components {
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0 1px;
+    transition: background-size 0.5s var(--ease-soft), color 0.3s ease;
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* The logo banner fades out on its right edge so its cream marble melts into the page. */
+.logo-fade {
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 52%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 52%, transparent 100%);
+}
+
+/* Footer: the logo's marble blue, lit softly behind the logo so the banner's
+   edges melt into it. In the footer the logo fades on every side, not only the right. */
+.footer-marble {
+  background:
+    radial-gradient(ellipse 38rem 18rem at 12% 14%, rgb(52 76 88 / 0.55), transparent 70%),
+    linear-gradient(180deg, #1f2d38 0%, var(--color-marble) 55%, #172129 100%);
+}
+.footer-marble .logo-fade {
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 10%, #000 50%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 10%, #000 50%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  mask-composite: intersect;
+}
+
 /* Sticky header: lifts with a hairline shadow once the page scrolls, slips
    away while reading downward and returns on the way back up. */
 .site-header {
@@ -323,14 +421,14 @@ body {
   transform: none;
 }
 .lightbox::backdrop {
-  background-color: rgb(11 16 12 / 0);
+  background-color: rgb(14 21 27 / 0);
   transition:
     background-color 0.45s ease,
     overlay 0.45s allow-discrete,
     display 0.45s allow-discrete;
 }
 .lightbox[open]::backdrop {
-  background-color: rgb(11 16 12 / 0.88);
+  background-color: rgb(14 21 27 / 0.9);
 }
 @starting-style {
   .lightbox[open] {
@@ -338,7 +436,7 @@ body {
     transform: scale(0.97);
   }
   .lightbox[open]::backdrop {
-    background-color: rgb(11 16 12 / 0);
+    background-color: rgb(14 21 27 / 0);
   }
 }
 

@@ -7,17 +7,17 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "images:generate": "node scripts/generate-images.mjs",
-    "images:villas": "node scripts/process-villa-photos.mjs"
+    "images:villas": "node scripts/process-villa-photos.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "lucide-react": "^1.26.0",
     "next": "16.2.11",
     "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "react-icons": "^5.7.0"
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

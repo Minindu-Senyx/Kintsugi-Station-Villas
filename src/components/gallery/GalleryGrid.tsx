@@ -11,7 +11,7 @@ const categories = [
   "Villa Acland",
   "Suites & Bedrooms",
   "Living & Terraces",
-  "Valley Views",
+  "Gardens & Outdoors",
 ] as const;
 type Category = (typeof categories)[number];
 
@@ -23,94 +23,97 @@ type Photo = {
   tags: Exclude<Category, "All">[];
 };
 
-// Real photographs showcasing Avalon Villa and Villa Acland in Kandy
+// Photographs of Avalon Villa and Villa Acland in Kandy
 const photos: Photo[] = [
   {
     id: "pool",
     src: "/assets/images/villas/avalon/avalon-hero.jpg",
-    alt: "Cantilevered infinity pool and sun deck at Avalon Villa",
-    caption: ["Avalon Villa", "Cantilevered Pool"],
-    tags: ["Avalon Villa", "Valley Views", "Living & Terraces"],
+    alt: "Brick courtyard shaded by mature trees at Avalon Villa",
+    caption: ["Avalon Villa", "Shaded Courtyard"],
+    tags: ["Avalon Villa", "Gardens & Outdoors", "Living & Terraces"],
   },
   {
     id: "suite",
     src: "/assets/images/villas/avalon/avalon-b1-master.jpg",
-    alt: "Master suite with private balcony at Avalon Villa",
-    caption: ["Cloud Master Suite", "Avalon Villa"],
+    alt: "En-suite bathroom with twin basins and a sunken bath at Avalon Villa",
+    caption: ["Master En-Suite", "Avalon Villa"],
     tags: ["Avalon Villa", "Suites & Bedrooms"],
   },
   {
     id: "bath",
     src: "/assets/images/villas/acland/acland-stone-bath.jpg",
-    alt: "Carved stone soaking tub at Villa Acland",
-    caption: ["Artisan Stone Bath", "Villa Acland"],
+    alt: "Bathroom with twin basins, a mirror and a walk-in shower at Villa Acland",
+    caption: ["En-Suite Bathroom", "Villa Acland"],
     tags: ["Villa Acland", "Suites & Bedrooms"],
   },
   {
     id: "tea",
     src: "/assets/images/villas/acland/acland-veranda-lounge.jpg",
-    alt: "Covered veranda lounge at Villa Acland",
-    caption: ["Forest Veranda", "Villa Acland"],
-    tags: ["Villa Acland", "Living & Terraces", "Valley Views"],
+    alt: "Dining table beside open windows and greenery at Villa Acland",
+    caption: ["Dining by the Trees", "Villa Acland"],
+    tags: ["Villa Acland", "Living & Terraces"],
   },
   {
     id: "flavours",
     src: "/assets/images/villas/avalon/avalon-dining-patio.jpg",
-    alt: "Outdoor dining patio and mountains at Avalon Villa",
-    caption: ["Al Fresco Dining", "Avalon Villa"],
+    alt: "Sofas facing a cinema projector screen at Avalon Villa",
+    caption: ["Cinema Lounge", "Avalon Villa"],
     tags: ["Avalon Villa", "Living & Terraces"],
   },
   {
     id: "night",
     src: "/assets/images/villas/acland/acland-hero.jpg",
-    alt: "Villa Acland stone architecture nestled in hillside forest",
+    alt: "Blue-grey exterior walls and stone urns beneath trees at Villa Acland",
     caption: ["Sanctuary Retreat", "Villa Acland"],
-    tags: ["Villa Acland", "Valley Views"],
+    tags: ["Villa Acland", "Gardens & Outdoors"],
   },
   {
     id: "avalon-living",
     src: "/assets/images/villas/avalon/avalon-living-overview.jpg",
-    alt: "Open-air living pavilion at Avalon Villa",
-    caption: ["Living Great Room", "Avalon Villa"],
+    alt: "Dining table on the covered veranda at Avalon Villa",
+    caption: ["Veranda Dining", "Avalon Villa"],
     tags: ["Avalon Villa", "Living & Terraces"],
   },
   {
     id: "avalon-deck",
     src: "/assets/images/villas/avalon/avalon-deck-panoramic.jpg",
-    alt: "Panoramic timber deck overlooking Kandy mountain ridges",
-    caption: ["Panoramic Mountain Deck", "Avalon Villa"],
-    tags: ["Avalon Villa", "Valley Views", "Living & Terraces"],
+    alt: "Cinema seating and a piano at Avalon Villa",
+    caption: ["Cinema & Piano", "Avalon Villa"],
+    tags: ["Avalon Villa", "Living & Terraces"],
   },
   {
     id: "avalon-b2",
     src: "/assets/images/villas/avalon/avalon-b2-room.jpg",
-    alt: "Valley Suite bedroom overlooking hills at Avalon Villa",
+    alt: "Twin beds with teal throws and garden-facing windows at Avalon Villa",
     caption: ["Valley Suite B2", "Avalon Villa"],
     tags: ["Avalon Villa", "Suites & Bedrooms"],
   },
   {
     id: "acland-bed",
     src: "/assets/images/villas/acland/acland-bedroom-suite.jpg",
-    alt: "Artisan master bedroom in Villa Acland",
-    caption: ["Artisan Master Suite", "Villa Acland"],
+    alt: "Bedroom windows overlooking trees at Villa Acland",
+    caption: ["Bedroom Garden Outlook", "Villa Acland"],
     tags: ["Villa Acland", "Suites & Bedrooms"],
   },
   {
     id: "acland-deck",
     src: "/assets/images/villas/acland/acland-deck-view.jpg",
-    alt: "Deck overlooking lush forest canopy at Villa Acland",
-    caption: ["Canopy Outlook", "Villa Acland"],
-    tags: ["Villa Acland", "Valley Views", "Living & Terraces"],
+    alt: "Sofa beside open windows overlooking greenery at Villa Acland",
+    caption: ["Lounge by the Windows", "Villa Acland"],
+    tags: ["Villa Acland", "Living & Terraces"],
   },
   {
     id: "acland-terrace",
     src: "/assets/images/villas/acland/acland-garden-terrace.jpg",
-    alt: "Lush tropical terrace and ferns at Villa Acland",
-    caption: ["Tropical Terraces", "Villa Acland"],
-    tags: ["Villa Acland", "Valley Views"],
+    alt: "Balcony railing surrounded by leafy trees at Villa Acland",
+    caption: ["Leafy Balcony", "Villa Acland"],
+    tags: ["Villa Acland", "Gardens & Outdoors"],
   },
 ];
 
+
+const featuredIds = ["pool", "tea", "suite", "bath", "flavours", "night"];
+const remainingPhotos = photos.filter((photo) => !featuredIds.includes(photo.id));
 
 const byId = (id: string) => photos.find((p) => p.id === id)!;
 
@@ -138,13 +141,13 @@ function Tile({ photo, className, sizes, wait, onOpen }: TileProps) {
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(0deg,rgba(10,14,11,0.62),rgba(10,14,11,0))]"
       />
-      <span className="absolute bottom-[1.3rem] left-[1.25rem] font-serif text-[0.6rem] leading-[1rem] tracking-[0.2em] text-[#f4f1e8] uppercase transition-transform duration-700 ease-soft group-hover:-translate-y-[0.3rem]">
+      <span className="absolute bottom-[1.3rem] left-[1.25rem] font-serif text-[0.7rem] leading-[1rem] tracking-[0.2em] text-ivory uppercase transition-transform duration-700 ease-soft group-hover:-translate-y-[0.3rem]">
         {photo.caption[0]}
         <br />
         {photo.caption[1]}
         <span
           aria-hidden="true"
-          className="mt-[0.45rem] block h-px w-[1.8rem] origin-left scale-x-0 bg-[#d9bf87] transition-transform duration-700 ease-soft group-hover:scale-x-100"
+          className="mt-[0.45rem] block h-px w-[1.8rem] origin-left scale-x-0 bg-gold-light transition-transform duration-700 ease-soft group-hover:scale-x-100"
         />
       </span>
     </button>
@@ -167,7 +170,7 @@ export default function GalleryGrid() {
 
   const filtered = photos.filter((p) => filter !== "All" && p.tags.includes(filter as Exclude<Category, "All">));
   // The lightbox steps through everything in the current view.
-  const sequence = filter === "All" ? photos : filtered;
+  const sequence = filter === "All" ? [...featuredIds.map(byId), ...remainingPhotos] : filtered;
   const index = active ? sequence.findIndex((p) => p.id === active.id) : -1;
 
   const openPhoto = (photo: Photo) => {
@@ -202,8 +205,8 @@ export default function GalleryGrid() {
                 cat === "All" ? "w-[4.5rem]" : "px-[1.15rem]"
               } ${
                 selected
-                  ? "border-[#1b261d] bg-[#1b261d] text-[#f1ede9]"
-                  : "border-[#b3aea5] text-[#2b2b25] hover:border-[#1b261d] hover:bg-[#1b261d]/5"
+                  ? "border-marble bg-marble text-ivory"
+                  : "border-line-strong text-ink-soft hover:border-marble hover:bg-marble/5"
               }`}
             >
               {cat}
@@ -215,22 +218,36 @@ export default function GalleryGrid() {
       {/* Keyed by filter so each view's tiles unveil afresh. */}
       <div key={filter} className="mx-auto mt-[1.8rem] max-w-[64rem] px-3 lg:px-[1.0625rem]">
         {filter === "All" ? (
-          <div className="grid gap-2 lg:grid-cols-[314fr_668fr] lg:gap-[0.5rem]">
-            <div className="grid gap-2 lg:gap-[0.5rem]">
-              <Tile photo={byId("pool")} wait={0} onOpen={openPhoto} className="h-96 lg:h-[26.75rem]" sizes="(min-width: 900px) 31vw, 100vw" />
-              <Tile photo={byId("tea")} wait={150} onOpen={openPhoto} className="h-80 lg:h-[20.44rem]" sizes="(min-width: 900px) 31vw, 100vw" />
-            </div>
-            <div className="grid gap-2 lg:gap-[0.5rem]">
-              <div className="grid gap-2 sm:grid-cols-[363fr_297fr] lg:gap-[0.5rem]">
-                <Tile photo={byId("suite")} wait={120} onOpen={openPhoto} className="h-80 lg:h-[23.125rem]" sizes="(min-width: 900px) 36vw, 100vw" />
-                <Tile photo={byId("bath")} wait={240} onOpen={openPhoto} className="h-80 lg:h-[23.125rem]" sizes="(min-width: 900px) 29vw, 100vw" />
+          <>
+            <div className="grid gap-2 lg:grid-cols-[314fr_668fr] lg:gap-[0.5rem]">
+              <div className="grid gap-2 lg:gap-[0.5rem]">
+                <Tile photo={byId("pool")} wait={0} onOpen={openPhoto} className="h-96 lg:h-[26.75rem]" sizes="(min-width: 900px) 31vw, 100vw" />
+                <Tile photo={byId("tea")} wait={150} onOpen={openPhoto} className="h-80 lg:h-[20.44rem]" sizes="(min-width: 900px) 31vw, 100vw" />
               </div>
-              <div className="grid gap-2 sm:grid-cols-[331fr_328fr] lg:gap-[0.56rem]">
-                <Tile photo={byId("flavours")} wait={120} onOpen={openPhoto} className="h-80 lg:h-[24.06rem]" sizes="(min-width: 900px) 33vw, 100vw" />
-                <Tile photo={byId("night")} wait={240} onOpen={openPhoto} className="h-80 lg:h-[24.06rem]" sizes="(min-width: 900px) 33vw, 100vw" />
+              <div className="grid gap-2 lg:gap-[0.5rem]">
+                <div className="grid gap-2 sm:grid-cols-[363fr_297fr] lg:gap-[0.5rem]">
+                  <Tile photo={byId("suite")} wait={120} onOpen={openPhoto} className="h-80 lg:h-[23.125rem]" sizes="(min-width: 900px) 36vw, 100vw" />
+                  <Tile photo={byId("bath")} wait={240} onOpen={openPhoto} className="h-80 lg:h-[23.125rem]" sizes="(min-width: 900px) 29vw, 100vw" />
+                </div>
+                <div className="grid gap-2 sm:grid-cols-[331fr_328fr] lg:gap-[0.56rem]">
+                  <Tile photo={byId("flavours")} wait={120} onOpen={openPhoto} className="h-80 lg:h-[24.06rem]" sizes="(min-width: 900px) 33vw, 100vw" />
+                  <Tile photo={byId("night")} wait={240} onOpen={openPhoto} className="h-80 lg:h-[24.06rem]" sizes="(min-width: 900px) 33vw, 100vw" />
+                </div>
               </div>
             </div>
-          </div>
+            <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 lg:mt-[0.5rem] lg:gap-[0.5rem]">
+              {remainingPhotos.map((photo, i) => (
+                <Tile
+                  key={photo.id}
+                  photo={photo}
+                  wait={(i % 3) * 120}
+                  onOpen={openPhoto}
+                  className="h-80 lg:h-[20rem]"
+                  sizes="(min-width: 900px) 33vw, (min-width: 640px) 50vw, 100vw"
+                />
+              ))}
+            </div>
+          </>
         ) : (
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 lg:gap-[0.5rem]">
             {filtered.map((photo, i) => (
@@ -264,12 +281,12 @@ export default function GalleryGrid() {
             <div key={active.id} className="enter-fade relative aspect-[3/2] max-h-[82vh] w-full">
               <Image src={active.src} alt={active.alt} fill sizes="92vw" className="object-contain" />
             </div>
-            <figcaption className="mt-3 flex items-center justify-center gap-4 font-serif text-sm tracking-[0.2em] text-[#e6e2d4] uppercase">
+            <figcaption className="mt-3 flex items-center justify-center gap-4 font-serif text-sm tracking-[0.2em] text-ivory uppercase">
               <span key={active.id} className="enter-fade">
                 {active.caption.join(" · ")}
               </span>
               {index >= 0 && (
-                <span className="text-xs tracking-[0.1em] text-[#a8a491]">
+                <span className="text-xs tracking-[0.1em] text-on-dark-muted">
                   {index + 1} / {sequence.length}
                 </span>
               )}

@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { delay } from "@/lib/motion";
 import type { VillaPhoto } from "@/lib/villas";
 
@@ -13,51 +13,39 @@ const categoryLabels: Record<string, string> = {
   outdoor: "Verandas & Estate Grounds",
 };
 
+type Category = "all" | "bedroom" | "living" | "outdoor";
+
+/*
+ * The villa's photo grid and its lightbox. The lightbox is a native <dialog>
+ * opened with showModal(), so the browser traps focus inside it, closes it on
+ * Escape, makes the page behind it inert and returns focus to the photo that
+ * opened it. Each photo is a real button, so the grid works from the keyboard.
+ */
 export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] }) {
-  const [activeCategory, setActiveCategory] = useState<"all" | "bedroom" | "living" | "outdoor">("all");
+  const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const filteredPhotos =
-    activeCategory === "all"
-      ? photos
-      : photos.filter((p) => p.category === activeCategory);
-
-  const openLightbox = (index: number) => {
-    setLightboxIndex(index);
-  };
-
-  const closeLightbox = () => {
-    setLightboxIndex(null);
-  };
-
-  const nextPhoto = useCallback(() => {
-    setLightboxIndex((prev) => (prev !== null ? (prev + 1) % filteredPhotos.length : null));
-  }, [filteredPhotos.length]);
-
-  const prevPhoto = useCallback(() => {
-    setLightboxIndex((prev) => (prev !== null ? (prev - 1 + filteredPhotos.length) % filteredPhotos.length : null));
-  }, [filteredPhotos.length]);
+  const filteredPhotos = activeCategory === "all" ? photos : photos.filter((p) => p.category === activeCategory);
+  const active = lightboxIndex !== null ? filteredPhotos[lightboxIndex] : undefined;
 
   useEffect(() => {
-    if (lightboxIndex === null) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightboxIndex(null);
-      if (e.key === "ArrowRight") nextPhoto();
-      if (e.key === "ArrowLeft") prevPhoto();
-    };
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (lightboxIndex !== null && !dialog.open) dialog.showModal();
+    if (lightboxIndex === null && dialog.open) dialog.close();
+  }, [lightboxIndex]);
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxIndex, nextPhoto, prevPhoto]);
+  const step = (dir: 1 | -1) =>
+    setLightboxIndex((prev) => (prev === null ? null : (prev + dir + filteredPhotos.length) % filteredPhotos.length));
 
   return (
     <div>
-      {/* Category Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-2.5 pb-10">
+      {/* Category filter */}
+      <div role="group" aria-label="Filter photographs" className="flex flex-wrap items-center justify-center gap-2.5 pb-10">
         {(["all", "bedroom", "living", "outdoor"] as const).map((catId) => {
           const isSelected = activeCategory === catId;
-          const count =
-            catId === "all" ? photos.length : photos.filter((p) => p.category === catId).length;
+          const count = catId === "all" ? photos.length : photos.filter((p) => p.category === catId).length;
 
           return (
             <button
@@ -67,159 +55,107 @@ export default function VillaGalleryLightbox({ photos }: { photos: VillaPhoto[] 
               onClick={() => setActiveCategory(catId)}
               className={`h-[2.1rem] rounded-full border px-4 font-serif text-[0.84rem] transition-colors duration-300 ${
                 isSelected
-                  ? "border-[#1b261d] bg-[#1b261d] text-[#f1ede9]"
-                  : "border-[#b3aea5] bg-transparent text-[#2b2b25] hover:border-[#1b261d] hover:bg-[#1b261d]/5"
+                  ? "border-marble bg-marble text-ivory"
+                  : "border-line-strong bg-transparent text-ink-soft hover:border-marble hover:bg-marble/5"
               }`}
             >
               <span>{categoryLabels[catId]}</span>
-              <span className={`ml-1.5 text-[0.72rem] ${isSelected ? "text-[#c7b27a]" : "text-[#7a766e]"}`}>
-                ({count})
-              </span>
+              <span className={`ml-1.5 text-[0.75rem] ${isSelected ? "text-gold-light" : "text-muted"}`}>({count})</span>
             </button>
           );
         })}
       </div>
 
-      {/* Photo Grid with Staggered Scroll Reveals */}
+      {/* Photo grid */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredPhotos.map((photo, idx) => (
-          <figure
+          <button
             key={photo.src}
+            type="button"
             data-reveal="image"
             style={delay((idx % 6) * 70)}
-            onClick={() => openLightbox(idx)}
-            className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-[2px] bg-[#1a1c1a] shadow-sm transition-all duration-500 hover:shadow-lg"
+            onClick={() => setLightboxIndex(idx)}
+            aria-label={`View photo: ${photo.caption}`}
+            className="group relative block aspect-[4/3] w-full cursor-pointer overflow-hidden bg-marble text-left focus-visible:outline-offset-[-3px]"
           >
             <Image
               src={photo.src}
               alt={photo.alt}
               fill
               sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-              className="object-cover transition-transform duration-700 ease-soft group-hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-soft group-hover:scale-105 group-focus-visible:scale-105"
             />
 
-            {/* Darken backdrop overlay on hover */}
-            <div
+            {/* The caption fades in on hover or keyboard focus */}
+            <span
               aria-hidden="true"
-              className="absolute inset-0 bg-black/45 opacity-0 transition-opacity duration-400 ease-soft group-hover:opacity-100"
-            />
-            {/* Rich gradient at bottom for maximum caption legibility on hover */}
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 transition-opacity duration-400 ease-soft group-hover:opacity-100"
-            />
-
-            {/* Expand icon badge top-right on hover */}
-            <div className="absolute right-3 top-3 rounded-full bg-black/50 p-1.5 text-white/90 opacity-0 backdrop-blur-sm transition-all duration-300 ease-soft group-hover:opacity-100 group-hover:scale-105">
-              <Maximize2 className="size-3.5" />
-            </div>
-
-            {/* Caption Overlay: completely hidden by default, smoothly appears on hover */}
-            <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 p-4 text-white opacity-0 translate-y-2 transition-all duration-400 ease-soft group-hover:opacity-100 group-hover:translate-y-0">
-              {/* Category label */}
-              <span className="mb-1 block text-[0.58rem] font-medium uppercase tracking-[0.2em] text-[#d9bf87]">
-                {categoryLabels[photo.category || "living"]}
-              </span>
-
-              {/* Exact Photo Caption */}
-              <p className="font-serif text-[0.92rem] font-light leading-snug text-[#f7f5f0] drop-shadow-sm">
-                {photo.caption}
-              </p>
-
-              {/* Expanding Gold Hairline */}
-              <span
-                aria-hidden="true"
-                className="mt-2.5 block h-px w-8 origin-left scale-x-0 bg-gold transition-transform duration-500 ease-soft group-hover:scale-x-100"
-              />
-
-              {/* Interaction Hint */}
-              <span className="mt-2 flex items-center gap-1.5 text-[0.62rem] uppercase tracking-[0.14em] text-[#e0cfb0]">
-                <span>Inspect photograph</span>
-                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </span>
-            </figcaption>
-          </figure>
+              className="pointer-events-none absolute inset-x-0 bottom-0 block bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4 pt-10 text-[0.88rem] leading-snug text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+            >
+              {photo.caption}
+            </span>
+          </button>
         ))}
       </div>
 
-      {/* Lightbox Modal */}
-      {lightboxIndex !== null && filteredPhotos[lightboxIndex] && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          onClick={closeLightbox}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-black/95 p-4 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
-        >
-          {/* Lightbox Top Header */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="flex w-full max-w-6xl items-center justify-between border-b border-white/10 py-3 text-white"
-          >
-            <div className="flex items-center gap-3">
-              <span className="rounded-full bg-gold/20 px-2.5 py-0.5 text-[0.62rem] uppercase tracking-[0.16em] text-[#d9bf87]">
-                {categoryLabels[filteredPhotos[lightboxIndex].category || "living"]}
-              </span>
-              <p className="font-serif text-[1rem] tracking-wide text-white/95">
-                {filteredPhotos[lightboxIndex].caption}
-              </p>
+      {/* Lightbox */}
+      <dialog
+        ref={dialogRef}
+        aria-label={active ? `Photo ${lightboxIndex! + 1} of ${filteredPhotos.length}: ${active.caption}` : "Photo"}
+        onClose={() => setLightboxIndex(null)}
+        onClick={(e) => e.target === e.currentTarget && setLightboxIndex(null)}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowRight") step(1);
+          if (e.key === "ArrowLeft") step(-1);
+        }}
+        className="lightbox m-auto max-h-[92vh] w-[min(92vw,70rem)] bg-transparent p-0"
+      >
+        {active && (
+          <figure className="relative">
+            <div key={active.src} className="enter-fade relative aspect-[3/2] max-h-[78vh] w-full">
+              <Image src={active.src} alt={active.alt} fill sizes="92vw" className="object-contain" />
             </div>
-            <div className="flex items-center gap-4">
-              <span className="text-[0.74rem] text-white/60">
-                {lightboxIndex + 1} / {filteredPhotos.length}
+            <figcaption className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-white">
+              <span className="rounded-full bg-white/15 px-2.5 py-0.5 text-[0.72rem] uppercase tracking-[0.16em] text-gold-light">
+                {categoryLabels[active.category || "living"]}
               </span>
-              <button
-                onClick={closeLightbox}
-                aria-label="Close image preview"
-                className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
-              >
-                <X className="size-5" />
-              </button>
-            </div>
-          </div>
+              <span className="font-serif text-[1rem] tracking-wide">{active.caption}</span>
+              <span className="text-[0.8rem] text-white/80" aria-hidden="true">
+                {lightboxIndex! + 1} / {filteredPhotos.length}
+              </span>
+            </figcaption>
+            <p className="mt-1.5 text-center text-[0.75rem] text-white/70">Arrow keys to step through · Esc to close</p>
 
-          {/* Lightbox Center Image Container */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative flex h-[74vh] w-full max-w-6xl items-center justify-center p-2"
-          >
-            <Image
-              src={filteredPhotos[lightboxIndex].src}
-              alt={filteredPhotos[lightboxIndex].alt}
-              fill
-              sizes="90vw"
-              className="object-contain transition-opacity duration-300"
-              priority
-            />
-
-            {/* Navigation buttons */}
+            {filteredPhotos.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => step(-1)}
+                  aria-label="Previous photo"
+                  className="absolute left-2 top-[calc(50%-2rem)] grid size-11 -translate-y-1/2 place-items-center rounded-full bg-black/55 text-white transition-colors hover:bg-gold"
+                >
+                  <ChevronLeft size={22} aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => step(1)}
+                  aria-label="Next photo"
+                  className="absolute right-2 top-[calc(50%-2rem)] grid size-11 -translate-y-1/2 place-items-center rounded-full bg-black/55 text-white transition-colors hover:bg-gold"
+                >
+                  <ChevronRight size={22} aria-hidden="true" />
+                </button>
+              </>
+            )}
             <button
-              onClick={prevPhoto}
-              aria-label="Previous photo"
-              className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-3 text-white/90 backdrop-blur-sm transition-all hover:bg-gold hover:text-[#1c1d1a]"
+              type="button"
+              onClick={() => setLightboxIndex(null)}
+              aria-label="Close photo"
+              className="absolute right-2 top-2 grid size-11 place-items-center rounded-full bg-black/55 text-white transition-colors hover:bg-black/80"
             >
-              <ChevronLeft className="size-6" />
+              <X size={20} aria-hidden="true" />
             </button>
-            <button
-              onClick={nextPhoto}
-              aria-label="Next photo"
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-3 text-white/90 backdrop-blur-sm transition-all hover:bg-gold hover:text-[#1c1d1a]"
-            >
-              <ChevronRight className="size-6" />
-            </button>
-          </div>
-
-          {/* Lightbox Bottom Footer Bar */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-6xl border-t border-white/10 py-3 text-center text-[0.8rem] text-white/70"
-          >
-            <p className="italic text-[#d6cfbe]">{filteredPhotos[lightboxIndex].alt}</p>
-            <p className="mt-1 text-[0.64rem] uppercase tracking-[0.16em] text-white/40">
-              Use arrow keys or swipe to navigate · Esc to close
-            </p>
-          </div>
-        </div>
-      )}
+          </figure>
+        )}
+      </dialog>
     </div>
   );
 }

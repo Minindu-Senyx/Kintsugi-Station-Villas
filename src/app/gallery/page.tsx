@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 
 export default function GalleryPage() {
   return (
-    <main className="bg-mist">
+    <main id="main-content" tabIndex={-1} className="bg-ivory">
       <section className="pb-[1.95rem] pt-[2.2rem]">
         <p
           style={delay(100)}
-          className="enter-rise eyebrow text-center font-serif text-[0.66rem] font-medium tracking-[0.36em] text-[#3f3f38]"
+          className="enter-rise eyebrow text-center font-serif text-[0.7rem] font-medium tracking-[0.36em] text-ink-soft"
         >
           Gallery
         </p>
@@ -24,10 +24,10 @@ export default function GalleryPage() {
           style={delay(220)}
           className="enter-rise mt-[0.75rem] text-center font-serif text-[2.6rem] leading-none text-ink lg:text-[3.36rem]"
         >
-          Visual Moments
+          Gallery
         </h1>
-        <p style={delay(380)} className="enter-rise mt-[0.45rem] px-5 text-center font-serif text-[1.09rem] text-[#4a4a43]">
-          Light, mist, and silence across our private hill country estate.
+        <p style={delay(380)} className="enter-rise mt-[0.45rem] px-5 text-center font-serif text-[1.09rem] text-ink-soft">
+          Both villas, in photographs.
         </p>
         <GalleryGrid />
       </section>
@@ -43,16 +43,16 @@ export default function GalleryPage() {
         <div aria-hidden="true" className="absolute inset-0 bg-[#d9d6d1]/25" />
         <h2
           data-reveal="up"
-          className="relative -mt-[0.6rem] px-5 text-center font-serif text-[1.78rem] leading-tight text-[#1b1d1a]"
+          className="relative -mt-[0.6rem] px-5 text-center font-serif text-[1.78rem] leading-tight text-ink"
         >
-          Experience the stillness yourself
+          Book your stay
         </h2>
         <div data-reveal="up" style={delay(150)} className="relative mt-[0.95rem]">
           <Link
             href={bookHref}
-            className="sheen flex h-[2.4rem] w-[10rem] items-center justify-center bg-[#c0a257] font-serif text-[0.97rem] text-[#2c2a19] transition-[filter] hover:brightness-105"
+            className="sheen btn-primary"
           >
-            Reserve Your Stay
+            Book on Airbnb
           </Link>
         </div>
       </section>

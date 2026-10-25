@@ -5,6 +5,7 @@ import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import RevealObserver from "@/components/motion/RevealObserver";
 import { revealBootScript } from "@/lib/motion";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const garamond = EB_Garamond({
@@ -19,11 +20,9 @@ const figtree = Figtree({
   display: "swap",
 });
 
-// Placeholder production domain — update once the real domain is chosen.
-const siteUrl = "https://www.kintsugistation.com";
-const siteTitle = "Kintsugi Station · Kandy | A Private Villa in Sri Lanka";
+const siteTitle = "Kintsugi Station · Kandy | Private Villas in Sri Lanka";
 const siteDescription =
-  "An exclusive private estate in the mist-veiled hills of Kandy, Sri Lanka — one villa, reserved for one group at a time.";
+  "Two private villas in the mist-veiled hills of Kandy, Sri Lanka: Avalon Villa (sleeps 6) and Villa Acland (sleeps 2), each reserved for one group at a time. Book on Airbnb.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -38,7 +37,20 @@ export const metadata: Metadata = {
     siteName: "Kintsugi Station",
     locale: "en_US",
     type: "website",
-    images: ["/assets/images/homepage_hero.jpg"],
+    images: [
+      {
+        url: "/assets/brand/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Kintsugi Station Villas, Sri Lanka",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/assets/brand/og-image.jpg"],
   },
 };
 
@@ -54,6 +66,9 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: revealBootScript }} />
       </head>
       <body>
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <SiteHeader />
         {/* Crossfades each page into the next on navigation (see "Page transitions" in globals.css). */}
         <ViewTransition update="page" default="none">

@@ -1,112 +1,76 @@
 import Link from "next/link";
-import { Mail, MapPin } from "lucide-react";
-import { PiWhatsappLogoLight } from "react-icons/pi";
-import { KintsugiVeins } from "@/components/brand/KintsugiVeins";
 import SiteLogo from "@/components/site/SiteLogo";
-import { delay } from "@/lib/motion";
-import { bookHref, contact } from "@/lib/site";
+import { bookHref, contact, primaryEmail, primaryPhone, social } from "@/lib/site";
 
-const quickLinks = [
+const explore = [
   { href: "/", label: "Home" },
   { href: "/villas/avalon", label: "Avalon Villa" },
   { href: "/villas/acland", label: "Villa Acland" },
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
-  { href: bookHref, label: "Book Now" },
+  { href: bookHref, label: "Book on Airbnb" },
 ];
 
-type ContactItemProps = {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  detail?: string;
-  href: string;
-  external?: boolean;
-};
-
-/** One contact channel: a ringed icon beside a small label and its value. */
-function ContactItem({ icon, label, value, detail, href, external }: ContactItemProps) {
-  return (
-    <a
-      href={href}
-      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-      className="group flex items-start gap-[0.7rem] whitespace-nowrap"
-    >
-      <span className="grid size-[2rem] shrink-0 place-items-center rounded-full border border-[#9b7d45]/50 text-[#c9a96a] transition-colors group-hover:border-[#d9bf87] group-hover:bg-[#d9bf87]/10 group-hover:text-[#e6cc93]">
-        {icon}
-      </span>
-      <span className="flex flex-col pt-[0.2rem] leading-none">
-        <span className="text-[0.52rem] tracking-[0.22em] text-[#a88d58] uppercase">{label}</span>
-        <span className="mt-[0.5rem] text-[0.76rem] text-[#ecebe6] transition-colors group-hover:text-[#d9bf87]">
-          {value}
-        </span>
-        {detail && <span className="mt-[0.4rem] text-[0.6rem] tracking-[0.02em] text-[#7a7d74]">{detail}</span>}
-      </span>
-    </a>
-  );
-}
+const heading = "text-[0.75rem] font-medium uppercase tracking-[0.18em] text-on-dark-muted";
+const link = "inline-block py-[0.28rem] text-[0.85rem] text-on-dark transition-[color,translate] duration-500 ease-soft hover:translate-x-[0.2rem] hover:text-gold-light";
 
 export default function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-night">
-      <KintsugiVeins
-        variant="footer"
-        className="pointer-events-none absolute left-[calc(max(0rem,50vw-32rem)-30rem)] top-0 hidden h-[14.375rem] w-[40rem] max-w-none opacity-90 lg:block"
-      />
-      <KintsugiVeins
-        variant="footer-mobile"
-        className="pointer-events-none absolute right-0 top-0 h-[20rem] w-[9rem] opacity-90 lg:hidden"
-      />
-      <div className="frame relative px-5 lg:px-[3.625rem]">
-        <div className="flex flex-col gap-10 pb-8 pt-12 lg:flex-row lg:items-start lg:justify-between lg:gap-6 lg:pb-[1.5rem] lg:pt-[2rem] flex-wrap xl:flex-nowrap">
-          <div data-reveal="fade" className="shrink-0 self-start lg:mt-[0.35rem]">
-            <SiteLogo tone="dark" />
+    <footer className="footer-marble">
+      <div className="frame px-5 pb-8 pt-12 lg:px-[3.625rem] lg:pb-[1.8rem] lg:pt-[3.2rem]">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_0.8fr] lg:gap-8">
+          <div>
+            <SiteLogo fade className="h-[4.75rem] lg:h-[5rem]" />
+            <p className="mt-4 max-w-[17rem] text-[0.85rem] leading-[1.3rem] text-on-dark-muted">
+              Two private villas on a quiet hillside in Kandy, Sri Lanka.
+            </p>
           </div>
 
-          <div
-            data-reveal="up"
-            style={delay(150)}
-            className="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:gap-6 lg:gap-5 xl:gap-8 lg:mt-[0.6rem]"
-          >
-            <ContactItem
-              icon={<PiWhatsappLogoLight className="size-[1.05rem]" />}
-              label="WhatsApp"
-              value={contact.phone}
-              href={contact.whatsappHref}
-              external
-            />
-            <ContactItem
-              icon={<Mail className="size-[0.95rem]" strokeWidth={1.3} />}
-              label="Email"
-              value={contact.email}
-              href={`mailto:${contact.email}`}
-            />
-            <ContactItem
-              icon={<MapPin className="size-[0.95rem]" strokeWidth={1.3} />}
-              label="Location"
-              value="Kandy Hills, Sri Lanka"
-              detail={contact.coordinates}
-              href={contact.mapsHref}
-              external
-            />
+          <div>
+            <h2 className={heading}>Contact</h2>
+            <ul className="mt-3">
+              <li>
+                <a href={primaryPhone.whatsappHref} target="_blank" rel="noopener noreferrer" className={link}>
+                  {primaryPhone.phone}
+                  <span className="sr-only"> on WhatsApp (opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${primaryEmail}`} className={link}>
+                  {primaryEmail}
+                </a>
+              </li>
+              <li>
+                <a href={social.instagram[0].href} target="_blank" rel="noopener noreferrer" className={link}>
+                  @{social.instagram[0].handle}
+                  <span className="sr-only"> on Instagram (opens in a new tab)</span>
+                </a>
+              </li>
+            </ul>
           </div>
 
-          <nav
-            aria-label="Quick links"
-            data-reveal="up"
-            style={delay(300)}
-            className="shrink-0 border-[#6b5a37]/70 lg:border-l lg:pl-[1.75rem] lg:pr-[0.5rem] lg:mt-[0.35rem]"
-          >
-            <p className="text-[0.69rem] text-[#e6e5df]">Quick Links</p>
-            <ul className="mt-[0.45rem] space-y-[0.28rem] text-[0.64rem] leading-[0.82rem] text-[#d8d7d0]">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="inline-block transition-[color,translate] duration-500 ease-soft hover:translate-x-[0.2rem] hover:text-[#d9bf87]"
-                  >
-                    {link.label}
+          <div>
+            <h2 className={heading}>Find us</h2>
+            <ul className="mt-3">
+              <li className="py-[0.28rem] text-[0.85rem] text-on-dark">Kandy, Sri Lanka</li>
+              <li>
+                <a href={contact.mapsHref} target="_blank" rel="noopener noreferrer" className={link}>
+                  Open in Google Maps
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </li>
+              <li className="py-[0.28rem] text-[0.78rem] text-on-dark-muted">{contact.coordinates}</li>
+            </ul>
+          </div>
+
+          <nav aria-label="Footer">
+            <h2 className={heading}>Explore</h2>
+            <ul className="mt-3">
+              {explore.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className={link}>
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -114,13 +78,9 @@ export default function SiteFooter() {
           </nav>
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-[#3b3526] pb-10 pt-[1.1rem] sm:flex-row sm:items-center sm:justify-between lg:pb-[2.9rem] lg:pt-[1rem]">
-          <p className="text-[0.62rem] text-[#8b8d85]">© {new Date().getFullYear()} Kintsugi Station. All rights reserved.</p>
-          <p className="flex items-center gap-[0.6rem] text-[0.58rem] tracking-[0.12em] text-[#a8997a]">
-            <span data-reveal="line" style={delay(300)} aria-hidden="true" className="h-px w-[2.5rem] bg-[#8e7440]" />
-            NATURE RESTORES WHAT TIME BREAKS
-          </p>
-        </div>
+        <p className="mt-10 border-t border-white/10 pt-5 text-[0.75rem] text-on-dark-muted">
+          © {new Date().getFullYear()} Kintsugi Station Villas. All rights reserved.
+        </p>
       </div>
     </footer>
   );

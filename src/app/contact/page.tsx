@@ -1,180 +1,160 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { CarFront, Mail, MapPin } from "lucide-react";
-import { PiWhatsappLogoLight } from "react-icons/pi";
-import EstateMap from "@/components/contact/EstateMap";
-import InquiryForm from "@/components/contact/InquiryForm";
+import Link from "next/link";
+import ContactForm from "@/components/contact/ContactForm";
 import { delay } from "@/lib/motion";
-import { contact } from "@/lib/site";
+import { bookHref, contact, distances, nearbyRecommendations, social } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Direct inquiries for reservations, private retreats, and exclusive estate hire at Kintsugi Station, Upper Hantana Hills, Kandy.",
+    "Book Kintsugi Station on Airbnb, or message us on WhatsApp or by email with any questions. Avalon Villa and Villa Acland, Kandy, Sri Lanka.",
 };
 
-const iconClass = "size-[2rem] text-[#785a35]";
+const eyebrow = "eyebrow text-[0.72rem] tracking-[0.2em] text-gold";
+const h2 = "font-serif text-[2.2rem] leading-[1.1] text-ink";
+const section = "frame px-5 py-14 lg:px-[3.875rem] lg:py-[3.6rem]";
+const rule = "border-t border-line";
+const linkClass = "inline-block py-0.5 text-ink link-underline hover:text-gold";
 
-const details = [
-  {
-    icon: <PiWhatsappLogoLight className={iconClass} />,
-    title: "WhatsApp & Phone",
-    value: contact.phone,
-    href: contact.whatsappHref,
-  },
-  {
-    icon: <Mail className={iconClass} strokeWidth={1.1} />,
-    title: "Email",
-    value: contact.reservationsEmail,
-    href: `mailto:${contact.reservationsEmail}`,
-  },
-  {
-    icon: <MapPin className={iconClass} strokeWidth={1.1} />,
-    title: "Address",
-    value: "Upper Hantana Hills, Kandy, Sri Lanka",
-    href: contact.mapsHref,
-  },
-];
-
-const isoDate = /^\d{4}-\d{2}-\d{2}$/;
-const formatDate = (iso: string) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-
-const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
-
-function Eyebrow({ children, className = "", style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
+function Group({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <p style={style} className={`eyebrow text-[0.64rem] tracking-[0.3em] text-[#9f7f57] ${className}`}>
-      {children}
-    </p>
+    <div className={`${rule} py-4 first:border-t-0 first:pt-0`}>
+      <dt className="text-[0.75rem] uppercase tracking-[0.14em] text-muted">{label}</dt>
+      <dd className="mt-2 space-y-1 text-[1rem] leading-[1.45rem] text-ink">{children}</dd>
+    </div>
   );
 }
 
-export default async function ContactPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  // Carry dates and guests over from the Home page availability bar.
-  const params = await searchParams;
-  const arrival = first(params.arrival);
-  const departure = first(params.departure);
-  const guests = first(params.guests);
-  const villaParam = first(params.villa);
-  const initialDates =
-    arrival && isoDate.test(arrival)
-      ? departure && isoDate.test(departure)
-        ? `${formatDate(arrival)} - ${formatDate(departure)}`
-        : formatDate(arrival)
-      : "";
-  const initialGuests = guests && ["1", "2", "3", "4", "5", "6", "7", "8"].includes(guests) ? guests : "";
-  const initialVilla = villaParam || "";
-
+function Distances({ title, rows }: { title: string; rows: { place: string; distance: string; time: string }[] }) {
   return (
-    <main className="bg-sand">
-      {/* Hero */}
-      <section className="relative overflow-hidden lg:h-[18.19rem]">
-        <Image
-          src="/assets/images/villas/avalon/avalon-hero.jpg"
-          alt="Morning light filtering through forest trees into the stone courtyard at Avalon Villa"
-          fill
-          preload
-          sizes="100vw"
-          className="enter-settle object-cover object-[50%_35%]"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(244,236,224,0.72)_0%,rgba(244,236,224,0.4)_40%,rgba(244,236,224,0)_68%)]"
-        />
-        <div className="frame relative px-5 py-16 lg:px-[3.875rem] lg:py-0 lg:pt-[4.6rem]">
-          <Eyebrow className="enter-rise" style={delay(100)}>
-            A Place to Belong
-          </Eyebrow>
-          <h1
-            style={delay(250)}
-            className="enter-rise mt-[0.75rem] font-serif text-[2.8rem] leading-none tracking-[-0.01em] text-ink lg:text-[3.9rem]"
-          >
-            Connect With Us
-          </h1>
-          <p
-            style={delay(450)}
-            className="enter-rise mt-[0.7rem] max-w-[29.5rem] text-[1.03rem] leading-[1.55rem] text-[#161816]"
-          >
-            Direct inquiries for reservations, private retreats, and exclusive estate hire.
-          </p>
+    <div>
+      <h3 className="text-[0.75rem] uppercase tracking-[0.14em] text-muted">{title}</h3>
+      <dl className="mt-3">
+        {rows.map((r) => (
+          <div key={r.place} className={`${rule} flex justify-between gap-4 py-[0.55rem] text-[0.88rem]`}>
+            <dt className="text-ink">{r.place}</dt>
+            <dd className="shrink-0 text-muted">
+              {r.distance} · {r.time}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <main id="main-content" tabIndex={-1} className="bg-ivory">
+      {/* Title */}
+      <section className="frame px-5 pb-6 pt-14 lg:px-[3.875rem] lg:pb-[2rem] lg:pt-[4rem]">
+        <p style={delay(100)} className={`enter-rise ${eyebrow}`}>
+          Contact
+        </p>
+        <h1 style={delay(220)} className="enter-rise mt-4 font-serif text-[2.8rem] leading-none text-ink lg:text-[3.6rem]">
+          Get in touch
+        </h1>
+        <p style={delay(340)} className="enter-rise mt-4 max-w-[28rem] text-[1rem] leading-[1.5rem] text-ink-soft">
+          Message us with any question, before or after you book.
+        </p>
+        <p style={delay(440)} className="enter-rise mt-3 text-[0.9rem] text-ink-soft">
+          Ready to book?{" "}
+          <Link href={bookHref} className="font-medium text-gold underline underline-offset-4 hover:text-gold-hover">
+            See prices and availability on the Villas page
+          </Link>
+        </p>
+      </section>
+
+      {/* Contact details and the message form */}
+      <section id="message" className={`${section} ${rule} scroll-mt-6`}>
+        <div className="grid gap-12 lg:grid-cols-[17rem_1fr] lg:gap-12">
+          <div data-reveal="up">
+            <p className={eyebrow}>Talk to us</p>
+            <h2 className={`mt-4 ${h2}`}>Contact</h2>
+            <dl className="mt-8">
+              <Group label="WhatsApp & phone">
+                {contact.people.map((p) => (
+                  <p key={p.name}>
+                    <a href={p.whatsappHref} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                      {p.phone}
+                    </a>{" "}
+                    <span className="text-[0.82rem] text-muted">
+                      {p.name}, {p.role}
+                    </span>
+                  </p>
+                ))}
+              </Group>
+              <Group label="Email">
+                {contact.emails.map((email) => (
+                  <p key={email}>
+                    <a href={`mailto:${email}`} className={linkClass}>
+                      {email}
+                    </a>
+                  </p>
+                ))}
+              </Group>
+              <Group label="Instagram">
+                {social.instagram.map((ig) => (
+                  <p key={ig.handle}>
+                    <a href={ig.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                      @{ig.handle}
+                    </a>
+                  </p>
+                ))}
+              </Group>
+              <Group label="We speak">
+                <p>{contact.languages.join(", ")}</p>
+              </Group>
+            </dl>
+          </div>
+
+          <div data-reveal="up" style={delay(120)} className="lg:max-w-[36rem]">
+            <p className={eyebrow}>Questions</p>
+            <h2 className={`mt-4 ${h2}`}>Send a message</h2>
+            <p className="mb-7 mt-3 max-w-[28rem] text-[0.9rem] leading-[1.4rem] text-ink-soft">
+              Pets, events, special requests or anything else. It goes straight to the team by email.
+            </p>
+            <ContactForm />
+          </div>
         </div>
       </section>
 
-      {/* Details + form */}
-      <section className="frame flex flex-col gap-12 px-5 pb-6 pt-10 lg:flex-row lg:gap-0 lg:px-0 lg:pb-[1.5rem] lg:pl-[3.875rem] lg:pr-[2.43rem] lg:pt-[1.62rem]">
-        <div className="lg:w-[28.1rem] lg:pt-[1rem]">
-          <div data-reveal="up">
-            <Eyebrow>Contact &amp; Arrival</Eyebrow>
+      {/* Finding us: the map on the left balances the distance lists on the right. */}
+      <section className={`${section} ${rule}`}>
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-14">
+          <div data-reveal="up" className="flex flex-col">
+            <p className={eyebrow}>Getting here</p>
+            <h2 className={`mt-4 ${h2}`}>Finding us</h2>
+            <p className="mt-3 max-w-[24rem] text-[0.9rem] leading-[1.4rem] text-ink-soft">
+              A short walk or tuk-tuk ride from the centre of Kandy. We arrange airport and station transfers on request.
+            </p>
+            <iframe
+              title="Map showing the villas' location in Kandy"
+              src="https://www.google.com/maps?q=7.298970,80.639688&z=15&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="mt-8 h-[20rem] w-full border-0 bg-linen lg:h-auto lg:min-h-[20rem] lg:flex-1"
+            />
+            <p className="mt-3 text-[0.82rem]">
+              <a href={contact.mapsHref} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-6 items-center font-medium text-gold underline underline-offset-4 hover:text-gold-hover">
+                Open in Google Maps
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </p>
           </div>
-          <h2 data-reveal="up" style={delay(100)} className="mt-[0.75rem] font-serif text-[2.2rem] leading-none text-ink">
-            We&rsquo;re Here for You
-          </h2>
-          <p
-            data-reveal="up"
-            style={delay(200)}
-            className="mt-[0.8rem] max-w-[24.6rem] text-[0.92rem] leading-[1.31rem] text-[#151716]"
-          >
-            For reservations, special requests, or to learn more about Kintsugi Station, please reach out directly. We
-            look forward to welcoming you.
-          </p>
 
-          <ul className="mt-[1.6rem] space-y-[1.3rem]">
-            {details.map((item, i) => (
-              <li key={item.title} data-reveal="up" style={delay(250 + i * 100)} className="flex gap-[1.75rem]">
-                <span className="shrink-0 pl-[0.2rem]">{item.icon}</span>
-                <div>
-                  <p className="text-[0.98rem] leading-[1.1rem] text-[#1d1f1d]">{item.title}</p>
-                  <a
-                    href={item.href}
-                    className="mt-[0.3rem] block text-[1.05rem] text-[#1d1f1d] transition-colors hover:text-[#785a35]"
-                  >
-                    {item.value}
-                  </a>
-                </div>
-              </li>
-            ))}
-            <li data-reveal="up" style={delay(250 + details.length * 100)} className="flex gap-[1.75rem]">
-              <span className="shrink-0 pl-[0.2rem]">
-                <CarFront className={iconClass} strokeWidth={1.1} />
-              </span>
-              <div>
-                <p className="text-[0.98rem] leading-[1.1rem] text-[#1d1f1d]">Arrival &amp; Transfers</p>
-                <p className="mt-[0.35rem] text-[0.85rem] leading-[1.29rem] text-[#1d1f1d]">
-                  Located 25 minutes from Kandy Railway Station.
-                  <br />
-                  Chauffeur transfers from Colombo International Airport (CMB) arranged upon request.
-                </p>
-              </div>
-            </li>
-          </ul>
-
-          <div data-reveal="up" className="mt-[1.35rem]">
-            <EstateMap />
+          <div data-reveal="up" style={delay(120)}>
+            <div className="grid gap-10">
+              <Distances title="Around Kandy" rows={distances.kandy} />
+              <Distances title="Further afield" rows={distances.further} />
+            </div>
+            <p className="mt-4 text-[0.8rem] text-muted">By road from the villa. Allow extra time for traffic and hill roads.</p>
+            <p className="mt-6 text-[0.88rem] leading-[1.4rem] text-ink-soft">
+              <span className="text-[0.75rem] uppercase tracking-[0.14em] text-muted">Nearby we recommend</span>
+              <br />
+              {nearbyRecommendations.join(" · ")}
+            </p>
           </div>
-        </div>
-
-        <div
-          id="inquiry"
-          data-reveal="up"
-          style={delay(200)}
-          className="scroll-mt-6 rounded-[8px] border border-[#ebe5dc] bg-card px-5 pb-[1rem] pt-[1.55rem] shadow-[0_1px_3px_rgba(0,0,0,0.04)] lg:ml-auto lg:w-[27.875rem] lg:px-[1.56rem]"
-        >
-          <p className="eyebrow text-[0.66rem] font-medium tracking-[0.3em] text-[#1d1f1d]">Inquiry Form</p>
-          <h2 className="mt-[0.6rem] font-serif text-[2.23rem] leading-none text-ink">Plan Your Stay</h2>
-          <p className="mt-[0.55rem] text-[0.88rem] text-[#1d1f1d]">
-            Share a few details and we&rsquo;ll be in touch personally.
-          </p>
-          <InquiryForm initialDates={initialDates} initialGuests={initialGuests} initialVilla={initialVilla} />
         </div>
       </section>
     </main>

@@ -2,6 +2,8 @@
  * The Kandy team, for the About page. Names and roles come from the old site
  * and its guest reviews. Add each person's `quote` only in their own words,
  * once they've approved it; until then the card shows `about` instead.
+ * There's no team photo for now (the owners asked for the old one to come
+ * down). Add new photos only once each person has agreed and been identified.
  */
 export type TeamMember = {
   name: string;
@@ -25,9 +27,3 @@ export const team: TeamMember[] = [
       "Husband and wife, Rasu and Manjula care for the house and everyone in it, from your luggage on arrival to a cooked breakfast each morning.",
   },
 ];
-
-/* The only team photo so far: a real group photograph from the old site's home page. */
-export const teamPhoto = {
-  src: "/assets/images/people/kandy_team.jpg",
-  alt: "Prasanna, Rasu and Manjula, the Kandy team, standing together at the villa gate",
-};
