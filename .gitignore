@@ -40,11 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# raw photography source directories (un-used camera assets)
-/Avalon Villa Property Photography*
-/Villa Acland at Avalon Villa Property Photography*
 
 # playwright
 /test-results/
 /playwright-report/
 /e2e/screenshots/
+
+# the owners' camera originals (~600 MB); the site uses the resized copies in public/
+/Villa/
+/Villa-*/

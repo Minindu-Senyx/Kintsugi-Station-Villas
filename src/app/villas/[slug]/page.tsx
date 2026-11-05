@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import PanoramaTour from "@/components/villas/PanoramaTour";
 import SpaceExplorer from "@/components/villas/SpaceExplorer";
 import VillaAmenities from "@/components/villas/VillaAmenities";
 import VillaGalleryLightbox from "@/components/villas/VillaGalleryLightbox";
@@ -169,6 +170,19 @@ export default async function VillaDetailPage({ params }: { params: Promise<{ sl
             The spaces
           </h2>
           <SpaceExplorer spaces={villa.spaces} />
+        </div>
+      </section>
+
+      {/* 360° views */}
+      <section id="look-around" className="scroll-mt-16 border-t border-line bg-linen">
+        <div className="frame px-5 py-16 lg:px-[3.625rem] lg:py-[4.2rem]">
+          <p data-reveal="up" className={eyebrow}>
+            In 360°
+          </p>
+          <h2 data-reveal="up" style={delay(100)} className={`mb-10 mt-4 ${h2}`}>
+            Look around
+          </h2>
+          <PanoramaTour tours={villa.tours} villaName={villa.name} />
         </div>
       </section>
 

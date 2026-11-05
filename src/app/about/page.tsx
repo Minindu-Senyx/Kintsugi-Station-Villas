@@ -13,20 +13,20 @@ export const metadata: Metadata = {
 
 const materials = [
   {
-    src: "/assets/images/reclaimed_teak.jpg",
-    alt: "Handcrafted reclaimed Ceylon teak headboard and timber joinery at Villa Acland",
+    src: "/assets/images/villas/acland/acland-bedroom-bed.webp",
+    alt: "Teak headboard and timber furniture in the bedroom at Villa Acland",
     title: "Reclaimed Ceylon Teak",
     text: "Heritage timber, given new life. Each beam carries a story, shaped by time, weather and craftsmanship.",
   },
   {
-    src: "/assets/images/chiseled_stone.jpg",
-    alt: "Hand-chiseled river stone foundation, pillars, and garden terraces",
+    src: "/assets/images/grounds/entrance-path.webp",
+    alt: "Stone path beside a moss-covered stone wall at the entrance to Kintsugi Station",
     title: "Hand-Chiseled River Stone",
     text: "Locally sourced stone, shaped by hand, grounding the villa in the landscape it belongs to.",
   },
   {
-    src: "/assets/images/mist_mountain_ridge.jpg",
-    alt: "Panoramic mountain deck overlooking the mist-filled Kandy valley",
+    src: "/assets/images/villas/acland/acland-balcony-canopy.webp",
+    alt: "Looking down through the branches of a large tree from the balcony at Villa Acland",
     title: "Living with the Mist",
     text: "Open to the elements, designed to breathe with the hills, where changing light and mist are part of the home.",
   },
@@ -69,8 +69,8 @@ export default function AboutPage() {
         </p>
         <div className={styles.heroImage}>
           <Image
-            src="/assets/images/about_hero_panorama.jpg"
-            alt="Misty forested hills and a still lake near Kandy"
+            src="/assets/images/grounds/entrance-gate.webp"
+            alt="The open gate and stone path at the entrance to Kintsugi Station"
             fill
             preload
             sizes="(min-width: 900px) 90vw, 100vw"
@@ -85,8 +85,8 @@ export default function AboutPage() {
           className={styles.storyImage}
         >
           <Image
-            src="/assets/images/villa_forest_exterior.jpg"
-            alt="Timber villa veranda with stone plinth nestled in the misty hillside rainforest"
+            src="/assets/images/villas/acland/acland-exterior-balcony.webp"
+            alt="The balcony and teal walls of Villa Acland, seen through the leaves"
             fill
             sizes="(min-width: 900px) 55vw, 100vw"
             className={styles.cover}
@@ -189,8 +189,8 @@ export default function AboutPage() {
       <section className={styles.hosting}>
         <div className={styles.hostImage}>
           <Image
-            src="/assets/images/host_dining_ritual.jpg"
-            alt="Private outdoor dining patio overlooking the hills with curated estate dining"
+            src="/assets/images/villas/avalon/avalon-veranda-dining.webp"
+            alt="Dining table on the covered veranda at Avalon Villa, open to the garden"
             fill
             sizes="(min-width: 900px) 44vw, 100vw"
             className={styles.cover}

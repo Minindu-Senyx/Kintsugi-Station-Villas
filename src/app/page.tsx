@@ -9,37 +9,37 @@ import { featuredTestimonials } from "@/lib/testimonials";
 import { allVillas } from "@/lib/villas";
 
 const glimpses = [
-  { src: "/assets/images/villas/avalon/avalon-living-overview.jpg", alt: "Veranda dining table at Avalon Villa looking out over the forest" },
-  { src: "/assets/images/villas/acland/acland-garden-terrace.jpg", alt: "Terrace at Villa Acland under the canopy of an old tree" },
-  { src: "/assets/images/villas/avalon/avalon-deck-panoramic.jpg", alt: "Cinema room and piano at Avalon Villa" },
-  { src: "/assets/images/villas/acland/acland-bedroom-lighting.jpg", alt: "King-size bed in the bedroom at Villa Acland" },
+  { src: "/assets/images/villas/avalon/avalon-veranda-dining.webp", alt: "Dining table on the veranda at Avalon Villa, open to the garden" },
+  { src: "/assets/images/villas/acland/acland-balcony-chairs.webp", alt: "Wooden armchairs on the balcony at Villa Acland, among the branches of an old tree" },
+  { src: "/assets/images/villas/avalon/avalon-library.webp", alt: "The library and cinema room at Avalon Villa" },
+  { src: "/assets/images/villas/acland/acland-bedroom-bed.webp", alt: "King-size bed in the bedroom at Villa Acland" },
 ];
 
 const heroSlides: HeroSlide[] = [
   {
-    src: "/assets/images/villas/acland/acland-hero.jpg",
-    alt: "Villa Acland among old trees, with its blue-grey walls and stone urns",
+    src: "/assets/images/villas/acland/acland-exterior-garden.webp",
+    alt: "Villa Acland from the garden, its teal walls and balcony among tall trees",
     position: "50% 55%",
   },
   {
-    src: "/assets/images/villas/avalon/avalon-pavilion-view.jpg",
-    alt: "The lounge at Avalon Villa, with teal shutters, rattan chairs and warm lamps",
+    src: "/assets/images/villas/avalon/avalon-veranda-lounge.webp",
+    alt: "The veranda lounge at Avalon Villa, with cane armchairs and lanterns",
     position: "50% 55%",
   },
   {
-    src: "/assets/images/villas/avalon/avalon-living-overview.jpg",
-    alt: "The veranda dining table at Avalon Villa, open to the forest",
-    position: "50% 62%",
-  },
-  {
-    src: "/assets/images/villas/acland/acland-bedroom-lighting.jpg",
-    alt: "The bedroom at Villa Acland, with morning light through the trees",
+    src: "/assets/images/grounds/entrance-gate.webp",
+    alt: "The open gate and stone path at the entrance to Kintsugi Station",
     position: "50% 60%",
   },
   {
-    src: "/assets/images/villas/avalon/avalon-exterior-pool.jpg",
-    alt: "Morning sunbeams breaking through the forest canopy beside the villas",
-    position: "50% 42%",
+    src: "/assets/images/villas/acland/acland-bedroom-wide.webp",
+    alt: "The bedroom at Villa Acland, with windows onto the trees",
+    position: "50% 60%",
+  },
+  {
+    src: "/assets/images/villas/avalon/avalon-patio.webp",
+    alt: "The stone patio and teal walls of Avalon Villa, among the trees",
+    position: "50% 50%",
   },
 ];
 

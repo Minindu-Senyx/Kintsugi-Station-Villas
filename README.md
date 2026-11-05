@@ -53,12 +53,14 @@ surface.
 
 ## Photography and logo
 
-The villa photos in `public/assets/images/villas` are the owners' real property
-photography, resized from their Drive export by `npm run images:villas` (the
-export folders sit in the project root and are git-ignored; keep them). The
-home hero uses one of them. The About page is the original design and still
-uses a few AI-generated stand-in images in `public/assets/images/` (not real
-photos of the villas), drawn with the gold-vein artwork in
+Every villa photo on the site comes from the owners' November 2026 shoot. Put the
+camera originals in a `Villa/` folder in the project root (git-ignored, about
+600 MB: `Villa 1` is Villa Acland, `Villa 2` is Avalon Villa, plus `Entrance` and
+`360`) and run `npm run images:villas`. It resizes them to WebP in
+`public/assets/images/villas`, `grounds` and `tours`; the file-by-file mapping is
+in `scripts/process-villa-photos.mjs`. The 360 panoramas open in the "Look
+around" viewer on each villa page (`src/components/villas/PanoramaTour.tsx`,
+built on Photo Sphere Viewer). The About page keeps its gold-vein artwork in
 `src/components/brand/` (served by `src/app/roots/`).
 
 `public/assets/images/people/founders.jpg` is a real photograph of the owners.
