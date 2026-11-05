@@ -23,96 +23,178 @@ type Photo = {
   tags: Exclude<Category, "All">[];
 };
 
-// Photographs of Avalon Villa and Villa Acland in Kandy
+// Photographs of Avalon Villa, Villa Acland and the entrance, made by `npm run images:villas`
+const AVALON = "Avalon Villa" as const;
+const ACLAND = "Villa Acland" as const;
+const BED = "Suites & Bedrooms" as const;
+const LIV = "Living & Terraces" as const;
+const OUT = "Gardens & Outdoors" as const;
+
 const photos: Photo[] = [
   {
-    id: "pool",
-    src: "/assets/images/villas/avalon/avalon-hero.jpg",
-    alt: "Brick courtyard shaded by mature trees at Avalon Villa",
-    caption: ["Avalon Villa", "Shaded Courtyard"],
-    tags: ["Avalon Villa", "Gardens & Outdoors", "Living & Terraces"],
+    id: "passage",
+    src: "/assets/images/villas/acland/acland-stone-passage.webp",
+    alt: "Stone-paved passage under a pergola, beside a wall of ferns and plants at Villa Acland",
+    caption: ["Stone Passage", "Villa Acland"],
+    tags: [ACLAND, OUT],
   },
   {
-    id: "suite",
-    src: "/assets/images/villas/avalon/avalon-b1-master.jpg",
-    alt: "En-suite bathroom with twin basins and a sunken bath at Avalon Villa",
-    caption: ["Master En-Suite", "Avalon Villa"],
-    tags: ["Avalon Villa", "Suites & Bedrooms"],
-  },
-  {
-    id: "bath",
-    src: "/assets/images/villas/acland/acland-stone-bath.jpg",
-    alt: "Bathroom with twin basins, a mirror and a walk-in shower at Villa Acland",
-    caption: ["En-Suite Bathroom", "Villa Acland"],
-    tags: ["Villa Acland", "Suites & Bedrooms"],
-  },
-  {
-    id: "tea",
-    src: "/assets/images/villas/acland/acland-veranda-lounge.jpg",
-    alt: "Dining table beside open windows and greenery at Villa Acland",
-    caption: ["Dining by the Trees", "Villa Acland"],
-    tags: ["Villa Acland", "Living & Terraces"],
-  },
-  {
-    id: "flavours",
-    src: "/assets/images/villas/avalon/avalon-dining-patio.jpg",
-    alt: "Sofas facing a cinema projector screen at Avalon Villa",
-    caption: ["Cinema Lounge", "Avalon Villa"],
-    tags: ["Avalon Villa", "Living & Terraces"],
-  },
-  {
-    id: "night",
-    src: "/assets/images/villas/acland/acland-hero.jpg",
-    alt: "Blue-grey exterior walls and stone urns beneath trees at Villa Acland",
-    caption: ["Sanctuary Retreat", "Villa Acland"],
-    tags: ["Villa Acland", "Gardens & Outdoors"],
-  },
-  {
-    id: "avalon-living",
-    src: "/assets/images/villas/avalon/avalon-living-overview.jpg",
-    alt: "Dining table on the covered veranda at Avalon Villa",
+    id: "veranda",
+    src: "/assets/images/villas/avalon/avalon-veranda-dining.webp",
+    alt: "Dining table on the covered veranda at Avalon Villa, with sliding doors into the house",
     caption: ["Veranda Dining", "Avalon Villa"],
-    tags: ["Avalon Villa", "Living & Terraces"],
+    tags: [AVALON, LIV],
   },
   {
-    id: "avalon-deck",
-    src: "/assets/images/villas/avalon/avalon-deck-panoramic.jpg",
-    alt: "Cinema seating and a piano at Avalon Villa",
-    caption: ["Cinema & Piano", "Avalon Villa"],
-    tags: ["Avalon Villa", "Living & Terraces"],
+    id: "king",
+    src: "/assets/images/villas/avalon/avalon-bedroom-balcony.webp",
+    alt: "King-size bed with bedside lamps and glass doors onto the balcony at Avalon Villa",
+    caption: ["King Bedroom", "Avalon Villa"],
+    tags: [AVALON, BED],
   },
   {
-    id: "avalon-b2",
-    src: "/assets/images/villas/avalon/avalon-b2-room.jpg",
-    alt: "Twin beds with teal throws and garden-facing windows at Avalon Villa",
-    caption: ["Valley Suite B2", "Avalon Villa"],
-    tags: ["Avalon Villa", "Suites & Bedrooms"],
+    id: "jacuzzi",
+    src: "/assets/images/villas/avalon/avalon-jacuzzi-bath.webp",
+    alt: "Round white bathtub in front of a large window onto the trees at Avalon Villa",
+    caption: ["Jacuzzi Bath", "Avalon Villa"],
+    tags: [AVALON, BED],
+  },
+  {
+    id: "cinema",
+    src: "/assets/images/villas/avalon/avalon-cinema.webp",
+    alt: "Sofa facing a projector screen in the cinema room at Avalon Villa",
+    caption: ["Cinema Room", "Avalon Villa"],
+    tags: [AVALON, LIV],
+  },
+  {
+    id: "garden",
+    src: "/assets/images/villas/acland/acland-exterior-garden.webp",
+    alt: "Villa Acland from the garden, its teal walls and balcony among tall trees",
+    caption: ["Garden Facade", "Villa Acland"],
+    tags: [ACLAND, OUT],
+  },
+  {
+    id: "library",
+    src: "/assets/images/villas/avalon/avalon-library.webp",
+    alt: "Sectional sofa facing built-in white bookshelves at Avalon Villa",
+    caption: ["The Library", "Avalon Villa"],
+    tags: [AVALON, LIV],
+  },
+  {
+    id: "patio",
+    src: "/assets/images/villas/avalon/avalon-patio.webp",
+    alt: "Stone patio with a lounger in front of a teal wall at Avalon Villa",
+    caption: ["Stone Patio", "Avalon Villa"],
+    tags: [AVALON, OUT],
+  },
+  {
+    id: "twin",
+    src: "/assets/images/villas/avalon/avalon-twin-bedroom.webp",
+    alt: "Twin bedroom with garden-facing windows at Avalon Villa",
+    caption: ["Twin Bedroom", "Avalon Villa"],
+    tags: [AVALON, BED],
+  },
+  {
+    id: "kitchen",
+    src: "/assets/images/villas/avalon/avalon-kitchen-bar.webp",
+    alt: "Kitchen breakfast bar with high stools at Avalon Villa",
+    caption: ["Kitchen Bar", "Avalon Villa"],
+    tags: [AVALON, LIV],
+  },
+  {
+    id: "piano",
+    src: "/assets/images/villas/avalon/avalon-piano-hall.webp",
+    alt: "Hall with a piano and a brick pillar at Avalon Villa",
+    caption: ["Piano Hall", "Avalon Villa"],
+    tags: [AVALON, LIV],
+  },
+  {
+    id: "stone-bath",
+    src: "/assets/images/villas/avalon/avalon-stone-bath.webp",
+    alt: "Sunken stone bath below a timber-framed window at Avalon Villa",
+    caption: ["Stone Bath", "Avalon Villa"],
+    tags: [AVALON, BED],
+  },
+  {
+    id: "lounge",
+    src: "/assets/images/villas/avalon/avalon-veranda-lounge.webp",
+    alt: "Veranda seating area with cane armchairs and a sofa at Avalon Villa",
+    caption: ["Veranda Lounge", "Avalon Villa"],
+    tags: [AVALON, LIV],
+  },
+  {
+    id: "courtyard",
+    src: "/assets/images/villas/avalon/avalon-courtyard.webp",
+    alt: "Cobbled courtyard under mature trees at Avalon Villa",
+    caption: ["The Courtyard", "Avalon Villa"],
+    tags: [AVALON, OUT],
   },
   {
     id: "acland-bed",
-    src: "/assets/images/villas/acland/acland-bedroom-suite.jpg",
-    alt: "Bedroom windows overlooking trees at Villa Acland",
-    caption: ["Bedroom Garden Outlook", "Villa Acland"],
-    tags: ["Villa Acland", "Suites & Bedrooms"],
+    src: "/assets/images/villas/acland/acland-bedroom-bed.webp",
+    alt: "King-size bed with a teak headboard at Villa Acland",
+    caption: ["King Bedroom", "Villa Acland"],
+    tags: [ACLAND, BED],
   },
   {
-    id: "acland-deck",
-    src: "/assets/images/villas/acland/acland-deck-view.jpg",
-    alt: "Sofa beside open windows overlooking greenery at Villa Acland",
-    caption: ["Lounge by the Windows", "Villa Acland"],
-    tags: ["Villa Acland", "Living & Terraces"],
+    id: "acland-vaulted",
+    src: "/assets/images/villas/acland/acland-bedroom-vaulted.webp",
+    alt: "Bedroom under a vaulted timber ceiling at Villa Acland",
+    caption: ["Vaulted Bedroom", "Villa Acland"],
+    tags: [ACLAND, BED],
   },
   {
-    id: "acland-terrace",
-    src: "/assets/images/villas/acland/acland-garden-terrace.jpg",
-    alt: "Balcony railing surrounded by leafy trees at Villa Acland",
-    caption: ["Leafy Balcony", "Villa Acland"],
-    tags: ["Villa Acland", "Gardens & Outdoors"],
+    id: "acland-kitchen",
+    src: "/assets/images/villas/acland/acland-kitchen-stairs.webp",
+    alt: "Kitchen and round dining table beside a floating staircase at Villa Acland",
+    caption: ["Kitchen & Dining", "Villa Acland"],
+    tags: [ACLAND, LIV],
+  },
+  {
+    id: "acland-dining",
+    src: "/assets/images/villas/acland/acland-dining-balcony.webp",
+    alt: "Round dining table by open doors onto the balcony at Villa Acland",
+    caption: ["Dining by the Balcony", "Villa Acland"],
+    tags: [ACLAND, LIV],
+  },
+  {
+    id: "acland-balcony",
+    src: "/assets/images/villas/acland/acland-balcony-veranda.webp",
+    alt: "Covered balcony with two wooden armchairs at Villa Acland",
+    caption: ["The Balcony", "Villa Acland"],
+    tags: [ACLAND, LIV, OUT],
+  },
+  {
+    id: "acland-canopy",
+    src: "/assets/images/villas/acland/acland-balcony-canopy.webp",
+    alt: "Looking down through the branches of a large tree from the balcony at Villa Acland",
+    caption: ["Into the Canopy", "Villa Acland"],
+    tags: [ACLAND, OUT],
+  },
+  {
+    id: "acland-walkway",
+    src: "/assets/images/villas/acland/acland-breezeway.webp",
+    alt: "Covered timber walkway laid with river pebbles at Villa Acland",
+    caption: ["Pebble Walkway", "Villa Acland"],
+    tags: [ACLAND, OUT],
+  },
+  {
+    id: "gate",
+    src: "/assets/images/grounds/entrance-gate.webp",
+    alt: "The open gate and stone path at the entrance to Kintsugi Station",
+    caption: ["Entrance Gate", "Kintsugi Station"],
+    tags: [OUT],
+  },
+  {
+    id: "path",
+    src: "/assets/images/grounds/entrance-path.webp",
+    alt: "Stone path beside a moss-covered wall at the entrance to Kintsugi Station",
+    caption: ["The Stone Path", "Kintsugi Station"],
+    tags: [OUT],
   },
 ];
 
-
-const featuredIds = ["pool", "tea", "suite", "bath", "flavours", "night"];
+const featuredIds = ["passage", "veranda", "king", "jacuzzi", "cinema", "garden"];
 const remainingPhotos = photos.filter((photo) => !featuredIds.includes(photo.id));
 
 const byId = (id: string) => photos.find((p) => p.id === id)!;
@@ -221,17 +303,17 @@ export default function GalleryGrid() {
           <>
             <div className="grid gap-2 lg:grid-cols-[314fr_668fr] lg:gap-[0.5rem]">
               <div className="grid gap-2 lg:gap-[0.5rem]">
-                <Tile photo={byId("pool")} wait={0} onOpen={openPhoto} className="h-96 lg:h-[26.75rem]" sizes="(min-width: 900px) 31vw, 100vw" />
-                <Tile photo={byId("tea")} wait={150} onOpen={openPhoto} className="h-80 lg:h-[20.44rem]" sizes="(min-width: 900px) 31vw, 100vw" />
+                <Tile photo={byId("passage")} wait={0} onOpen={openPhoto} className="h-96 lg:h-[26.75rem]" sizes="(min-width: 900px) 31vw, 100vw" />
+                <Tile photo={byId("veranda")} wait={150} onOpen={openPhoto} className="h-80 lg:h-[20.44rem]" sizes="(min-width: 900px) 31vw, 100vw" />
               </div>
               <div className="grid gap-2 lg:gap-[0.5rem]">
                 <div className="grid gap-2 sm:grid-cols-[363fr_297fr] lg:gap-[0.5rem]">
-                  <Tile photo={byId("suite")} wait={120} onOpen={openPhoto} className="h-80 lg:h-[23.125rem]" sizes="(min-width: 900px) 36vw, 100vw" />
-                  <Tile photo={byId("bath")} wait={240} onOpen={openPhoto} className="h-80 lg:h-[23.125rem]" sizes="(min-width: 900px) 29vw, 100vw" />
+                  <Tile photo={byId("king")} wait={120} onOpen={openPhoto} className="h-80 lg:h-[23.125rem]" sizes="(min-width: 900px) 36vw, 100vw" />
+                  <Tile photo={byId("jacuzzi")} wait={240} onOpen={openPhoto} className="h-80 lg:h-[23.125rem]" sizes="(min-width: 900px) 29vw, 100vw" />
                 </div>
                 <div className="grid gap-2 sm:grid-cols-[331fr_328fr] lg:gap-[0.56rem]">
-                  <Tile photo={byId("flavours")} wait={120} onOpen={openPhoto} className="h-80 lg:h-[24.06rem]" sizes="(min-width: 900px) 33vw, 100vw" />
-                  <Tile photo={byId("night")} wait={240} onOpen={openPhoto} className="h-80 lg:h-[24.06rem]" sizes="(min-width: 900px) 33vw, 100vw" />
+                  <Tile photo={byId("cinema")} wait={120} onOpen={openPhoto} className="h-80 lg:h-[24.06rem]" sizes="(min-width: 900px) 33vw, 100vw" />
+                  <Tile photo={byId("garden")} wait={240} onOpen={openPhoto} className="h-80 lg:h-[24.06rem]" sizes="(min-width: 900px) 33vw, 100vw" />
                 </div>
               </div>
             </div>

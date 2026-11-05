@@ -7,7 +7,7 @@ import { bookHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Gallery",
-  description: "Visual moments — light, mist, and silence across our private hill country estate in Kandy.",
+  description: "Photographs of Avalon Villa, Villa Acland and the grounds at Kintsugi Station in Kandy.",
 };
 
 export default function GalleryPage() {
@@ -34,16 +34,16 @@ export default function GalleryPage() {
 
       <section className="relative flex h-[10.44rem] flex-col items-center justify-center overflow-hidden">
         <Image
-          src="/assets/images/villas/avalon/avalon-exterior-pool.jpg"
-          alt="Sunlight filtering through the mountain forest canopy at Avalon Villa"
+          src="/assets/images/villas/avalon/avalon-courtyard-seat.webp"
+          alt="Teal wall and a wooden armchair on a paved terrace under tall trees at Avalon Villa"
           fill
           sizes="100vw"
           className="object-cover object-[50%_45%]"
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-[#d9d6d1]/25" />
+        <div aria-hidden="true" className="absolute inset-0 bg-marble/55" />
         <h2
           data-reveal="up"
-          className="relative -mt-[0.6rem] px-5 text-center font-serif text-[1.78rem] leading-tight text-ink"
+          className="relative -mt-[0.6rem] px-5 text-center font-serif text-[1.78rem] leading-tight text-white"
         >
           Book your stay
         </h2>

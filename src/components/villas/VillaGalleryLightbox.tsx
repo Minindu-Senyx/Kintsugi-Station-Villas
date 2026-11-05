@@ -8,9 +8,9 @@ import type { VillaPhoto } from "@/lib/villas";
 
 const categoryLabels: Record<string, string> = {
   all: "All Photographs",
-  bedroom: "Suites & En-Suites",
-  living: "Living, Dining & Cinema",
-  outdoor: "Verandas & Estate Grounds",
+  bedroom: "Bedrooms & Bathrooms",
+  living: "Living, Kitchen & Dining",
+  outdoor: "Verandas & Grounds",
 };
 
 type Category = "all" | "bedroom" | "living" | "outdoor";
